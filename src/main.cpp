@@ -6,6 +6,7 @@
 #include "common/logger.h"
 #include "net/accept_manager.h"
 #include "bizz/worker_manager.h"
+#include "bizz/scene_manager.h"
 #include "db/dbconn_manager.h"
 
 void PrintTrace(int signum){
@@ -72,6 +73,7 @@ int main()
     Logger::Instance().Init("switch", DEBUG);
     LOG_DEBUG("begin main %s", "OK");
 
+    SceneMgr::Instance().Init();
     DbConnManager::Instance().Init();
     WorkerManager::Instance().Start(3);
     AcceptManager::Instance().Start();
