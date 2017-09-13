@@ -25,14 +25,14 @@ namespace bizz{
             case CHECKUSERREQ:
                 break;
             case CHECKUNAMEREQ:
-                protocol::CheckUnameReq checkUnameReq;
-                checkUnameReq.ParseFromArray(((char*)msg->header)+14, msg->header->PkgLen-10);
-                protocol::CheckUnameResp checkUnameResp;
-                CheckUname(checkUnameReq, checkUnameResp);
+                //protocol::CheckUnameReq checkUnameReq;
+                //checkUnameReq.ParseFromArray(((char*)msg->header)+14, msg->header->PkgLen-10);
+                //protocol::CheckUnameResp checkUnameResp;
+                //CheckUname(checkUnameReq, checkUnameResp);
 
-                std::ostringstream resp_ostream;
-                checkUnameResp.SerializeToOstream(&resp_ostream);
-                SessionManager::Instance().GetConn(msg->socketfd)->SendMsg(CHECKUSERRESP, resp_ostream);
+                //std::ostringstream resp_ostream;
+                //checkUnameResp.SerializeToOstream(&resp_ostream);
+                //SessionManager::Instance().GetConn(msg->socketfd)->SendMsg(CHECKUSERRESP, resp_ostream);
                 break;
         }
 
@@ -40,15 +40,15 @@ namespace bizz{
         msg->header = NULL;
     }
 
-    void CheckUname(protocol::CheckUnameReq &checkUnameReq, protocol::CheckUnameResp &checkUnameResp){
-        LOG_INFO("bizz::CheckUname CHECKUNAMEREQ req=\n%s", checkUnameReq.DebugString().c_str());
-        std::string uname = checkUnameReq.uname();
-        core::GetUserByUname(uname);
+    //void CheckUname(protocol::CheckUnameReq &checkUnameReq, protocol::CheckUnameResp &checkUnameResp){
+        //LOG_INFO("bizz::CheckUname CHECKUNAMEREQ req=\n%s", checkUnameReq.DebugString().c_str());
+        //std::string uname = checkUnameReq.uname();
+        //core::GetUserByUname(uname);
 
-        checkUnameResp.set_uname(checkUnameReq.uname());
-        checkUnameResp.set_msg("ok");
-        checkUnameResp.set_result(1);
-        LOG_INFO("bizz::CheckUname CHECKUNAMERESP resp=\n%s", checkUnameResp.DebugString().c_str());
+        //checkUnameResp.set_uname(checkUnameReq.uname());
+        //checkUnameResp.set_msg("ok");
+        //checkUnameResp.set_result(1);
+        //LOG_INFO("bizz::CheckUname CHECKUNAMERESP resp=\n%s", checkUnameResp.DebugString().c_str());
 
-    }
+    //}
 }

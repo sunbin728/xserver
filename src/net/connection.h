@@ -1,5 +1,5 @@
-#ifndef CONNECTION_H_
-#define CONNECTION_H_
+#ifndef _CONNECTION_H_
+#define _CONNECTION_H_
 
 #include <unistd.h>
 #include <sstream>
@@ -42,4 +42,4 @@ class Connection{
     int m_rPos;
     int m_wPos;
 };
-#endif /* CONNECTION_H_ */
+#endif /* _CONNECTION_H_ */

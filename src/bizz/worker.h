@@ -1,5 +1,5 @@
-#ifndef WORKER_H_
-#define WORKER_H_
+#ifndef _WORKER_H_
+#define _WORKER_H_
 
 #include "common/cache.h"
 #include "base/package.h"
@@ -22,4 +22,4 @@ class Worker{
         int m_workid;
         Queue<MSG*> m_queue;
 };
-#endif /* WORKER_H_ */
+#endif /* _WORKER_H_ */

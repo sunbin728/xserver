@@ -1,3 +1,6 @@
+#ifndef _UTIL_H_
+#define _UTIL_H_
+
 #include <string>
 
 namespace util{
@@ -5,3 +8,5 @@ namespace util{
     std::string ToHexString(const char* buf,int len);
     std::string ToDecString(const char* buf,int len);
 }
+
+#endif /* _UTIL_H_ */

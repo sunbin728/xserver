@@ -1,5 +1,5 @@
-#ifndef DBCONN_H_
-#define DBCONN_H_
+#ifndef _DBCONN_H_
+#define _DBCONN_H_
 
 #include <string>
 #include <vector>
@@ -50,4 +50,4 @@ class DbConn{
         std::string m_charset;
         sql::Connection *m_conn;
 };
-#endif /* DBCONN_H_ */
+#endif /* _DBCONN_H_ */

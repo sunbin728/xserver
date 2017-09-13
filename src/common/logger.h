@@ -1,5 +1,5 @@
-#ifndef LOGGER_H_
-#define LOGGER_H_
+#ifndef _LOGGER_H_
+#define _LOGGER_H_
 
 #include <string>
 #include <mutex>
@@ -145,5 +145,4 @@ class Logger{
         bool m_flushTimer;
 };
 
-#endif /* LOGGER_H_ */
-
+#endif /* _LOGGER_H_ */

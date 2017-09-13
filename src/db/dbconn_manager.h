@@ -1,5 +1,5 @@
-#ifndef DBCONN_MANAGER_H_
-#define DBCONN_MANAGER_H_
+#ifndef _DBCONN_MANAGER_H_
+#define _DBCONN_MANAGER_H_
 
 #include "dbconn.h"
 #include "common/cache.h"
@@ -48,4 +48,4 @@ class SmartDbConnPtr{
         DbConn* m_pdbConn;
         DbConnManager* m_pdbConnManager;
 };
-#endif /* DBCONN_MANAGER_H_ */
+#endif /* _DBCONN_MANAGER_H_ */

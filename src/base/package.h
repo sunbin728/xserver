@@ -1,5 +1,5 @@
-#ifndef PACKAGE_H_
-#define PACKAGE_H_
+#ifndef _PACKAGE_H_
+#define _PACKAGE_H_
 
 #include <stdint.h>
 
@@ -35,4 +35,4 @@ namespace package{
 #define CHECKUNAMEREQ 2
 #define CHECKUNAMERESP 102
 
-#endif /* PACKAGE_H_ */
+#endif /* _PACKAGE_H_ */

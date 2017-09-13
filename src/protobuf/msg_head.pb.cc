@@ -17,7 +17,7 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 
-namespace protocol {
+namespace NetProto {
 class MsgHeadDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<MsgHead> {
 } _MsgHead_default_instance_;
 
@@ -51,8 +51,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgHead, msg_from_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgHead, msg_to_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgHead, msg_src_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgHead, robot_id_),
 };
 
@@ -106,14 +105,13 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\016msg_head.proto\022\010protocol\"a\n\007MsgHead\022\"\n"
-      "\010msg_from\030\001 \001(\0162\020.protocol.MsgSrc\022 \n\006msg"
-      "_to\030\002 \001(\0162\020.protocol.MsgSrc\022\020\n\010robot_id\030"
-      "\003 \001(\t*:\n\006MsgSrc\022\n\n\006CLIENT\020\000\022\007\n\003MTS\020\001\022\006\n\002"
-      "PW\020\002\022\n\n\006CENTER\020\003\022\007\n\003ACC\020\004b\006proto3"
+      "\n\016msg_head.proto\022\010NetProto\">\n\007MsgHead\022!\n"
+      "\007msg_src\030\001 \001(\0162\020.NetProto.MsgSrc\022\020\n\010robo"
+      "t_id\030\002 \001(\t*:\n\006MsgSrc\022\n\n\006CLIENT\020\000\022\007\n\003MTS\020"
+      "\001\022\006\n\002PW\020\002\022\n\n\006CENTER\020\003\022\007\n\003ACC\020\004b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 193);
+      descriptor, 158);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "msg_head.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -153,8 +151,7 @@ bool MsgSrc_IsValid(int value) {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int MsgHead::kMsgFromFieldNumber;
-const int MsgHead::kMsgToFieldNumber;
+const int MsgHead::kMsgSrcFieldNumber;
 const int MsgHead::kRobotIdFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -164,7 +161,7 @@ MsgHead::MsgHead()
     protobuf_msg_5fhead_2eproto::InitDefaults();
   }
   SharedCtor();
-  // @@protoc_insertion_point(constructor:protocol.MsgHead)
+  // @@protoc_insertion_point(constructor:NetProto.MsgHead)
 }
 MsgHead::MsgHead(const MsgHead& from)
   : ::google::protobuf::Message(),
@@ -175,21 +172,18 @@ MsgHead::MsgHead(const MsgHead& from)
   if (from.robot_id().size() > 0) {
     robot_id_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.robot_id_);
   }
-  ::memcpy(&msg_from_, &from.msg_from_,
-    reinterpret_cast<char*>(&msg_to_) -
-    reinterpret_cast<char*>(&msg_from_) + sizeof(msg_to_));
-  // @@protoc_insertion_point(copy_constructor:protocol.MsgHead)
+  msg_src_ = from.msg_src_;
+  // @@protoc_insertion_point(copy_constructor:NetProto.MsgHead)
 }
 
 void MsgHead::SharedCtor() {
   robot_id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&msg_from_, 0, reinterpret_cast<char*>(&msg_to_) -
-    reinterpret_cast<char*>(&msg_from_) + sizeof(msg_to_));
+  msg_src_ = 0;
   _cached_size_ = 0;
 }
 
 MsgHead::~MsgHead() {
-  // @@protoc_insertion_point(destructor:protocol.MsgHead)
+  // @@protoc_insertion_point(destructor:NetProto.MsgHead)
   SharedDtor();
 }
 
@@ -221,23 +215,22 @@ MsgHead* MsgHead::New(::google::protobuf::Arena* arena) const {
 }
 
 void MsgHead::Clear() {
-// @@protoc_insertion_point(message_clear_start:protocol.MsgHead)
+// @@protoc_insertion_point(message_clear_start:NetProto.MsgHead)
   robot_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&msg_from_, 0, reinterpret_cast<char*>(&msg_to_) -
-    reinterpret_cast<char*>(&msg_from_) + sizeof(msg_to_));
+  msg_src_ = 0;
 }
 
 bool MsgHead::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:protocol.MsgHead)
+  // @@protoc_insertion_point(parse_start:NetProto.MsgHead)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // .protocol.MsgSrc msg_from = 1;
+      // .NetProto.MsgSrc msg_src = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(8u)) {
@@ -245,38 +238,23 @@ bool MsgHead::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_msg_from(static_cast< ::protocol::MsgSrc >(value));
+          set_msg_src(static_cast< ::NetProto::MsgSrc >(value));
         } else {
           goto handle_unusual;
         }
         break;
       }
 
-      // .protocol.MsgSrc msg_to = 2;
+      // string robot_id = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(16u)) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          set_msg_to(static_cast< ::protocol::MsgSrc >(value));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // string robot_id = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(26u)) {
+            static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_robot_id()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->robot_id().data(), this->robot_id().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "protocol.MsgHead.robot_id"));
+            "NetProto.MsgHead.robot_id"));
         } else {
           goto handle_unusual;
         }
@@ -296,99 +274,81 @@ bool MsgHead::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:protocol.MsgHead)
+  // @@protoc_insertion_point(parse_success:NetProto.MsgHead)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:protocol.MsgHead)
+  // @@protoc_insertion_point(parse_failure:NetProto.MsgHead)
   return false;
 #undef DO_
 }
 
 void MsgHead::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:protocol.MsgHead)
+  // @@protoc_insertion_point(serialize_start:NetProto.MsgHead)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .protocol.MsgSrc msg_from = 1;
-  if (this->msg_from() != 0) {
+  // .NetProto.MsgSrc msg_src = 1;
+  if (this->msg_src() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      1, this->msg_from(), output);
+      1, this->msg_src(), output);
   }
 
-  // .protocol.MsgSrc msg_to = 2;
-  if (this->msg_to() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      2, this->msg_to(), output);
-  }
-
-  // string robot_id = 3;
+  // string robot_id = 2;
   if (this->robot_id().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->robot_id().data(), this->robot_id().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "protocol.MsgHead.robot_id");
+      "NetProto.MsgHead.robot_id");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->robot_id(), output);
+      2, this->robot_id(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:protocol.MsgHead)
+  // @@protoc_insertion_point(serialize_end:NetProto.MsgHead)
 }
 
 ::google::protobuf::uint8* MsgHead::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:protocol.MsgHead)
+  // @@protoc_insertion_point(serialize_to_array_start:NetProto.MsgHead)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .protocol.MsgSrc msg_from = 1;
-  if (this->msg_from() != 0) {
+  // .NetProto.MsgSrc msg_src = 1;
+  if (this->msg_src() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      1, this->msg_from(), target);
+      1, this->msg_src(), target);
   }
 
-  // .protocol.MsgSrc msg_to = 2;
-  if (this->msg_to() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      2, this->msg_to(), target);
-  }
-
-  // string robot_id = 3;
+  // string robot_id = 2;
   if (this->robot_id().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->robot_id().data(), this->robot_id().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "protocol.MsgHead.robot_id");
+      "NetProto.MsgHead.robot_id");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->robot_id(), target);
+        2, this->robot_id(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:protocol.MsgHead)
+  // @@protoc_insertion_point(serialize_to_array_end:NetProto.MsgHead)
   return target;
 }
 
 size_t MsgHead::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:protocol.MsgHead)
+// @@protoc_insertion_point(message_byte_size_start:NetProto.MsgHead)
   size_t total_size = 0;
 
-  // string robot_id = 3;
+  // string robot_id = 2;
   if (this->robot_id().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->robot_id());
   }
 
-  // .protocol.MsgSrc msg_from = 1;
-  if (this->msg_from() != 0) {
+  // .NetProto.MsgSrc msg_src = 1;
+  if (this->msg_src() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->msg_from());
-  }
-
-  // .protocol.MsgSrc msg_to = 2;
-  if (this->msg_to() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->msg_to());
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->msg_src());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -399,22 +359,22 @@ size_t MsgHead::ByteSizeLong() const {
 }
 
 void MsgHead::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:protocol.MsgHead)
+// @@protoc_insertion_point(generalized_merge_from_start:NetProto.MsgHead)
   GOOGLE_DCHECK_NE(&from, this);
   const MsgHead* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const MsgHead>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:protocol.MsgHead)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:NetProto.MsgHead)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:protocol.MsgHead)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:NetProto.MsgHead)
     MergeFrom(*source);
   }
 }
 
 void MsgHead::MergeFrom(const MsgHead& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:protocol.MsgHead)
+// @@protoc_insertion_point(class_specific_merge_from_start:NetProto.MsgHead)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
@@ -424,23 +384,20 @@ void MsgHead::MergeFrom(const MsgHead& from) {
 
     robot_id_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.robot_id_);
   }
-  if (from.msg_from() != 0) {
-    set_msg_from(from.msg_from());
-  }
-  if (from.msg_to() != 0) {
-    set_msg_to(from.msg_to());
+  if (from.msg_src() != 0) {
+    set_msg_src(from.msg_src());
   }
 }
 
 void MsgHead::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:protocol.MsgHead)
+// @@protoc_insertion_point(generalized_copy_from_start:NetProto.MsgHead)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void MsgHead::CopyFrom(const MsgHead& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:protocol.MsgHead)
+// @@protoc_insertion_point(class_specific_copy_from_start:NetProto.MsgHead)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -456,8 +413,7 @@ void MsgHead::Swap(MsgHead* other) {
 }
 void MsgHead::InternalSwap(MsgHead* other) {
   robot_id_.Swap(&other->robot_id_);
-  std::swap(msg_from_, other->msg_from_);
-  std::swap(msg_to_, other->msg_to_);
+  std::swap(msg_src_, other->msg_src_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -469,74 +425,60 @@ void MsgHead::InternalSwap(MsgHead* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // MsgHead
 
-// .protocol.MsgSrc msg_from = 1;
-void MsgHead::clear_msg_from() {
-  msg_from_ = 0;
+// .NetProto.MsgSrc msg_src = 1;
+void MsgHead::clear_msg_src() {
+  msg_src_ = 0;
 }
-::protocol::MsgSrc MsgHead::msg_from() const {
-  // @@protoc_insertion_point(field_get:protocol.MsgHead.msg_from)
-  return static_cast< ::protocol::MsgSrc >(msg_from_);
+::NetProto::MsgSrc MsgHead::msg_src() const {
+  // @@protoc_insertion_point(field_get:NetProto.MsgHead.msg_src)
+  return static_cast< ::NetProto::MsgSrc >(msg_src_);
 }
-void MsgHead::set_msg_from(::protocol::MsgSrc value) {
+void MsgHead::set_msg_src(::NetProto::MsgSrc value) {
   
-  msg_from_ = value;
-  // @@protoc_insertion_point(field_set:protocol.MsgHead.msg_from)
+  msg_src_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.MsgHead.msg_src)
 }
 
-// .protocol.MsgSrc msg_to = 2;
-void MsgHead::clear_msg_to() {
-  msg_to_ = 0;
-}
-::protocol::MsgSrc MsgHead::msg_to() const {
-  // @@protoc_insertion_point(field_get:protocol.MsgHead.msg_to)
-  return static_cast< ::protocol::MsgSrc >(msg_to_);
-}
-void MsgHead::set_msg_to(::protocol::MsgSrc value) {
-  
-  msg_to_ = value;
-  // @@protoc_insertion_point(field_set:protocol.MsgHead.msg_to)
-}
-
-// string robot_id = 3;
+// string robot_id = 2;
 void MsgHead::clear_robot_id() {
   robot_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 const ::std::string& MsgHead::robot_id() const {
-  // @@protoc_insertion_point(field_get:protocol.MsgHead.robot_id)
+  // @@protoc_insertion_point(field_get:NetProto.MsgHead.robot_id)
   return robot_id_.GetNoArena();
 }
 void MsgHead::set_robot_id(const ::std::string& value) {
   
   robot_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:protocol.MsgHead.robot_id)
+  // @@protoc_insertion_point(field_set:NetProto.MsgHead.robot_id)
 }
 #if LANG_CXX11
 void MsgHead::set_robot_id(::std::string&& value) {
   
   robot_id_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:protocol.MsgHead.robot_id)
+  // @@protoc_insertion_point(field_set_rvalue:NetProto.MsgHead.robot_id)
 }
 #endif
 void MsgHead::set_robot_id(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
   robot_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:protocol.MsgHead.robot_id)
+  // @@protoc_insertion_point(field_set_char:NetProto.MsgHead.robot_id)
 }
 void MsgHead::set_robot_id(const char* value, size_t size) {
   
   robot_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:protocol.MsgHead.robot_id)
+  // @@protoc_insertion_point(field_set_pointer:NetProto.MsgHead.robot_id)
 }
 ::std::string* MsgHead::mutable_robot_id() {
   
-  // @@protoc_insertion_point(field_mutable:protocol.MsgHead.robot_id)
+  // @@protoc_insertion_point(field_mutable:NetProto.MsgHead.robot_id)
   return robot_id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 ::std::string* MsgHead::release_robot_id() {
-  // @@protoc_insertion_point(field_release:protocol.MsgHead.robot_id)
+  // @@protoc_insertion_point(field_release:NetProto.MsgHead.robot_id)
   
   return robot_id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -547,13 +489,13 @@ void MsgHead::set_allocated_robot_id(::std::string* robot_id) {
     
   }
   robot_id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), robot_id);
-  // @@protoc_insertion_point(field_set_allocated:protocol.MsgHead.robot_id)
+  // @@protoc_insertion_point(field_set_allocated:NetProto.MsgHead.robot_id)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protocol
+}  // namespace NetProto
 
 // @@protoc_insertion_point(global_scope)

@@ -31,13 +31,13 @@
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
-namespace protocol {
+namespace NetProto {
 class MsgHead;
 class MsgHeadDefaultTypeInternal;
 extern MsgHeadDefaultTypeInternal _MsgHead_default_instance_;
-}  // namespace protocol
+}  // namespace NetProto
 
-namespace protocol {
+namespace NetProto {
 
 namespace protobuf_msg_5fhead_2eproto {
 // Internal implementation detail -- do not call these.
@@ -79,7 +79,7 @@ inline bool MsgSrc_Parse(
 }
 // ===================================================================
 
-class MsgHead : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:protocol.MsgHead) */ {
+class MsgHead : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:NetProto.MsgHead) */ {
  public:
   MsgHead();
   virtual ~MsgHead();
@@ -143,9 +143,9 @@ class MsgHead : public ::google::protobuf::Message /* @@protoc_insertion_point(c
 
   // accessors -------------------------------------------------------
 
-  // string robot_id = 3;
+  // string robot_id = 2;
   void clear_robot_id();
-  static const int kRobotIdFieldNumber = 3;
+  static const int kRobotIdFieldNumber = 2;
   const ::std::string& robot_id() const;
   void set_robot_id(const ::std::string& value);
   #if LANG_CXX11
@@ -157,25 +157,18 @@ class MsgHead : public ::google::protobuf::Message /* @@protoc_insertion_point(c
   ::std::string* release_robot_id();
   void set_allocated_robot_id(::std::string* robot_id);
 
-  // .protocol.MsgSrc msg_from = 1;
-  void clear_msg_from();
-  static const int kMsgFromFieldNumber = 1;
-  ::protocol::MsgSrc msg_from() const;
-  void set_msg_from(::protocol::MsgSrc value);
+  // .NetProto.MsgSrc msg_src = 1;
+  void clear_msg_src();
+  static const int kMsgSrcFieldNumber = 1;
+  ::NetProto::MsgSrc msg_src() const;
+  void set_msg_src(::NetProto::MsgSrc value);
 
-  // .protocol.MsgSrc msg_to = 2;
-  void clear_msg_to();
-  static const int kMsgToFieldNumber = 2;
-  ::protocol::MsgSrc msg_to() const;
-  void set_msg_to(::protocol::MsgSrc value);
-
-  // @@protoc_insertion_point(class_scope:protocol.MsgHead)
+  // @@protoc_insertion_point(class_scope:NetProto.MsgHead)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr robot_id_;
-  int msg_from_;
-  int msg_to_;
+  int msg_src_;
   mutable int _cached_size_;
   friend struct protobuf_msg_5fhead_2eproto::TableStruct;
 };
@@ -187,74 +180,60 @@ class MsgHead : public ::google::protobuf::Message /* @@protoc_insertion_point(c
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
 // MsgHead
 
-// .protocol.MsgSrc msg_from = 1;
-inline void MsgHead::clear_msg_from() {
-  msg_from_ = 0;
+// .NetProto.MsgSrc msg_src = 1;
+inline void MsgHead::clear_msg_src() {
+  msg_src_ = 0;
 }
-inline ::protocol::MsgSrc MsgHead::msg_from() const {
-  // @@protoc_insertion_point(field_get:protocol.MsgHead.msg_from)
-  return static_cast< ::protocol::MsgSrc >(msg_from_);
+inline ::NetProto::MsgSrc MsgHead::msg_src() const {
+  // @@protoc_insertion_point(field_get:NetProto.MsgHead.msg_src)
+  return static_cast< ::NetProto::MsgSrc >(msg_src_);
 }
-inline void MsgHead::set_msg_from(::protocol::MsgSrc value) {
+inline void MsgHead::set_msg_src(::NetProto::MsgSrc value) {
   
-  msg_from_ = value;
-  // @@protoc_insertion_point(field_set:protocol.MsgHead.msg_from)
+  msg_src_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.MsgHead.msg_src)
 }
 
-// .protocol.MsgSrc msg_to = 2;
-inline void MsgHead::clear_msg_to() {
-  msg_to_ = 0;
-}
-inline ::protocol::MsgSrc MsgHead::msg_to() const {
-  // @@protoc_insertion_point(field_get:protocol.MsgHead.msg_to)
-  return static_cast< ::protocol::MsgSrc >(msg_to_);
-}
-inline void MsgHead::set_msg_to(::protocol::MsgSrc value) {
-  
-  msg_to_ = value;
-  // @@protoc_insertion_point(field_set:protocol.MsgHead.msg_to)
-}
-
-// string robot_id = 3;
+// string robot_id = 2;
 inline void MsgHead::clear_robot_id() {
   robot_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& MsgHead::robot_id() const {
-  // @@protoc_insertion_point(field_get:protocol.MsgHead.robot_id)
+  // @@protoc_insertion_point(field_get:NetProto.MsgHead.robot_id)
   return robot_id_.GetNoArena();
 }
 inline void MsgHead::set_robot_id(const ::std::string& value) {
   
   robot_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:protocol.MsgHead.robot_id)
+  // @@protoc_insertion_point(field_set:NetProto.MsgHead.robot_id)
 }
 #if LANG_CXX11
 inline void MsgHead::set_robot_id(::std::string&& value) {
   
   robot_id_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:protocol.MsgHead.robot_id)
+  // @@protoc_insertion_point(field_set_rvalue:NetProto.MsgHead.robot_id)
 }
 #endif
 inline void MsgHead::set_robot_id(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
   robot_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:protocol.MsgHead.robot_id)
+  // @@protoc_insertion_point(field_set_char:NetProto.MsgHead.robot_id)
 }
 inline void MsgHead::set_robot_id(const char* value, size_t size) {
   
   robot_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:protocol.MsgHead.robot_id)
+  // @@protoc_insertion_point(field_set_pointer:NetProto.MsgHead.robot_id)
 }
 inline ::std::string* MsgHead::mutable_robot_id() {
   
-  // @@protoc_insertion_point(field_mutable:protocol.MsgHead.robot_id)
+  // @@protoc_insertion_point(field_mutable:NetProto.MsgHead.robot_id)
   return robot_id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* MsgHead::release_robot_id() {
-  // @@protoc_insertion_point(field_release:protocol.MsgHead.robot_id)
+  // @@protoc_insertion_point(field_release:NetProto.MsgHead.robot_id)
   
   return robot_id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -265,7 +244,7 @@ inline void MsgHead::set_allocated_robot_id(::std::string* robot_id) {
     
   }
   robot_id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), robot_id);
-  // @@protoc_insertion_point(field_set_allocated:protocol.MsgHead.robot_id)
+  // @@protoc_insertion_point(field_set_allocated:NetProto.MsgHead.robot_id)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -273,16 +252,16 @@ inline void MsgHead::set_allocated_robot_id(::std::string* robot_id) {
 // @@protoc_insertion_point(namespace_scope)
 
 
-}  // namespace protocol
+}  // namespace NetProto
 
 #ifndef SWIG
 namespace google {
 namespace protobuf {
 
-template <> struct is_proto_enum< ::protocol::MsgSrc> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::NetProto::MsgSrc> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::protocol::MsgSrc>() {
-  return ::protocol::MsgSrc_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::NetProto::MsgSrc>() {
+  return ::NetProto::MsgSrc_descriptor();
 }
 
 }  // namespace protobuf

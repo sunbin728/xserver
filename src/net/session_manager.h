@@ -1,5 +1,5 @@
-#ifndef SESSION_MANAGER_H_
-#define SESSION_MANAGER_H_
+#ifndef _SESSION_MANAGER_H_
+#define _SESSION_MANAGER_H_
 
 #include <map>
 
@@ -30,4 +30,4 @@ class SessionManager{
         std::map<int, Connection*> m_mapConns;
         pthread_rwlock_t m_rwlock;    //声明读写锁
 };
-#endif /* SESSION_MANAGER_H_ */
+#endif /* _SESSION_MANAGER_H_ */

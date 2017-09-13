@@ -1,5 +1,5 @@
-#ifndef WORKER_MANAGER_H_
-#define WORKER_MANAGER_H_
+#ifndef _WORKER_MANAGER_H_
+#define _WORKER_MANAGER_H_
 
 #include <vector>
 #include "worker.h"
@@ -22,4 +22,4 @@ class WorkerManager{
         std::vector<Worker*> m_vecWorkers;
         int m_threadcount;
 };
-#endif /* WORKER_MANAGER_H_ */
+#endif /* _WORKER_MANAGER_H_ */

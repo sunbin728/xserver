@@ -1,5 +1,5 @@
-#ifndef CACHE_H_
-#define CACHE_H_
+#ifndef _CACHE_H_
+#define _CACHE_H_
 
 
 
@@ -195,4 +195,4 @@ T Queue<T>::back() const
     return array[rear-1];
 }
 
-#endif /* CACHE_H_ */
+#endif /* _CACHE_H_ */

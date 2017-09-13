@@ -1,5 +1,5 @@
-#ifndef ACCEPT_MANAGER_H_
-#define ACCEPT_MANAGER_H_
+#ifndef _ACCEPT_MANAGER_H_
+#define _ACCEPT_MANAGER_H_
 
 #include <string>
 
@@ -27,4 +27,4 @@ class AcceptManager{
         int m_epfd;
 
 };
-#endif /* ACCEPT_MANAGER_H_ */
+#endif /* _ACCEPT_MANAGER_H_ */

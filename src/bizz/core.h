@@ -1,12 +1,12 @@
-#ifndef CORE_H_
-#define CORE_H_
+#ifndef _CORE_H_
+#define _CORE_H_
 
 #include "base/user.h"
 #include <string>
 
 
 namespace core{
-    User GetUserByUname(std::string uname);
+    //User GetUserByUname(std::string uname);
 }
 
-#endif /* CORE_H_ */
+#endif /* _CORE_H_ */
