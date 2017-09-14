@@ -56,6 +56,19 @@ void AcceptManager::Start(){
     //StartLT();
 }
 
+bool AcceptManager::AddEvent(int conn_sock){
+    struct epoll_event ev;
+    setnonblocking(conn_sock);
+    ev.events = EPOLLIN | EPOLLET;
+    ev.data.fd = conn_sock;
+    if (epoll_ctl(m_epfd, EPOLL_CTL_ADD, conn_sock,
+                &ev) == -1) {
+        LOG_FATAL("AcceptManager::AddEvent epoll_ctl EPOLL_CTL_ADD fail: conn_sock=%d", conn_sock);
+        return false;
+    }
+    return true;
+}
+
 void AcceptManager::StartET(){
     struct epoll_event ev, events[MAX_EVENTS];
     int conn_sock, nfds, fd, i, nread, n;
@@ -117,7 +130,7 @@ void AcceptManager::StartET(){
                         LOG_FATAL("AcceptManager::StartET epoll_ctl EPOLL_CTL_ADD fail: conn_sock=%d", conn_sock);
                     }
                     //构造一个连接对象并加入session
-                    Connection* pConn = new Connection(conn_sock);
+                    Connection* pConn = new Connection(conn_sock, SessionManager::CLIENT);
                     SessionManager::Instance().AddConn(conn_sock, pConn);
                 }
                 if (conn_sock == -1) {
@@ -131,7 +144,11 @@ void AcceptManager::StartET(){
                 LOG_INFO("AcceptManager::StartET EPOLLIN: fd=%d", fd);
                 //获取对应连接对象的专属buf
                 Connection* pConn = SessionManager::Instance().GetConn(fd);
-                //TODO: pConn判空
+                if (NULL==pConn){
+                    LOG_ERROR("AcceptManager::StartET GetConn fail: fd=%d", fd);
+                    close(fd);
+                    continue;
+                }
                 buf = pConn->GetWriteBuffer();
                 n = 0;
                 while ((nread = read(fd, buf + n, BUFSIZ-1)) > 0) {

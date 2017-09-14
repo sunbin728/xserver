@@ -20,28 +20,21 @@ class SessionManager{
         }
         SessionManager(const SessionManager &sessionManager);
         SessionManager& operator=(const SessionManager &sessionManager);
-        ~SessionManager(){
-            pthread_rwlock_destroy(&m_rwlock);      //销毁读写
-            std::map<int, Connection*>::iterator iter;
-            for (iter =  m_mapConns.begin(); iter != m_mapConns.end(); ++iter){
-                delete iter->second;
-            }
+        ~SessionManager();
 
-            std::map<int, ActiveConn*>::iterator iter_active;
-            for (iter_active =  m_mapActiveConns.begin(); iter_active != m_mapActiveConns.end(); ++iter_active){
-                delete iter_active->second;
-            }
-        };
-
+        void initConnect(int conntype, std::string addr, int port);
     public:
         static SessionManager& Instance();
+        //初始化需主动连接的部分
         void Init();
         void AddConn(int socketfd, Connection* pConn);
         Connection* GetConn(int socketfd);
+        void RemoveConn(int socketfd);
 
         void AddActiveConn(int conntype, ActiveConn* pConn);
         ActiveConn* GetActiveConn(int conntype);
-        void RemoveConn(int socketfd);
+
+        bool SendMsg(int conntype,uint16_t command, const std::ostringstream& msgstream);
 
     private:
         std::map<int, Connection*> m_mapConns;

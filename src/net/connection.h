@@ -7,7 +7,8 @@
 class Connection{
     static const int MAXBUF = 100 * 1024;
     public:
-    Connection(int fd):
+    Connection(int fd, int conntype):
+        m_conntype(conntype),
         m_socketfd(fd),
         m_buf(NULL),
         m_rPos(0),
@@ -24,19 +25,18 @@ class Connection{
     Connection(const Connection &conn);
     Connection& operator=(const Connection &conn);
 
-    char* GetWriteBuffer(){
-        return m_buf + m_wPos;
-    }
+    int GetConnType(){return m_conntype;}
+    int GetSocketfd(){return m_socketfd;}
+    char* GetWriteBuffer(){ return m_buf + m_wPos;}
+    void SetWPos(int wPos){m_wPos += wPos;}
 
-    void SetWPos(int wPos){
-        m_wPos += wPos;
-    }
 
     bool SendMsg(uint16_t command, const std::ostringstream& msgstream);
     bool Send(const char* buf, int size);
     void DoWork();
 
     private:
+    int m_conntype;
     int m_socketfd;
     char* m_buf;
     int m_rPos;

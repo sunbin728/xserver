@@ -15,6 +15,7 @@ class AcceptManager{
         static AcceptManager& Instance();
         void Start();
         void Stop();
+        bool AddEvent(int conn_sock);
 
     private:
         void StartLT();
