@@ -2,6 +2,7 @@
 #include "accept_manager.h"
 #include "common/logger.h"
 #include <string>
+#include <thread>
 
 
 
@@ -18,21 +19,41 @@ SessionManager::~SessionManager(){
     }
 }
 
+void SessionManager::watchWork(){
+    ActiveConn* pConn;
+    while(true){
+        sleep(3);
+        pthread_rwlock_rdlock(&m_rwlock);    //读者加读锁
+        std::map<int, ActiveConn*>::iterator iter;
+        for (iter =  m_mapActiveConns.begin(); iter != m_mapActiveConns.end(); ++iter){
+            pConn = iter->second;
+            if (!pConn->GetValid()){
+                this->reInitActiveConnect(pConn);
+            }
+        }
+        pthread_rwlock_unlock(&m_rwlock);      //释放写锁
+    }
+}
+
 void SessionManager::Init(){
     //init conn to MTS
     int conntype = MTS;
     std::string addr = "172.16.3.17";
     int port = 1234;
-    initConnect(conntype, addr, port);
+    initActiveConnect(conntype, addr, port);
 
     //init conn to PW
     conntype = PW;
     addr = "172.16.3.17";
     port = 1234;
-    initConnect(conntype, addr, port);
+    initActiveConnect(conntype, addr, port);
+
+    //开启监控线程，用于主动链接的重连
+    std::thread thread_watchWork(&SessionManager::watchWork, this);
+    thread_watchWork.detach();
 }
 
-void SessionManager::initConnect(int conntype, std::string addr, int port){
+void SessionManager::initActiveConnect(int conntype, std::string addr, int port){
     ActiveConn* activeConn = new ActiveConn(conntype, addr, port);
     bool ret = activeConn->Init();
     if (ret){
@@ -44,6 +65,22 @@ void SessionManager::initConnect(int conntype, std::string addr, int port){
         }
     }else{
         LOG_FATAL("SessionManager::Init activeConn_MTS->Init faild: conntype=%d, ip=%s, port=%p", conntype, addr.c_str(), port);
+    }
+}
+
+void SessionManager::reInitActiveConnect(ActiveConn* activeConn){
+    bool ret = activeConn->Init();
+    if (ret){
+        bool addret = AcceptManager::Instance().AddEvent(activeConn->GetSocketfd());
+        if (!addret){
+            LOG_ERROR("SessionManager::Init AcceptManager::Instance().AddEvent faild: conntype=%d, ip=%s, port=%p, socketfd=%d",
+                    activeConn->GetConnType(), activeConn->GetAddr().c_str(), activeConn->GetPort(), activeConn->GetSocketfd());
+        }else{
+            activeConn->SetValid(true);
+        }
+    }else{
+        LOG_ERROR("SessionManager::Init AcceptManager::Instance().AddEvent faild: conntype=%d, ip=%s, port=%p, socketfd=%d",
+                activeConn->GetConnType(), activeConn->GetAddr().c_str(), activeConn->GetPort(), activeConn->GetSocketfd());
     }
 }
 
@@ -95,15 +132,17 @@ void SessionManager::RemoveConn(int socketfd){
         if (pConn->GetConnType() != CLIENT){
             //如果被断开的时非客户端连接，则需要重新连接
             std::map<int, ActiveConn*>::iterator it_active = m_mapActiveConns.find(pConn->GetConnType());
-            m_mapActiveConns.erase(it_active);
-            ActiveConn *activeConn = it_active->second;
-            this->initConnect(activeConn->GetConnType(), activeConn->GetAddr(), activeConn->GetPort());
+            if (it_active != m_mapActiveConns.end()){
+                ActiveConn *activeConn = it_active->second;
+                activeConn->SetValid(false);
+            }
+        }else{
+            if (pConn != NULL){
+                delete pConn;
+            }
         }
     }
     pthread_rwlock_unlock(&m_rwlock);      //释放写锁
-    if (pConn != NULL){
-        delete pConn;
-    }
 }
 
 bool SessionManager::SendMsg(int conntype,uint16_t command, const std::ostringstream& msgstream){

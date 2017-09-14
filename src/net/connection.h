@@ -15,8 +15,10 @@ class Connection{
         m_wPos(0){
             m_buf = new char[MAXBUF];
         }
-    ~Connection(){
-        close(m_socketfd);
+    virtual ~Connection(){
+        if (m_socketfd != 0){
+            close(m_socketfd);
+        }
         if (NULL != m_buf){
             delete[] m_buf;
             m_buf = NULL;
@@ -31,11 +33,14 @@ class Connection{
     void SetWPos(int wPos){m_wPos += wPos;}
 
 
-    bool SendMsg(uint16_t command, const std::ostringstream& msgstream);
+    virtual bool SendMsg(uint16_t command, const std::ostringstream& msgstream);
     bool Send(const char* buf, int size);
     void DoWork();
 
-    private:
+    protected:
+    void resetConn();
+
+    protected:
     int m_conntype;
     int m_socketfd;
     char* m_buf;

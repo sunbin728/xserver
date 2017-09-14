@@ -22,7 +22,9 @@ class SessionManager{
         SessionManager& operator=(const SessionManager &sessionManager);
         ~SessionManager();
 
-        void initConnect(int conntype, std::string addr, int port);
+        void initActiveConnect(int conntype, std::string addr, int port);
+        void reInitActiveConnect(ActiveConn* activeConn);
+        void watchWork();
     public:
         static SessionManager& Instance();
         //初始化需主动连接的部分

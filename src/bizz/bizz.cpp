@@ -87,93 +87,93 @@ namespace bizz{
     }
 
     void C2GSLoginHandle(MSG* msg, C2GSLogin& c2gsLogin){
-        uint32_t uid = c2gsLogin.accountid();
-        LOG_DEBUG("C2GSLoginHandle: uid=%u", uid);
+        //uint32_t uid = c2gsLogin.accountid();
+        //LOG_DEBUG("C2GSLoginHandle: uid=%u", uid);
 
-        GameClient * ogc = static_cast<GameClient *>( gOnline.getUidClient( uid ) );
+        //GameClient * ogc = static_cast<GameClient *>( gOnline.getUidClient( uid ) );
 
-        CHECK_SWITCH_CONN( hdr, gc, server );
+        //CHECK_SWITCH_CONN( hdr, gc, server );
 
 
-        if ( ogc != NULL && ogc != gc )
-        {
-            //if ogc == gc, the client send the two login msg from one connection
-            //WARN_LOG( "Relogin[%u]", ogc->getOwnerId() );
-            DEBUG_LOG( "Relogin[%u]", ogc->getOwnerId() );
-            INFO_LOG( "Relogin[%u]", ogc->getOwnerId() );
-            Stream st( C2S_CHECK_LOGIN );
-            st.error( CO_Repeated_Login );
-            st << Stream::eos;
-            ogc->sendMsg( st );
-            gOnline.closeClient( ogc );
-        }
-        else if( ogc == gc)
-        {
-            DEBUG_LOG("player have logining...,do nothing!!!");
-            return false;
-        }
-        //check session
-        {
-            //TODO
-            DEBUG_LOG("OnPlayerLoginReq successful!,---user[%u]",uid);
-            //sessionStr
-        }
+        //if ( ogc != NULL && ogc != gc )
+        //{
+            ////if ogc == gc, the client send the two login msg from one connection
+            ////WARN_LOG( "Relogin[%u]", ogc->getOwnerId() );
+            //DEBUG_LOG( "Relogin[%u]", ogc->getOwnerId() );
+            //INFO_LOG( "Relogin[%u]", ogc->getOwnerId() );
+            //Stream st( C2S_CHECK_LOGIN );
+            //st.error( CO_Repeated_Login );
+            //st << Stream::eos;
+            //ogc->sendMsg( st );
+            //gOnline.closeClient( ogc );
+        //}
+        //else if( ogc == gc)
+        //{
+            //DEBUG_LOG("player have logining...,do nothing!!!");
+            //return false;
+        //}
+        ////check session
+        //{
+            ////TODO
+            //DEBUG_LOG("OnPlayerLoginReq successful!,---user[%u]",uid);
+            ////sessionStr
+        //}
 
-        //gc->setOwnerSession((UInt8 *) sessionStr);
+        ////gc->setOwnerSession((UInt8 *) sessionStr);
 
-        gc->setOwnerId( uid );
+        //gc->setOwnerId( uid );
 
-        Player * player = gc->getOwner();
+        //Player * player = gc->getOwner();
 
-        gc->setOwnerStatus( P_Online );
-        ///////////new player
-        Player * nPlayer = new Player( gc );
-        player = nPlayer;
-        gc->setOwner( nPlayer );
-        StaticPlayer* sp = gSPlayerMg.get(uid);
-        if(sp == NULL)
-        {
-            sp = new StaticPlayer();
-            gSPlayerMg.add(uid,sp);
-        }
-        nPlayer->setID(uid);
-        sp->setID(uid);
-        sp->setOwner(uid);
-        nPlayer->init(sp);
-        gOnline.addUidClient( uid, gc );
+        //gc->setOwnerStatus( P_Online );
+        /////////////new player
+        //Player * nPlayer = new Player( gc );
+        //player = nPlayer;
+        //gc->setOwner( nPlayer );
+        //StaticPlayer* sp = gSPlayerMg.get(uid);
+        //if(sp == NULL)
+        //{
+            //sp = new StaticPlayer();
+            //gSPlayerMg.add(uid,sp);
+        //}
+        //nPlayer->setID(uid);
+        //sp->setID(uid);
+        //sp->setOwner(uid);
+        //nPlayer->init(sp);
+        //gOnline.addUidClient( uid, gc );
 
-        // GS2MTS GetRobotList
-        /*
-           message GS2MTSGetRobotList
-           {
-           MsgHead msgHead     = 1; // 消息头 -- 做消息路由用
-           uint32 accountID    = 2; // 玩家id
-           }
-           */
-        NetProto::GS2MTSGetRobotList getRobotList;
-        MsgHead* msgHead = getRobotList.mutable_msghead();
-        char accid[32] = { 0 };
-        sprintf(accid, "%d", message.accountid());
-        msgHead->set_robot_id(accid);
-        msgHead->set_msg_src(NetProto::CENTER);
-        getRobotList.set_accountid(message.accountid());
+        //// GS2MTS GetRobotList
+        //[>
+           //message GS2MTSGetRobotList
+           //{
+           //MsgHead msgHead     = 1; // 消息头 -- 做消息路由用
+           //uint32 accountID    = 2; // 玩家id
+           //}
+           //*/
+        //NetProto::GS2MTSGetRobotList getRobotList;
+        //MsgHead* msgHead = getRobotList.mutable_msghead();
+        //char accid[32] = { 0 };
+        //sprintf(accid, "%d", message.accountid());
+        //msgHead->set_robot_id(accid);
+        //msgHead->set_msg_src(NetProto::CENTER);
+        //getRobotList.set_accountid(message.accountid());
 
-        Stream st;
-        st.initPbHead(NetProto::GS2MTS_GET_ROBOT_LIST);
-        st.appendPbMsg(getRobotList);
-        st << Stream::eos;
+        //Stream st;
+        //st.initPbHead(NetProto::GS2MTS_GET_ROBOT_LIST);
+        //st.appendPbMsg(getRobotList);
+        //st << Stream::eos;
 
-        gOnline.sendMsgToMts(st);
-        /*
-           Stream st( ONLINE2SWITCH_CMD, SS_Check_Session );
-           st << uid << gOnline.getOnlineId();
-           st.append((UInt8*) sessionStr, 16 );
-           st << Stream::eos;
-           server->sendMsg( st );
-           gc->setOwnerStatus( P_CheckSession );
-           DEBUG_LOG("Player[%u] Send SS_Check_Session Msg To Switch", uid);
-           */
-        return true;
+        //gOnline.sendMsgToMts(st);
+        //[>
+           //Stream st( ONLINE2SWITCH_CMD, SS_Check_Session );
+           //st << uid << gOnline.getOnlineId();
+           //st.append((UInt8*) sessionStr, 16 );
+           //st << Stream::eos;
+           //server->sendMsg( st );
+           //gc->setOwnerStatus( P_CheckSession );
+           //DEBUG_LOG("Player[%u] Send SS_Check_Session Msg To Switch", uid);
+           //*/
+        //return true;
 
 
     }
@@ -190,7 +190,7 @@ namespace bizz{
 
     }
 
-    void MTS2GSCreateRobotHandle(MSG* msg, MTS2GSCreateRobot mts2gsCreateRobot){
+    void MTS2GSCreateRobotHandle(MSG* msg, MTS2GSCreateRobot& mts2gsCreateRobot){
 
     }
 

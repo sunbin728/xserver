@@ -20,6 +20,14 @@ void Connection::DoWork(){
     }
 }
 
+void Connection::resetConn(){
+    if (m_socketfd != 0){
+        close(m_socketfd);
+    }
+    m_rPos = 0;
+    m_wPos = 0;
+}
+
 bool Connection::SendMsg(uint16_t command, const std::ostringstream& msgstream){
     std::string msgstring = msgstream.str();
     HEAD header;
