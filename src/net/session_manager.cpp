@@ -1,6 +1,7 @@
 #include "session_manager.h"
 #include "accept_manager.h"
 #include "common/logger.h"
+#include "base/command.h"
 #include <string>
 #include <thread>
 
@@ -22,13 +23,15 @@ SessionManager::~SessionManager(){
 void SessionManager::watchWork(){
     ActiveConn* pConn;
     while(true){
-        sleep(3);
+        sleep(5);
         pthread_rwlock_rdlock(&m_rwlock);    //读者加读锁
         std::map<int, ActiveConn*>::iterator iter;
         for (iter =  m_mapActiveConns.begin(); iter != m_mapActiveConns.end(); ++iter){
             pConn = iter->second;
             if (!pConn->GetValid()){
                 this->reInitActiveConnect(pConn);
+            }else{
+                pConn->SendHeartBeat();
             }
         }
         pthread_rwlock_unlock(&m_rwlock);      //释放写锁
@@ -36,16 +39,19 @@ void SessionManager::watchWork(){
 }
 
 void SessionManager::Init(){
+    while (!AcceptManager::Instance().IsStarted()){
+        sleep(1);
+    }
     //init conn to MTS
     int conntype = MTS;
-    std::string addr = "172.16.3.17";
-    int port = 1234;
+    std::string addr = "172.16.0.3";
+    int port = 3128;
     initActiveConnect(conntype, addr, port);
 
     //init conn to PW
     conntype = PW;
-    addr = "172.16.3.17";
-    port = 1234;
+    addr = "172.16.0.3";
+    port = 8009;
     initActiveConnect(conntype, addr, port);
 
     //开启监控线程，用于主动链接的重连
@@ -57,6 +63,7 @@ void SessionManager::initActiveConnect(int conntype, std::string addr, int port)
     ActiveConn* activeConn = new ActiveConn(conntype, addr, port);
     bool ret = activeConn->Init();
     if (ret){
+        LOG_INFO("SessionManager::initActiveConnect OK: conntype=%d, addr=%s, port=%d", conntype, addr.c_str(), port);
         this->AddActiveConn(conntype, activeConn);
         bool addret = AcceptManager::Instance().AddEvent(activeConn->GetSocketfd());
         if (!addret){
@@ -64,7 +71,7 @@ void SessionManager::initActiveConnect(int conntype, std::string addr, int port)
                     conntype, addr.c_str(), port, activeConn->GetSocketfd());
         }
     }else{
-        LOG_FATAL("SessionManager::Init activeConn_MTS->Init faild: conntype=%d, ip=%s, port=%p", conntype, addr.c_str(), port);
+        LOG_FATAL("SessionManager::Init activeConn_MTS->Init faild: conntype=%d, ip=%s, port=%d", conntype, addr.c_str(), port);
     }
 }
 

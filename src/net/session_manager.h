@@ -5,15 +5,8 @@
 #include "connection.h"
 #include "activeconn.h"
 
-#include "protobuf/msg_head.pb.h"
 
 class SessionManager{
-    public:
-        static const int CLIENT = NetProto::MsgSrc::CLIENT;
-        static const int MTS = NetProto::MsgSrc::MTS;
-        static const int PW = NetProto::MsgSrc::PW;
-        static const int CENTER = NetProto::MsgSrc::CENTER;
-        static const int ACC = NetProto::MsgSrc::ACC;
     private:
         SessionManager(){
             pthread_rwlock_init(&m_rwlock, NULL);

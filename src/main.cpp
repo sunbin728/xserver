@@ -8,6 +8,7 @@
 #include "bizz/worker_manager.h"
 #include "bizz/scene_manager.h"
 #include "db/dbconn_manager.h"
+#include "net/session_manager.h"
 
 void PrintTrace(int signum){
     void *pTrace[256];
@@ -77,6 +78,7 @@ int main()
     DbConnManager::Instance().Init();
     WorkerManager::Instance().Start(3);
     AcceptManager::Instance().Start();
+    SessionManager::Instance().Init(); 
     sigset_t signals;
     sigdelset(&signals, SIGHUP);
     sigdelset(&signals, SIGINT);

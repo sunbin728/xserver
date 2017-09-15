@@ -3,6 +3,7 @@
 
 #include "base/package.h"
 #include "protobuf/Protocol.pb.h"
+#include "protobuf/gs_2_pw.pb.h"
 
 using namespace NetProto;
 
@@ -17,7 +18,8 @@ namespace bizz{
     void MTS2GSCreateRobotHandle(MSG* msg, MTS2GSCreateRobot& mts2gsCreateRobot);
     void MTS2GSGetSceneItemHandle(MSG* msg, MTS2GSGetSceneItem& mts2gsGetSceneItem);
 
-    //void CheckUname(protocol::CheckUnameReq &checkUnameReq, protocol::CheckUnameResp &checkUnameResp);
+    //pw
+    void PW2GSKeepAliveRespHandle(MSG* msg, gs2pw::ServerKeepAliveResp& pw2gsKeepAliveResp);
 }
 
 #endif /* _BIZZ_H_ */

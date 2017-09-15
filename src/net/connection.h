@@ -33,8 +33,9 @@ class Connection{
     void SetWPos(int wPos){m_wPos += wPos;}
 
 
-    virtual bool SendMsg(uint16_t command, const std::ostringstream& msgstream);
-    bool Send(const char* buf, int size);
+    bool SendMsg(uint16_t command, const std::ostringstream& msgstream);
+    bool SendMsg(const std::ostringstream& msgstream);
+    virtual bool Send(const char* buf, int size);
     void DoWork();
 
     protected:

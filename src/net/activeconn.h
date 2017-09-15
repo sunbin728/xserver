@@ -4,6 +4,7 @@
 #include "connection.h"
 #include <string>
 
+
 class ActiveConn: public Connection{
     public:
         ActiveConn(int conntype, std::string addr, int port):Connection(0, conntype),
@@ -27,6 +28,8 @@ class ActiveConn: public Connection{
             pthread_rwlock_unlock(&m_rwlock);      //释放写锁
         }
 
+        bool SendHeartBeat();
+
         void SetValid(bool valid){
             pthread_rwlock_wrlock(&m_rwlock);      //写者加写锁
             m_valid = valid;
@@ -34,12 +37,14 @@ class ActiveConn: public Connection{
         }
 
         bool Init();
-        virtual bool SendMsg(uint16_t command, const std::ostringstream& msgstream);
+        void initHeartBeatPkg();
+        virtual bool Send(const char* buf, int size);
 
     private:
         std::string m_addr;
         int m_port;
         bool m_valid;
         pthread_rwlock_t m_rwlock;    //声明读写锁
+        std::ostringstream m_heartBeatStream;
 };
 #endif /* _ACTIVECONN_H_ */

@@ -2,10 +2,13 @@
 #include "core.h"
 #include "common/util.h"
 #include "common/logger.h"
+#include "base/command.h"
 #include "net/session_manager.h"
 #include <string>
 #include <strstream>
 #include <sstream>
+#include "protobuf/command_type.pb.h"
+#include "protobuf/robot_2_mts.pb.h"
 
 
 namespace bizz{
@@ -23,7 +26,7 @@ namespace bizz{
         int protobufLen = msg->header->PkgLen-10;
 
         switch (msg->header->Command){
-            //from Client
+            //From Client
             case NetProto::C2GS_LOGIN:
                 {
                     C2GSLogin c2gsLogin;
@@ -46,7 +49,7 @@ namespace bizz{
                     break;
                 }
 
-                //from MTS
+                //From MTS
             case MTS2GS_GET_ROBOT_LIST:
                 {
                     MTS2GSGetRobotList mts2gsGetRobotList;
@@ -68,6 +71,14 @@ namespace bizz{
                     MTS2GSGetSceneItemHandle(msg, mts2gsGetSceneItem);
                     break;
                 }
+                //From PW
+            case GS2PW_Keep_Alive:
+                {
+                    gs2pw::ServerKeepAliveResp pw2gsKeepAliveResp;
+                    pw2gsKeepAliveResp.ParseFromArray(protobufData, protobufLen);
+                    PW2GSKeepAliveRespHandle(msg, pw2gsKeepAliveResp);
+                    break;
+                }
                 //case CHECKUNAMEREQ:
                 //protocol::CheckUnameReq checkUnameReq;
                 //checkUnameReq.ParseFromArray(((char*)msg->header)+14, msg->header->PkgLen-10);
@@ -86,6 +97,7 @@ namespace bizz{
         msg->header = NULL;
     }
 
+    //deal client
     void C2GSLoginHandle(MSG* msg, C2GSLogin& c2gsLogin){
         //uint32_t uid = c2gsLogin.accountid();
         //LOG_DEBUG("C2GSLoginHandle: uid=%u", uid);
@@ -97,26 +109,26 @@ namespace bizz{
 
         //if ( ogc != NULL && ogc != gc )
         //{
-            ////if ogc == gc, the client send the two login msg from one connection
-            ////WARN_LOG( "Relogin[%u]", ogc->getOwnerId() );
-            //DEBUG_LOG( "Relogin[%u]", ogc->getOwnerId() );
-            //INFO_LOG( "Relogin[%u]", ogc->getOwnerId() );
-            //Stream st( C2S_CHECK_LOGIN );
-            //st.error( CO_Repeated_Login );
-            //st << Stream::eos;
-            //ogc->sendMsg( st );
-            //gOnline.closeClient( ogc );
+        ////if ogc == gc, the client send the two login msg from one connection
+        ////WARN_LOG( "Relogin[%u]", ogc->getOwnerId() );
+        //DEBUG_LOG( "Relogin[%u]", ogc->getOwnerId() );
+        //INFO_LOG( "Relogin[%u]", ogc->getOwnerId() );
+        //Stream st( C2S_CHECK_LOGIN );
+        //st.error( CO_Repeated_Login );
+        //st << Stream::eos;
+        //ogc->sendMsg( st );
+        //gOnline.closeClient( ogc );
         //}
         //else if( ogc == gc)
         //{
-            //DEBUG_LOG("player have logining...,do nothing!!!");
-            //return false;
+        //DEBUG_LOG("player have logining...,do nothing!!!");
+        //return false;
         //}
         ////check session
         //{
-            ////TODO
-            //DEBUG_LOG("OnPlayerLoginReq successful!,---user[%u]",uid);
-            ////sessionStr
+        ////TODO
+        //DEBUG_LOG("OnPlayerLoginReq successful!,---user[%u]",uid);
+        ////sessionStr
         //}
 
         ////gc->setOwnerSession((UInt8 *) sessionStr);
@@ -133,8 +145,8 @@ namespace bizz{
         //StaticPlayer* sp = gSPlayerMg.get(uid);
         //if(sp == NULL)
         //{
-            //sp = new StaticPlayer();
-            //gSPlayerMg.add(uid,sp);
+        //sp = new StaticPlayer();
+        //gSPlayerMg.add(uid,sp);
         //}
         //nPlayer->setID(uid);
         //sp->setID(uid);
@@ -144,12 +156,12 @@ namespace bizz{
 
         //// GS2MTS GetRobotList
         //[>
-           //message GS2MTSGetRobotList
-           //{
-           //MsgHead msgHead     = 1; // 消息头 -- 做消息路由用
-           //uint32 accountID    = 2; // 玩家id
-           //}
-           //*/
+        //message GS2MTSGetRobotList
+        //{
+        //MsgHead msgHead     = 1; // 消息头 -- 做消息路由用
+        //uint32 accountID    = 2; // 玩家id
+        //}
+        //*/
         //NetProto::GS2MTSGetRobotList getRobotList;
         //MsgHead* msgHead = getRobotList.mutable_msghead();
         //char accid[32] = { 0 };
@@ -165,14 +177,14 @@ namespace bizz{
 
         //gOnline.sendMsgToMts(st);
         //[>
-           //Stream st( ONLINE2SWITCH_CMD, SS_Check_Session );
-           //st << uid << gOnline.getOnlineId();
-           //st.append((UInt8*) sessionStr, 16 );
-           //st << Stream::eos;
-           //server->sendMsg( st );
-           //gc->setOwnerStatus( P_CheckSession );
-           //DEBUG_LOG("Player[%u] Send SS_Check_Session Msg To Switch", uid);
-           //*/
+        //Stream st( ONLINE2SWITCH_CMD, SS_Check_Session );
+        //st << uid << gOnline.getOnlineId();
+        //st.append((UInt8*) sessionStr, 16 );
+        //st << Stream::eos;
+        //server->sendMsg( st );
+        //gc->setOwnerStatus( P_CheckSession );
+        //DEBUG_LOG("Player[%u] Send SS_Check_Session Msg To Switch", uid);
+        //*/
         //return true;
 
 
@@ -186,6 +198,7 @@ namespace bizz{
 
     }
 
+    //deal mts
     void MTS2GSGetRobotListHandle(MSG* msg, MTS2GSGetRobotList& mts2gsGetRobotList){
 
     }
@@ -196,6 +209,24 @@ namespace bizz{
 
     void MTS2GSGetSceneItemHandle(MSG* msg, MTS2GSGetSceneItem& mts2gsGetSceneItem){
 
+    }
+
+    //deal pw
+    void PW2GSKeepAliveRespHandle(MSG* msg, gs2pw::ServerKeepAliveResp& pw2gsKeepAliveResp){
+        uint32_t pwid = pw2gsKeepAliveResp.pw_id();
+        const uint64_t& pwTime = pw2gsKeepAliveResp.pw_time();
+        uint32_t multiple = pw2gsKeepAliveResp.multiple();
+
+        LOG_DEBUG("Bizz::PW2GSKeepAliveRespHandle Recv pw keepalive resp: pwid=%d, pwTime=%d, multiple=%d", pwid, pwTime, multiple);
+
+        ////////// sync pw time to mts
+        NetProto::gs2mts::PwTimeSync mesg;
+        mesg.set_pw_ts(pwTime);
+        mesg.set_multiple(multiple);
+
+        std::ostringstream data;
+        mesg.SerializeToOstream(&data);
+        SessionManager::Instance().SendMsg(MTS, GS2MTS_Pw_Time_Sync, data);
     }
 
     //void CheckUname(protocol::CheckUnameReq &checkUnameReq, protocol::CheckUnameResp &checkUnameResp){

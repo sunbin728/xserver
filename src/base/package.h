@@ -2,6 +2,7 @@
 #define _PACKAGE_H_
 
 #include <stdint.h>
+#include <iostream>
 
 #pragma pack(push,1)
 
@@ -14,6 +15,7 @@ typedef struct tagHEAD
   uint16_t	  Retcode;
 }HEAD,*PHEAD;
 
+
 typedef struct tagMSG
 {
   HEAD*    header;
@@ -22,6 +24,8 @@ typedef struct tagMSG
 }MSG,*PMSG;
 
 #pragma pack(pop)
+
+std::ostream& operator<<(std::ostream& s, HEAD& head);
 
 namespace package{
     HEAD* ReadHeader(char* buf, int size);

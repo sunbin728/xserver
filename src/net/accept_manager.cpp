@@ -13,6 +13,7 @@
 #include  <sys/epoll.h>
 #include <fcntl.h>
 
+#include "base/command.h"
 #include "common/logger.h"
 #include "connection.h"
 #include "session_manager.h"
@@ -63,7 +64,7 @@ bool AcceptManager::AddEvent(int conn_sock){
     ev.data.fd = conn_sock;
     if (epoll_ctl(m_epfd, EPOLL_CTL_ADD, conn_sock,
                 &ev) == -1) {
-        LOG_FATAL("AcceptManager::AddEvent epoll_ctl EPOLL_CTL_ADD fail: conn_sock=%d", conn_sock);
+        LOG_FATAL("AcceptManager::AddEvent epoll_ctl EPOLL_CTL_ADD fail: errno=%d, conn_sock=%d", errno, conn_sock);
         return false;
     }
     return true;
@@ -108,8 +109,8 @@ void AcceptManager::StartET(){
     if (epoll_ctl(m_epfd, EPOLL_CTL_ADD, m_listenfd, &ev) == -1) {
         LOG_FATAL("AcceptManager::StartET epoll_ctl EPOLL_CTL_ADD fail: m_listenfd=%d, errno=%d", m_listenfd, errno);
     }
-
     LOG_INFO("AcceptManager::StartET Server is Online: addr=%s, port=%d", this->m_addr.c_str(), this->m_port);
+    m_started = true;
     for (;;) {
         nfds = epoll_wait(m_epfd, events, MAX_EVENTS, -1);
         if (nfds == -1) {
@@ -130,7 +131,7 @@ void AcceptManager::StartET(){
                         LOG_FATAL("AcceptManager::StartET epoll_ctl EPOLL_CTL_ADD fail: conn_sock=%d", conn_sock);
                     }
                     //构造一个连接对象并加入session
-                    Connection* pConn = new Connection(conn_sock, SessionManager::CLIENT);
+                    Connection* pConn = new Connection(conn_sock, CLIENT);
                     SessionManager::Instance().AddConn(conn_sock, pConn);
                 }
                 if (conn_sock == -1) {

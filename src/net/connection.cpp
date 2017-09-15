@@ -49,6 +49,11 @@ bool Connection::SendMsg(uint16_t command, const std::ostringstream& msgstream){
     return ret;
 }
 
+bool Connection::SendMsg(const std::ostringstream& msgstream){
+    bool ret = Send(msgstream.str().c_str(), msgstream.str().length());
+    return ret;
+}
+
 
 bool Connection::Send(const char* buf, int data_size){
     LOG_INFO("Connection::Send begin: fd=%d, data_size=%d", m_socketfd, data_size);

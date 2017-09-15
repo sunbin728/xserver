@@ -5,6 +5,11 @@
 #include <cstring>
 #include "common/logger.h"
 
+std::ostream& operator<<(std::ostream& s, HEAD& head){
+    s << head.PkgLen << head.CheckSum << head.Command << head.Target << head.Retcode;
+    return s;
+}
+
 namespace package{
     HEAD* ReadHeader(char* buf, int datasize){
         if (size_t(datasize)  < sizeof(HEAD)){
@@ -33,4 +38,5 @@ namespace package{
                 msg->size, msg->header->PkgLen, msg->header->Command, msg->header->Target, msg->header->Retcode);
         return true;
     }
+
 }
