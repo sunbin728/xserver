@@ -13,11 +13,12 @@ void Worker::Start(){
 void Worker::doWork(){
     LOG_INFO("Worker::doWork start: workid=%d", m_workid);
     while (true){
-        MSG** ppmsg = m_queue.pop();
-        LOG_DEBUG("Worker::doWork m_queue.pop: workid=%d, ppmsg=%p", m_workid, ppmsg);
-        if (ppmsg != NULL){
-            bizz::DoWork(*ppmsg);
-            delete *ppmsg;
+        MSG* pmsg = NULL;
+        m_queue.wait_dequeue(pmsg);
+        LOG_DEBUG("Worker::doWork m_queue.wait_dequeue: workid=%d, pmsg=%p", m_workid, pmsg);
+        if (pmsg != NULL){
+            bizz::DoWork(pmsg);
+            delete pmsg;
         }else{
             usleep(1000*10);
         }
@@ -25,8 +26,8 @@ void Worker::doWork(){
 }
 
 void Worker::AddMsg(MSG* msg){
-    m_queue.push(msg);
-    LOG_DEBUG("Worker::AddMsg workid=%d, msg->size=%d, PkgLen=%d, Command=%d, Target=%d, Retcode=%d",
-            m_workid, msg->size, msg->header->PkgLen, msg->header->Command,
+    m_queue.enqueue(msg);
+    LOG_DEBUG("Worker::AddMsg workid=%d, queuesize=%d, msg->size=%d, PkgLen=%d, Command=%d, Target=%d, Retcode=%d",
+            m_workid, m_queue.size_approx(), msg->size, msg->header->PkgLen, msg->header->Command,
             msg->header->Target, msg->header->Retcode);
 }

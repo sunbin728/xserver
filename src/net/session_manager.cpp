@@ -50,6 +50,7 @@ void SessionManager::Init(){
 
     //init conn to PW
     conntype = PW;
+    //addr = "172.16.1.5";
     addr = "172.16.0.3";
     port = 8009;
     initActiveConnect(conntype, addr, port);
@@ -130,8 +131,9 @@ Connection* SessionManager::GetConn(int socketfd){
 }
 
 void SessionManager::RemoveConn(int socketfd){
+    LOG_DEBUG("SessionManager::RemoveConn socketfd=%d", socketfd);
     Connection *pConn = NULL;
-    pthread_rwlock_rdlock(&m_rwlock);    //读者加读锁
+    pthread_rwlock_wrlock(&m_rwlock);      //写者加写锁
     std::map<int, Connection*>::iterator it = m_mapConns.find(socketfd);
     if (it != m_mapConns.end()){
         pConn = it->second;
@@ -161,4 +163,27 @@ bool SessionManager::SendMsg(int conntype,uint16_t command, const std::ostringst
     }
     pthread_rwlock_unlock(&m_rwlock);      //释放写锁
     return pConn->SendMsg(command, msgstream);
+}
+
+std::shared_ptr<MSG> SessionManager::SendMsgAndRecv(int conntype,uint16_t command, const std::ostringstream& msgstream){
+    ActiveConn *pConn = NULL;
+    pthread_rwlock_rdlock(&m_rwlock);    //读者加读锁
+    std::map<int, ActiveConn*>::iterator it = m_mapActiveConns.find(conntype);
+    if (it != m_mapActiveConns.end()){
+        pConn = it->second;
+    }
+    pthread_rwlock_unlock(&m_rwlock);      //释放写锁
+    return std::shared_ptr<MSG>(pConn->SendMsgAndRecv(command, msgstream));
+}
+
+bool SessionManager::SendMsg(int conntype,uint16_t command, const ::google::protobuf::Message& msg){
+    std::ostringstream data;
+    msg.SerializeToOstream(&data);
+    return SendMsg(conntype, command, data);
+}
+
+std::shared_ptr<MSG> SessionManager::SendMsgAndRecv(int conntype,uint16_t command, const ::google::protobuf::Message& msg){
+    std::ostringstream data;
+    msg.SerializeToOstream(&data);
+    return std::shared_ptr<MSG>(SendMsgAndRecv(conntype, command, data));
 }

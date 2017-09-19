@@ -12,7 +12,7 @@ namespace util{
         return output;
     }
 
-    std::string ToHexString(const char* buf,int len){
+    std::string ToHexString_Simple(const char* buf,int len){
         std::string output;
         char temp[8];
         for (int i = 0; i < len; ++i){
@@ -20,6 +20,16 @@ namespace util{
             output.append(temp,2);
         }
         return output;
+    }
+
+    std::string ToHexString(const char* buf,int len){
+        std::string output = "0X[";
+        char temp[8];
+        for (int i = 0; i < len; ++i){
+            int len = sprintf(temp,"%.2X ",(uint8_t)buf[i]);
+            output.append(temp,len);
+        }
+        return output+"]";
     }
 
     std::string ToDecString(const char* buf,int len){

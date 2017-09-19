@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <sstream>
 
+#include <google/protobuf/message.h>
+
 class Connection{
     static const int MAXBUF = 100 * 1024;
     public:
@@ -33,13 +35,14 @@ class Connection{
     void SetWPos(int wPos){m_wPos += wPos;}
 
 
+    bool SendMsg(uint16_t command, const ::google::protobuf::Message& msg);
     bool SendMsg(uint16_t command, const std::ostringstream& msgstream);
     bool SendMsg(const std::ostringstream& msgstream);
     virtual bool Send(const char* buf, int size);
-    void DoWork();
+    virtual void DoWork();
 
     protected:
-    void resetConn();
+    virtual void resetConn();
 
     protected:
     int m_conntype;

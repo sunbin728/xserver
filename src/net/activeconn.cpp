@@ -6,11 +6,14 @@
 #include <stdlib.h>
 
 #include "common/logger.h"
+#include "common/util.h"
 #include "base/package.h"
 #include "base/command.h"
+#include "bizz/dealpw.h"
 #include "protobuf/command_type.pb.h"
 #include "protobuf/gs_2_pw.pb.h"
-#include "common/logger.h"
+
+using namespace NetProto;
 
 bool ActiveConn::Init(){
     initHeartBeatPkg();
@@ -33,12 +36,87 @@ bool ActiveConn::Init(){
     }
 }
 
-bool ActiveConn::Send(const char* buf, int size){
-    bool ret = Connection::Send(buf, size);
-    if (!ret){
-        SetValid(false);
+void ActiveConn::resetConn(){
+    Connection::resetConn();
+    MSG* msg=NULL;
+    while(m_queue.size_approx()!=0){
+        while(m_queue.try_dequeue(msg)){
+            delete msg;
+        }
     }
-    return ret;
+}
+
+void ActiveConn::DoWork(){
+    LOGDEBUG("Connection::DoWork");
+    MSG* msg = new MSG();
+    if (package::ReadMsg(m_buf, m_wPos-m_rPos, msg)){
+        m_rPos += msg->size;
+        memcpy(m_buf, m_buf+m_rPos, m_wPos-m_rPos);
+        m_wPos = m_wPos - m_rPos;
+        m_rPos = 0;
+
+        msg->socketfd = m_socketfd;
+        AddMsg(msg);
+    }
+}
+
+void ActiveConn::AddMsg(MSG* msg){
+    m_queue.enqueue(m_ptok, msg);
+    LOG_DEBUG("ActiveConn::AddMsg conntype=%d, queuesize=%d, msg->size=%d, PkgLen=%d, Command=%d, Target=%d, Retcode=%d",
+            m_conntype, m_queue.size_approx(), msg->size, msg->header->PkgLen, msg->header->Command,
+            msg->header->Target, msg->header->Retcode);
+}
+
+MSG* ActiveConn::SendMsgAndRecv(uint16_t command, const ::google::protobuf::Message& msg){
+    std::lock_guard<std::mutex> mtx_locker(m_mtx);
+    bool ret = Connection::SendMsg(command, msg);
+    MSG* recv_msg = NULL;
+    if (ret){
+        RecvMsg(recv_msg);
+    }
+    return recv_msg;
+}
+
+MSG* ActiveConn::SendMsgAndRecv(uint16_t command, const std::ostringstream& msgstream){
+    std::lock_guard<std::mutex> mtx_locker(m_mtx);
+    bool ret = Connection::SendMsg(command, msgstream);
+    MSG* recv_msg = NULL;
+    if (ret){
+        RecvMsg(recv_msg);
+    }
+    return recv_msg;
+}
+
+MSG* ActiveConn::SendMsgAndRecv(const std::ostringstream& msgstream){
+    std::lock_guard<std::mutex> mtx_locker(m_mtx);
+    bool ret = Connection::SendMsg(msgstream);
+    MSG* recv_msg = NULL;
+    if (ret){
+        RecvMsg(recv_msg);
+    }
+    return recv_msg;
+}
+
+void ActiveConn::RecvMsg(MSG* msg){
+    while (!m_queue.try_dequeue_from_producer(m_ptok, msg)){
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+    LOG_DEBUG("ActiveConn::RecvMsg conntype=%d, queuesize=%d, msg->size=%d, PkgLen=%d, Command=%d, Target=%d, Retcode=%d",
+            m_conntype, m_queue.size_approx(), msg->size, msg->header->PkgLen, msg->header->Command,
+            msg->header->Target, msg->header->Retcode);
+}
+
+bool ActiveConn::Send(const char* buf, int data_size){
+    if (!GetValid()){
+        LOG_ERROR("ActiveConn::Send GetValid is false: conntype=%d", m_conntype);
+        return false;
+    }else{
+        bool ret = Connection::Send(buf, data_size);
+        if (!ret){
+            SetValid(false);
+        }
+        return ret;
+    }
 }
 
 void ActiveConn::initHeartBeatPkg(){
@@ -46,7 +124,7 @@ void ActiveConn::initHeartBeatPkg(){
     HEAD header;
     //header.PkgLen = 0;
     header.CheckSum = 0;
-    header.Target = 1;
+    header.Target = m_conntype;
     header.Command = command;
     header.Retcode = 0;
 
@@ -64,5 +142,15 @@ bool ActiveConn::SendHeartBeat(){
         return true;
     }
     LOG_DEBUG("ActiveConn::SendHeartBeat: conntype=%d", m_conntype);
-    return SendMsg(m_heartBeatStream);
+    MSG* msg = SendMsgAndRecv(m_heartBeatStream);
+
+    if (NULL != msg){
+        gs2pw::ServerKeepAliveResp pw2gsKeepAliveResp;
+        pw2gsKeepAliveResp.ParseFromArray(msg->GetProtobuf(), msg->GetProtobufLen());
+        bizz::PW2GSKeepAliveRespHandle(msg, pw2gsKeepAliveResp);
+        delete msg;
+        return true;
+    }else{
+        return false;
+    }
 }

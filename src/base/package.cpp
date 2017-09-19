@@ -6,7 +6,9 @@
 #include "common/logger.h"
 
 std::ostream& operator<<(std::ostream& s, HEAD& head){
-    s << head.PkgLen << head.CheckSum << head.Command << head.Target << head.Retcode;
+    //s << head.PkgLen << head.CheckSum << head.Command << head.Target << head.Retcode;
+    //s << (char*)(&head);
+    s.write((char*)(&head), sizeof(head));
     return s;
 }
 

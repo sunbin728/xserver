@@ -4,6 +4,7 @@
 #include "bizz/worker_manager.h"
 
 #include "common/logger.h"
+#include "common/util.h"
 
 
 void Connection::DoWork(){
@@ -28,12 +29,18 @@ void Connection::resetConn(){
     m_wPos = 0;
 }
 
+bool Connection::SendMsg(uint16_t command, const ::google::protobuf::Message& msg){
+    std::ostringstream data;
+    msg.SerializeToOstream(&data);
+    return SendMsg(command, data);
+}
+
 bool Connection::SendMsg(uint16_t command, const std::ostringstream& msgstream){
     std::string msgstring = msgstream.str();
     HEAD header;
     header.PkgLen = msgstring.length()+10;
     header.CheckSum = 0;
-    header.Target = 1;
+    header.Target = m_conntype;
     header.Command = command;
     header.Retcode = 0;
 
@@ -56,7 +63,11 @@ bool Connection::SendMsg(const std::ostringstream& msgstream){
 
 
 bool Connection::Send(const char* buf, int data_size){
-    LOG_INFO("Connection::Send begin: fd=%d, data_size=%d", m_socketfd, data_size);
+    std::string datastr_dec = util::ToDecString(buf, data_size);
+    LOG_INFO("Connection::Send begin: fd=%d, data_size=%d, data=%s", m_socketfd, data_size, datastr_dec.c_str());
+
+    std::string datastr_hex = util::ToHexString(buf, data_size);
+    LOG_INFO("Connection::Send begin: fd=%d, data_size=%d, data=%s", m_socketfd, data_size, datastr_hex.c_str());
     int nwrite;
     int n = data_size;
     while (n > 0) {

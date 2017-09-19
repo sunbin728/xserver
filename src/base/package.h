@@ -8,19 +8,28 @@
 
 typedef struct tagHEAD
 {
-  uint32_t    PkgLen;
-  uint32_t    CheckSum;
-  uint16_t    Command;
-  uint16_t	  Target;
-  uint16_t	  Retcode;
+    uint32_t    PkgLen;
+    uint32_t    CheckSum;
+    uint16_t    Command;
+    uint16_t    Target;
+    uint16_t    Retcode;
 }HEAD,*PHEAD;
 
 
 typedef struct tagMSG
 {
-  HEAD*    header;
-  int    size;
-  int socketfd;
+    HEAD*    header;
+    int    size;
+    int socketfd;
+    ~tagMSG(){
+        if (NULL!=header){
+            free(header);
+            header = NULL;
+        }
+    };
+
+    char* GetProtobuf(){return ((char*)header)+14;}
+    int GetProtobufLen(){return header->PkgLen-10;}
 }MSG,*PMSG;
 
 #pragma pack(pop)

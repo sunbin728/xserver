@@ -1,8 +1,12 @@
 #ifndef _WORKER_H_
 #define _WORKER_H_
 
-#include "common/cache.h"
+//#include "common/cache.h"
 #include "base/package.h"
+#include "queue/atomicops.h"
+#include "queue/readerwriterqueue.h"
+
+using namespace moodycamel;
 
 class Worker{
     public:
@@ -20,6 +24,6 @@ class Worker{
         void AddMsg(MSG* msg);
     private:
         int m_workid;
-        Queue<MSG*> m_queue;
+        BlockingReaderWriterQueue<MSG*> m_queue;
 };
 #endif /* _WORKER_H_ */
