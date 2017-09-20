@@ -55,8 +55,8 @@ bool DbConnManager::Execute(std::string &sql){
     return ret;
 }
 
-DbResult* DbConnManager::ExecuteQuery(std::string &sql){
+std::shared_ptr<DbResult> DbConnManager::ExecuteQuery(std::string &sql){
     SmartDbConnPtr smartDbConnPtr(GetDbConn(), this);
     DbResult* dbResult = smartDbConnPtr->ExecuteQuery(sql);
-    return dbResult;
+    return std::shared_ptr<DbResult>(dbResult);
 }

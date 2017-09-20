@@ -9,7 +9,6 @@
 #include <string>
 //#include <strstream>
 //#include <sstream>
-//#include "protobuf/command_type.pb.h"
 //#include "protobuf/robot_2_mts.pb.h"
 //#include "protobuf/gs_2_pw.pb.h"
 

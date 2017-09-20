@@ -20,7 +20,7 @@ class DbConnManager{
         void PutDbConn(DbConn* dbConn);
 
         bool Execute(std::string &sql);
-        DbResult* ExecuteQuery(std::string &sql);
+        std::shared_ptr<DbResult> ExecuteQuery(std::string &sql);
 
     private:
         int m_maxConnSize;
