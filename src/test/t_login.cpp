@@ -102,6 +102,28 @@ class Client{
             return true;
         }
 
+        std::shared_ptr<MSG> RecvMsg(){
+            std::shared_ptr<MSG> msg = std::shared_ptr<MSG>(new MSG());
+            HEAD head;
+            int sizehead = sizeof(head);
+            char* buf = (char*)(&head);
+            RecvFull(buf, sizehead);
+            msg->header=(HEAD*)malloc(sizehead+head.PkgLen-10);
+            memcpy(msg->header, &head, sizehead);
+            RecvFull((char*)msg->header+sizehead, head.PkgLen-10);
+            return msg;
+        }
+
+        void RecvFull(char* buf, int size){
+            int readed = 0;
+            int nread = 0;
+            while (readed < size){
+                nread = read(m_socketfd, buf + readed, size-readed);
+                readed+=nread;
+            }
+            assert(readed == size);
+        }
+
     public:
         string m_addr;
         int m_port;
@@ -114,6 +136,11 @@ int main(){
     C2GSLogin c2gsLogin;
     c2gsLogin.set_accountid(100001);
     c.SendMsg(C2GS_LOGIN,c2gsLogin);
+    std::shared_ptr<MSG> sp_recvmsg = c.RecvMsg();
+
+    GS2CLogin gs2cLogin;
+    gs2cLogin.ParseFromArray(sp_recvmsg->GetProtobuf(), sp_recvmsg->GetProtobufLen());
+    LOG_INFO("gs2cLogin=%s", gs2cLogin.DebugString().c_str());
     sleep(100000);
     return 0;
 }
