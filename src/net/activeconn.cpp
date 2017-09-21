@@ -30,8 +30,10 @@ bool ActiveConn::Init(){
 
     if (0 == ret){
         SetValid(true);
+        LOG_INFO("ActiveConn::Init ok: m_socketfd=%d, m_addr=%s, m_port=%d", m_socketfd, m_addr.c_str(), m_port);
         return true;
     }else{
+        LOG_ERROR("ActiveConn::Init fail: m_socketfd=%d, m_addr=%s, m_port=%d", m_socketfd, m_addr.c_str(), m_port);
         return false;
     }
 }
@@ -98,10 +100,11 @@ MSG* ActiveConn::SendMsgAndRecv(const std::ostringstream& msgstream){
 }
 
 void ActiveConn::RecvMsg(MSG* &msg){
+    LOG_ERROR("ActiveConn::RecvMsg begin: conntype=%d", m_conntype);
     while (!m_queue.try_dequeue_from_producer(m_ptok, msg)){
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
-    LOG_DEBUG("ActiveConn::RecvMsg conntype=%d, queuesize=%d, msg->size=%d, PkgLen=%d, Command=%d, Target=%d, Retcode=%d",
+    LOG_DEBUG("ActiveConn::RecvMsg end: conntype=%d, queuesize=%d, msg->size=%d, PkgLen=%d, Command=%d, Target=%d, Retcode=%d",
             m_conntype, m_queue.size_approx(), msg->size, msg->header->PkgLen, msg->header->Command,
             msg->header->Target, msg->header->Retcode);
 }

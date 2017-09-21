@@ -4,27 +4,44 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <iostream>
 
 #include <cppconn/connection.h>
 
 using namespace std;
 
+class DbRow{
+    public:
+        DbRow(){}
+        ~DbRow(){};
+        string operator[](string fieldname){
+            //std::cout << fieldname <<"  " << m_values[fieldname] << std::endl;
+            return m_values[fieldname];
+        }
+
+        string operator[](int i){
+            return m_values[m_fieldmap[i]];
+        }
+
+        map<string, string> m_values;
+        map<int, string> m_fieldmap;
+};
+
 class DbResult{
     public:
-        typedef map<string, string> Row;
         DbResult(){}
         ~DbResult();
-        Row* operator[](int i){
+        DbRow* operator[](int i){
             return m_res[i];
         }
         int GetCount();
         string ToString();
-        void AddRow(Row* row){
+        void AddRow(DbRow* row){
             m_res.push_back(row);
         }
 
     private:
-        vector<Row*> m_res;
+        vector<DbRow*> m_res;
 };
 
 class DbConn{
@@ -38,7 +55,7 @@ class DbConn{
         bool Init();
         sql::Connection* GetConn();
         bool Execute(std::string &sql);
-        DbResult* ExecuteQuery(std::string &sql);
+        std::shared_ptr<DbResult> ExecuteQuery(std::string &sql);
 
     private:
         int m_id;

@@ -36,7 +36,7 @@ bool DataMgr::loadRobotConf()
     if (rowcount <= 0){
         LOG_FATAL("DataMgr::loadRobotConf fail: rowcount=%d", rowcount);
     }
-    DbResult::Row *row;
+    DbRow *row;
     for(int i=0; i<rowcount; ++i){
         row = (*dbres)[i];
 

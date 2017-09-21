@@ -85,6 +85,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2PWGetPWData, msg_head_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2PWGetPWData, accountid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2PWGetPWData, type_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2PWGetPWData, data_),
   ~0u,  // no _has_bits_
@@ -100,6 +101,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PW2GSNotifyPWData, msg_head_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PW2GSNotifyPWData, accountid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PW2GSNotifyPWData, type_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PW2GSNotifyPWData, data_),
 };
@@ -109,8 +111,8 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 6, -1, sizeof(PWDataRobotInfoParam)},
   { 12, -1, sizeof(PWDataSceneMapParam)},
   { 18, -1, sizeof(GS2PWGetPWData)},
-  { 26, -1, sizeof(RobotSceneID)},
-  { 33, -1, sizeof(PW2GSNotifyPWData)},
+  { 27, -1, sizeof(RobotSceneID)},
+  { 34, -1, sizeof(PW2GSNotifyPWData)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -193,21 +195,22 @@ void AddDescriptorsImpl() {
       "o\032\031google/protobuf/any.proto\"(\n\022PWDataSc"
       "eneIDParam\022\022\n\nrobot_uuid\030\001 \001(\t\"*\n\024PWData"
       "RobotInfoParam\022\022\n\nrobot_uuid\030\001 \001(\t\"\'\n\023PW"
-      "DataSceneMapParam\022\020\n\010scene_id\030\001 \001(\t\"}\n\016G"
-      "S2PWGetPWData\022#\n\010msg_head\030\001 \001(\0132\021.NetPro"
-      "to.MsgHead\022\"\n\004type\030\002 \001(\0162\024.NetProto.PWDa"
-      "taType\022\"\n\004data\030\003 \001(\0132\024.google.protobuf.A"
-      "ny\"4\n\014RobotSceneID\022\022\n\nrobot_uuid\030\001 \001(\t\022\020"
-      "\n\010scene_id\030\002 \001(\t\"\200\001\n\021PW2GSNotifyPWData\022#"
-      "\n\010msg_head\030\001 \001(\0132\021.NetProto.MsgHead\022\"\n\004t"
-      "ype\030\002 \001(\0162\024.NetProto.PWDataType\022\"\n\004data\030"
-      "\003 \001(\0132\024.google.protobuf.Any*z\n\nPWDataTyp"
-      "e\022\030\n\024PW_DATA_TYPE_UNKNOWN\020\000\022\031\n\025PW_DATA_T"
-      "YPE_SCENE_ID\020\001\022\033\n\027PW_DATA_TYPE_ROBOT_INF"
-      "O\020\002\022\032\n\026PW_DATA_TYPE_SCENE_MAP\020\003b\006proto3"
+      "DataSceneMapParam\022\020\n\010scene_id\030\001 \001(\t\"\220\001\n\016"
+      "GS2PWGetPWData\022#\n\010msg_head\030\001 \001(\0132\021.NetPr"
+      "oto.MsgHead\022\021\n\taccountID\030\002 \001(\r\022\"\n\004type\030\003"
+      " \001(\0162\024.NetProto.PWDataType\022\"\n\004data\030\004 \001(\013"
+      "2\024.google.protobuf.Any\"4\n\014RobotSceneID\022\022"
+      "\n\nrobot_uuid\030\001 \001(\t\022\020\n\010scene_id\030\002 \001(\t\"\223\001\n"
+      "\021PW2GSNotifyPWData\022#\n\010msg_head\030\001 \001(\0132\021.N"
+      "etProto.MsgHead\022\021\n\taccountID\030\002 \001(\r\022\"\n\004ty"
+      "pe\030\003 \001(\0162\024.NetProto.PWDataType\022\"\n\004data\030\004"
+      " \001(\0132\024.google.protobuf.Any*z\n\nPWDataType"
+      "\022\030\n\024PW_DATA_TYPE_UNKNOWN\020\000\022\031\n\025PW_DATA_TY"
+      "PE_SCENE_ID\020\001\022\033\n\027PW_DATA_TYPE_ROBOT_INFO"
+      "\020\002\022\032\n\026PW_DATA_TYPE_SCENE_MAP\020\003b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 639);
+      descriptor, 678);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "pw_data.proto", &protobuf_RegisterTypes);
   ::NetProto::protobuf_msg_5fhead_2eproto::AddDescriptors();
@@ -1122,6 +1125,7 @@ void PWDataSceneMapParam::set_allocated_scene_id(::std::string* scene_id) {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int GS2PWGetPWData::kMsgHeadFieldNumber;
+const int GS2PWGetPWData::kAccountIDFieldNumber;
 const int GS2PWGetPWData::kTypeFieldNumber;
 const int GS2PWGetPWData::kDataFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -1149,7 +1153,9 @@ GS2PWGetPWData::GS2PWGetPWData(const GS2PWGetPWData& from)
   } else {
     data_ = NULL;
   }
-  type_ = from.type_;
+  ::memcpy(&accountid_, &from.accountid_,
+    reinterpret_cast<char*>(&type_) -
+    reinterpret_cast<char*>(&accountid_) + sizeof(type_));
   // @@protoc_insertion_point(copy_constructor:NetProto.GS2PWGetPWData)
 }
 
@@ -1206,7 +1212,8 @@ void GS2PWGetPWData::Clear() {
     delete data_;
   }
   data_ = NULL;
-  type_ = 0;
+  ::memset(&accountid_, 0, reinterpret_cast<char*>(&type_) -
+    reinterpret_cast<char*>(&accountid_) + sizeof(type_));
 }
 
 bool GS2PWGetPWData::MergePartialFromCodedStream(
@@ -1231,10 +1238,24 @@ bool GS2PWGetPWData::MergePartialFromCodedStream(
         break;
       }
 
-      // .NetProto.PWDataType type = 2;
+      // uint32 accountID = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(16u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &accountid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .NetProto.PWDataType type = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u)) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
@@ -1246,10 +1267,10 @@ bool GS2PWGetPWData::MergePartialFromCodedStream(
         break;
       }
 
-      // .google.protobuf.Any data = 3;
-      case 3: {
+      // .google.protobuf.Any data = 4;
+      case 4: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(26u)) {
+            static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_data()));
         } else {
@@ -1291,16 +1312,21 @@ void GS2PWGetPWData::SerializeWithCachedSizes(
       1, *this->msg_head_, output);
   }
 
-  // .NetProto.PWDataType type = 2;
-  if (this->type() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      2, this->type(), output);
+  // uint32 accountID = 2;
+  if (this->accountid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->accountid(), output);
   }
 
-  // .google.protobuf.Any data = 3;
+  // .NetProto.PWDataType type = 3;
+  if (this->type() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      3, this->type(), output);
+  }
+
+  // .google.protobuf.Any data = 4;
   if (this->has_data()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, *this->data_, output);
+      4, *this->data_, output);
   }
 
   // @@protoc_insertion_point(serialize_end:NetProto.GS2PWGetPWData)
@@ -1319,17 +1345,22 @@ void GS2PWGetPWData::SerializeWithCachedSizes(
         1, *this->msg_head_, deterministic, target);
   }
 
-  // .NetProto.PWDataType type = 2;
-  if (this->type() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      2, this->type(), target);
+  // uint32 accountID = 2;
+  if (this->accountid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->accountid(), target);
   }
 
-  // .google.protobuf.Any data = 3;
+  // .NetProto.PWDataType type = 3;
+  if (this->type() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      3, this->type(), target);
+  }
+
+  // .google.protobuf.Any data = 4;
   if (this->has_data()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        3, *this->data_, deterministic, target);
+        4, *this->data_, deterministic, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:NetProto.GS2PWGetPWData)
@@ -1347,14 +1378,21 @@ size_t GS2PWGetPWData::ByteSizeLong() const {
         *this->msg_head_);
   }
 
-  // .google.protobuf.Any data = 3;
+  // .google.protobuf.Any data = 4;
   if (this->has_data()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->data_);
   }
 
-  // .NetProto.PWDataType type = 2;
+  // uint32 accountID = 2;
+  if (this->accountid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->accountid());
+  }
+
+  // .NetProto.PWDataType type = 3;
   if (this->type() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
@@ -1395,6 +1433,9 @@ void GS2PWGetPWData::MergeFrom(const GS2PWGetPWData& from) {
   if (from.has_data()) {
     mutable_data()->::google::protobuf::Any::MergeFrom(from.data());
   }
+  if (from.accountid() != 0) {
+    set_accountid(from.accountid());
+  }
   if (from.type() != 0) {
     set_type(from.type());
   }
@@ -1425,6 +1466,7 @@ void GS2PWGetPWData::Swap(GS2PWGetPWData* other) {
 void GS2PWGetPWData::InternalSwap(GS2PWGetPWData* other) {
   std::swap(msg_head_, other->msg_head_);
   std::swap(data_, other->data_);
+  std::swap(accountid_, other->accountid_);
   std::swap(type_, other->type_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -1476,7 +1518,21 @@ void GS2PWGetPWData::set_allocated_msg_head(::NetProto::MsgHead* msg_head) {
   // @@protoc_insertion_point(field_set_allocated:NetProto.GS2PWGetPWData.msg_head)
 }
 
-// .NetProto.PWDataType type = 2;
+// uint32 accountID = 2;
+void GS2PWGetPWData::clear_accountid() {
+  accountid_ = 0u;
+}
+::google::protobuf::uint32 GS2PWGetPWData::accountid() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2PWGetPWData.accountID)
+  return accountid_;
+}
+void GS2PWGetPWData::set_accountid(::google::protobuf::uint32 value) {
+  
+  accountid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.GS2PWGetPWData.accountID)
+}
+
+// .NetProto.PWDataType type = 3;
 void GS2PWGetPWData::clear_type() {
   type_ = 0;
 }
@@ -1490,7 +1546,7 @@ void GS2PWGetPWData::set_type(::NetProto::PWDataType value) {
   // @@protoc_insertion_point(field_set:NetProto.GS2PWGetPWData.type)
 }
 
-// .google.protobuf.Any data = 3;
+// .google.protobuf.Any data = 4;
 bool GS2PWGetPWData::has_data() const {
   return this != internal_default_instance() && data_ != NULL;
 }
@@ -1936,6 +1992,7 @@ void RobotSceneID::set_allocated_scene_id(::std::string* scene_id) {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int PW2GSNotifyPWData::kMsgHeadFieldNumber;
+const int PW2GSNotifyPWData::kAccountIDFieldNumber;
 const int PW2GSNotifyPWData::kTypeFieldNumber;
 const int PW2GSNotifyPWData::kDataFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -1963,7 +2020,9 @@ PW2GSNotifyPWData::PW2GSNotifyPWData(const PW2GSNotifyPWData& from)
   } else {
     data_ = NULL;
   }
-  type_ = from.type_;
+  ::memcpy(&accountid_, &from.accountid_,
+    reinterpret_cast<char*>(&type_) -
+    reinterpret_cast<char*>(&accountid_) + sizeof(type_));
   // @@protoc_insertion_point(copy_constructor:NetProto.PW2GSNotifyPWData)
 }
 
@@ -2020,7 +2079,8 @@ void PW2GSNotifyPWData::Clear() {
     delete data_;
   }
   data_ = NULL;
-  type_ = 0;
+  ::memset(&accountid_, 0, reinterpret_cast<char*>(&type_) -
+    reinterpret_cast<char*>(&accountid_) + sizeof(type_));
 }
 
 bool PW2GSNotifyPWData::MergePartialFromCodedStream(
@@ -2045,10 +2105,24 @@ bool PW2GSNotifyPWData::MergePartialFromCodedStream(
         break;
       }
 
-      // .NetProto.PWDataType type = 2;
+      // uint32 accountID = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(16u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &accountid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .NetProto.PWDataType type = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u)) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
@@ -2060,10 +2134,10 @@ bool PW2GSNotifyPWData::MergePartialFromCodedStream(
         break;
       }
 
-      // .google.protobuf.Any data = 3;
-      case 3: {
+      // .google.protobuf.Any data = 4;
+      case 4: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(26u)) {
+            static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_data()));
         } else {
@@ -2105,16 +2179,21 @@ void PW2GSNotifyPWData::SerializeWithCachedSizes(
       1, *this->msg_head_, output);
   }
 
-  // .NetProto.PWDataType type = 2;
-  if (this->type() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      2, this->type(), output);
+  // uint32 accountID = 2;
+  if (this->accountid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->accountid(), output);
   }
 
-  // .google.protobuf.Any data = 3;
+  // .NetProto.PWDataType type = 3;
+  if (this->type() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      3, this->type(), output);
+  }
+
+  // .google.protobuf.Any data = 4;
   if (this->has_data()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, *this->data_, output);
+      4, *this->data_, output);
   }
 
   // @@protoc_insertion_point(serialize_end:NetProto.PW2GSNotifyPWData)
@@ -2133,17 +2212,22 @@ void PW2GSNotifyPWData::SerializeWithCachedSizes(
         1, *this->msg_head_, deterministic, target);
   }
 
-  // .NetProto.PWDataType type = 2;
-  if (this->type() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      2, this->type(), target);
+  // uint32 accountID = 2;
+  if (this->accountid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->accountid(), target);
   }
 
-  // .google.protobuf.Any data = 3;
+  // .NetProto.PWDataType type = 3;
+  if (this->type() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      3, this->type(), target);
+  }
+
+  // .google.protobuf.Any data = 4;
   if (this->has_data()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        3, *this->data_, deterministic, target);
+        4, *this->data_, deterministic, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:NetProto.PW2GSNotifyPWData)
@@ -2161,14 +2245,21 @@ size_t PW2GSNotifyPWData::ByteSizeLong() const {
         *this->msg_head_);
   }
 
-  // .google.protobuf.Any data = 3;
+  // .google.protobuf.Any data = 4;
   if (this->has_data()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->data_);
   }
 
-  // .NetProto.PWDataType type = 2;
+  // uint32 accountID = 2;
+  if (this->accountid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->accountid());
+  }
+
+  // .NetProto.PWDataType type = 3;
   if (this->type() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
@@ -2209,6 +2300,9 @@ void PW2GSNotifyPWData::MergeFrom(const PW2GSNotifyPWData& from) {
   if (from.has_data()) {
     mutable_data()->::google::protobuf::Any::MergeFrom(from.data());
   }
+  if (from.accountid() != 0) {
+    set_accountid(from.accountid());
+  }
   if (from.type() != 0) {
     set_type(from.type());
   }
@@ -2239,6 +2333,7 @@ void PW2GSNotifyPWData::Swap(PW2GSNotifyPWData* other) {
 void PW2GSNotifyPWData::InternalSwap(PW2GSNotifyPWData* other) {
   std::swap(msg_head_, other->msg_head_);
   std::swap(data_, other->data_);
+  std::swap(accountid_, other->accountid_);
   std::swap(type_, other->type_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -2290,7 +2385,21 @@ void PW2GSNotifyPWData::set_allocated_msg_head(::NetProto::MsgHead* msg_head) {
   // @@protoc_insertion_point(field_set_allocated:NetProto.PW2GSNotifyPWData.msg_head)
 }
 
-// .NetProto.PWDataType type = 2;
+// uint32 accountID = 2;
+void PW2GSNotifyPWData::clear_accountid() {
+  accountid_ = 0u;
+}
+::google::protobuf::uint32 PW2GSNotifyPWData::accountid() const {
+  // @@protoc_insertion_point(field_get:NetProto.PW2GSNotifyPWData.accountID)
+  return accountid_;
+}
+void PW2GSNotifyPWData::set_accountid(::google::protobuf::uint32 value) {
+  
+  accountid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.PW2GSNotifyPWData.accountID)
+}
+
+// .NetProto.PWDataType type = 3;
 void PW2GSNotifyPWData::clear_type() {
   type_ = 0;
 }
@@ -2304,7 +2413,7 @@ void PW2GSNotifyPWData::set_type(::NetProto::PWDataType value) {
   // @@protoc_insertion_point(field_set:NetProto.PW2GSNotifyPWData.type)
 }
 
-// .google.protobuf.Any data = 3;
+// .google.protobuf.Any data = 4;
 bool PW2GSNotifyPWData::has_data() const {
   return this != internal_default_instance() && data_ != NULL;
 }

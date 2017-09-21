@@ -442,18 +442,24 @@ class GS2PWGetPWData : public ::google::protobuf::Message /* @@protoc_insertion_
   ::NetProto::MsgHead* release_msg_head();
   void set_allocated_msg_head(::NetProto::MsgHead* msg_head);
 
-  // .google.protobuf.Any data = 3;
+  // .google.protobuf.Any data = 4;
   bool has_data() const;
   void clear_data();
-  static const int kDataFieldNumber = 3;
+  static const int kDataFieldNumber = 4;
   const ::google::protobuf::Any& data() const;
   ::google::protobuf::Any* mutable_data();
   ::google::protobuf::Any* release_data();
   void set_allocated_data(::google::protobuf::Any* data);
 
-  // .NetProto.PWDataType type = 2;
+  // uint32 accountID = 2;
+  void clear_accountid();
+  static const int kAccountIDFieldNumber = 2;
+  ::google::protobuf::uint32 accountid() const;
+  void set_accountid(::google::protobuf::uint32 value);
+
+  // .NetProto.PWDataType type = 3;
   void clear_type();
-  static const int kTypeFieldNumber = 2;
+  static const int kTypeFieldNumber = 3;
   ::NetProto::PWDataType type() const;
   void set_type(::NetProto::PWDataType value);
 
@@ -463,6 +469,7 @@ class GS2PWGetPWData : public ::google::protobuf::Message /* @@protoc_insertion_
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::NetProto::MsgHead* msg_head_;
   ::google::protobuf::Any* data_;
+  ::google::protobuf::uint32 accountid_;
   int type_;
   mutable int _cached_size_;
   friend struct protobuf_pw_5fdata_2eproto::TableStruct;
@@ -645,18 +652,24 @@ class PW2GSNotifyPWData : public ::google::protobuf::Message /* @@protoc_inserti
   ::NetProto::MsgHead* release_msg_head();
   void set_allocated_msg_head(::NetProto::MsgHead* msg_head);
 
-  // .google.protobuf.Any data = 3;
+  // .google.protobuf.Any data = 4;
   bool has_data() const;
   void clear_data();
-  static const int kDataFieldNumber = 3;
+  static const int kDataFieldNumber = 4;
   const ::google::protobuf::Any& data() const;
   ::google::protobuf::Any* mutable_data();
   ::google::protobuf::Any* release_data();
   void set_allocated_data(::google::protobuf::Any* data);
 
-  // .NetProto.PWDataType type = 2;
+  // uint32 accountID = 2;
+  void clear_accountid();
+  static const int kAccountIDFieldNumber = 2;
+  ::google::protobuf::uint32 accountid() const;
+  void set_accountid(::google::protobuf::uint32 value);
+
+  // .NetProto.PWDataType type = 3;
   void clear_type();
-  static const int kTypeFieldNumber = 2;
+  static const int kTypeFieldNumber = 3;
   ::NetProto::PWDataType type() const;
   void set_type(::NetProto::PWDataType value);
 
@@ -666,6 +679,7 @@ class PW2GSNotifyPWData : public ::google::protobuf::Message /* @@protoc_inserti
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::NetProto::MsgHead* msg_head_;
   ::google::protobuf::Any* data_;
+  ::google::protobuf::uint32 accountid_;
   int type_;
   mutable int _cached_size_;
   friend struct protobuf_pw_5fdata_2eproto::TableStruct;
@@ -888,7 +902,21 @@ inline void GS2PWGetPWData::set_allocated_msg_head(::NetProto::MsgHead* msg_head
   // @@protoc_insertion_point(field_set_allocated:NetProto.GS2PWGetPWData.msg_head)
 }
 
-// .NetProto.PWDataType type = 2;
+// uint32 accountID = 2;
+inline void GS2PWGetPWData::clear_accountid() {
+  accountid_ = 0u;
+}
+inline ::google::protobuf::uint32 GS2PWGetPWData::accountid() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2PWGetPWData.accountID)
+  return accountid_;
+}
+inline void GS2PWGetPWData::set_accountid(::google::protobuf::uint32 value) {
+  
+  accountid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.GS2PWGetPWData.accountID)
+}
+
+// .NetProto.PWDataType type = 3;
 inline void GS2PWGetPWData::clear_type() {
   type_ = 0;
 }
@@ -902,7 +930,7 @@ inline void GS2PWGetPWData::set_type(::NetProto::PWDataType value) {
   // @@protoc_insertion_point(field_set:NetProto.GS2PWGetPWData.type)
 }
 
-// .google.protobuf.Any data = 3;
+// .google.protobuf.Any data = 4;
 inline bool GS2PWGetPWData::has_data() const {
   return this != internal_default_instance() && data_ != NULL;
 }
@@ -1094,7 +1122,21 @@ inline void PW2GSNotifyPWData::set_allocated_msg_head(::NetProto::MsgHead* msg_h
   // @@protoc_insertion_point(field_set_allocated:NetProto.PW2GSNotifyPWData.msg_head)
 }
 
-// .NetProto.PWDataType type = 2;
+// uint32 accountID = 2;
+inline void PW2GSNotifyPWData::clear_accountid() {
+  accountid_ = 0u;
+}
+inline ::google::protobuf::uint32 PW2GSNotifyPWData::accountid() const {
+  // @@protoc_insertion_point(field_get:NetProto.PW2GSNotifyPWData.accountID)
+  return accountid_;
+}
+inline void PW2GSNotifyPWData::set_accountid(::google::protobuf::uint32 value) {
+  
+  accountid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.PW2GSNotifyPWData.accountID)
+}
+
+// .NetProto.PWDataType type = 3;
 inline void PW2GSNotifyPWData::clear_type() {
   type_ = 0;
 }
@@ -1108,7 +1150,7 @@ inline void PW2GSNotifyPWData::set_type(::NetProto::PWDataType value) {
   // @@protoc_insertion_point(field_set:NetProto.PW2GSNotifyPWData.type)
 }
 
-// .google.protobuf.Any data = 3;
+// .google.protobuf.Any data = 4;
 inline bool PW2GSNotifyPWData::has_data() const {
   return this != internal_default_instance() && data_ != NULL;
 }

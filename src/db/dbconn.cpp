@@ -9,7 +9,7 @@
 #include "common/logger.h"
 
 DbResult::~DbResult(){
-    vector<Row*>::iterator it;
+    vector<DbRow*>::iterator it;
     for(it=m_res.begin(); it!=m_res.end(); ++it){
         delete *it;
     }
@@ -21,14 +21,9 @@ int DbResult::GetCount(){
 
 string DbResult::ToString(){
     ostringstream ostr;
-    vector<Row*>::iterator it;
+    vector<DbRow*>::iterator it;
     ostr << endl;
     for(it=m_res.begin(); it!=m_res.end(); ++it){
-        Row::iterator fieldIt;
-        for(fieldIt=(*it)->begin(); fieldIt!=(*it)->end(); ++fieldIt){
-            ostr << fieldIt->first << ":" << fieldIt->second << " ";
-        }
-        ostr << endl;
     }
     return ostr.str();
 }
@@ -88,7 +83,7 @@ bool DbConn::Execute(std::string &sql){
     return ret;
 }
 
-DbResult* DbConn::ExecuteQuery(std::string &sql){
+std::shared_ptr<DbResult> DbConn::ExecuteQuery(std::string &sql){
     LOG_INFO("DbConn::ExecuteQuery: sql=%s", sql.c_str());
     sql::Statement *stmt = m_conn->createStatement();
     sql::ResultSet  *res = stmt->executeQuery(sql);
@@ -96,16 +91,17 @@ DbResult* DbConn::ExecuteQuery(std::string &sql){
     int numcols = res_meta->getColumnCount();
     DbResult * dbResult = new DbResult();
     while (res->next()) {
-        DbResult::Row* row = new DbResult::Row();
+        DbRow* row = new DbRow();
         for(int i=0; i<numcols; ++i){
             std::string fieldname = res_meta->getColumnName(i+1).asStdString();
             std::string val = res->getString(i+1).asStdString();
-            (*row)[fieldname]= val;
+            row->m_fieldmap[i] = fieldname;
+            row->m_values[fieldname] = val;
             //std::cout << fieldname << " " << val << endl;
         }
         dbResult->AddRow(row);
     }
     delete res;
     delete stmt;
-    return dbResult;
+    return std::shared_ptr<DbResult>(dbResult);
 }

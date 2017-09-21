@@ -54,9 +54,15 @@ extern C2ACheckUserReqDefaultTypeInternal _C2ACheckUserReq_default_instance_;
 class C2GSCreateRobot;
 class C2GSCreateRobotDefaultTypeInternal;
 extern C2GSCreateRobotDefaultTypeInternal _C2GSCreateRobot_default_instance_;
+class C2GSCreateScene;
+class C2GSCreateSceneDefaultTypeInternal;
+extern C2GSCreateSceneDefaultTypeInternal _C2GSCreateScene_default_instance_;
 class C2GSEnterScene;
 class C2GSEnterSceneDefaultTypeInternal;
 extern C2GSEnterSceneDefaultTypeInternal _C2GSEnterScene_default_instance_;
+class C2GSGetSceneID;
+class C2GSGetSceneIDDefaultTypeInternal;
+extern C2GSGetSceneIDDefaultTypeInternal _C2GSGetSceneID_default_instance_;
 class C2GSHeartBeat;
 class C2GSHeartBeatDefaultTypeInternal;
 extern C2GSHeartBeatDefaultTypeInternal _C2GSHeartBeat_default_instance_;
@@ -72,12 +78,21 @@ extern CreateSceneItemDefaultTypeInternal _CreateSceneItem_default_instance_;
 class GS2CCreateRobot;
 class GS2CCreateRobotDefaultTypeInternal;
 extern GS2CCreateRobotDefaultTypeInternal _GS2CCreateRobot_default_instance_;
+class GS2CCreateScene;
+class GS2CCreateSceneDefaultTypeInternal;
+extern GS2CCreateSceneDefaultTypeInternal _GS2CCreateScene_default_instance_;
+class GS2CCreateScene_ObjInfo;
+class GS2CCreateScene_ObjInfoDefaultTypeInternal;
+extern GS2CCreateScene_ObjInfoDefaultTypeInternal _GS2CCreateScene_ObjInfo_default_instance_;
 class GS2CEnterScene;
 class GS2CEnterSceneDefaultTypeInternal;
 extern GS2CEnterSceneDefaultTypeInternal _GS2CEnterScene_default_instance_;
 class GS2CEnterScene_ObjInfo;
 class GS2CEnterScene_ObjInfoDefaultTypeInternal;
 extern GS2CEnterScene_ObjInfoDefaultTypeInternal _GS2CEnterScene_ObjInfo_default_instance_;
+class GS2CGetSceneID;
+class GS2CGetSceneIDDefaultTypeInternal;
+extern GS2CGetSceneIDDefaultTypeInternal _GS2CGetSceneID_default_instance_;
 class GS2CLogin;
 class GS2CLoginDefaultTypeInternal;
 extern GS2CLoginDefaultTypeInternal _GS2CLogin_default_instance_;
@@ -220,10 +235,14 @@ enum MsgCommand {
   C2GS_HEART_BEAT = 200,
   C2GS_LOGIN = 201,
   C2GS_CREATE_ROBOT = 202,
-  C2GS_ENTER_SCENE = 203,
+  C2GS_GET_SCENE_ID = 203,
+  C2GS_CREATE_SCENE = 204,
+  C2GS_ENTER_SCENE = 205,
   GS2C_LOGIN = 300,
   GS2C_CREATE_ROBOT = 301,
-  GS2C_ENTER_SCENE = 302,
+  GS2C_GET_SCENE_ID = 302,
+  GS2C_CREATE_SCENE = 303,
+  GS2C_ENTER_SCENE = 304,
   GS2PW_HEART_BEAT = 400,
   GS2PW_ROBOT_ONLINE = 401,
   GS2PW_ROBOT_OFFLINE = 402,
@@ -1602,6 +1621,193 @@ class C2GSCreateRobot : public ::google::protobuf::Message /* @@protoc_insertion
 };
 // -------------------------------------------------------------------
 
+class C2GSGetSceneID : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:NetProto.C2GSGetSceneID) */ {
+ public:
+  C2GSGetSceneID();
+  virtual ~C2GSGetSceneID();
+
+  C2GSGetSceneID(const C2GSGetSceneID& from);
+
+  inline C2GSGetSceneID& operator=(const C2GSGetSceneID& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const C2GSGetSceneID& default_instance();
+
+  static inline const C2GSGetSceneID* internal_default_instance() {
+    return reinterpret_cast<const C2GSGetSceneID*>(
+               &_C2GSGetSceneID_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    12;
+
+  void Swap(C2GSGetSceneID* other);
+
+  // implements Message ----------------------------------------------
+
+  inline C2GSGetSceneID* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  C2GSGetSceneID* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const C2GSGetSceneID& from);
+  void MergeFrom(const C2GSGetSceneID& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(C2GSGetSceneID* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // .NetProto.MsgHead msgHead = 1;
+  bool has_msghead() const;
+  void clear_msghead();
+  static const int kMsgHeadFieldNumber = 1;
+  const ::NetProto::MsgHead& msghead() const;
+  ::NetProto::MsgHead* mutable_msghead();
+  ::NetProto::MsgHead* release_msghead();
+  void set_allocated_msghead(::NetProto::MsgHead* msghead);
+
+  // uint32 accountID = 2;
+  void clear_accountid();
+  static const int kAccountIDFieldNumber = 2;
+  ::google::protobuf::uint32 accountid() const;
+  void set_accountid(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:NetProto.C2GSGetSceneID)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::NetProto::MsgHead* msghead_;
+  ::google::protobuf::uint32 accountid_;
+  mutable int _cached_size_;
+  friend struct protobuf_Protocol_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class C2GSCreateScene : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:NetProto.C2GSCreateScene) */ {
+ public:
+  C2GSCreateScene();
+  virtual ~C2GSCreateScene();
+
+  C2GSCreateScene(const C2GSCreateScene& from);
+
+  inline C2GSCreateScene& operator=(const C2GSCreateScene& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const C2GSCreateScene& default_instance();
+
+  static inline const C2GSCreateScene* internal_default_instance() {
+    return reinterpret_cast<const C2GSCreateScene*>(
+               &_C2GSCreateScene_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    13;
+
+  void Swap(C2GSCreateScene* other);
+
+  // implements Message ----------------------------------------------
+
+  inline C2GSCreateScene* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  C2GSCreateScene* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const C2GSCreateScene& from);
+  void MergeFrom(const C2GSCreateScene& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(C2GSCreateScene* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // .NetProto.MsgHead msgHead = 1;
+  bool has_msghead() const;
+  void clear_msghead();
+  static const int kMsgHeadFieldNumber = 1;
+  const ::NetProto::MsgHead& msghead() const;
+  ::NetProto::MsgHead* mutable_msghead();
+  ::NetProto::MsgHead* release_msghead();
+  void set_allocated_msghead(::NetProto::MsgHead* msghead);
+
+  // uint32 accountID = 2;
+  void clear_accountid();
+  static const int kAccountIDFieldNumber = 2;
+  ::google::protobuf::uint32 accountid() const;
+  void set_accountid(::google::protobuf::uint32 value);
+
+  // uint32 sceneType = 3;
+  void clear_scenetype();
+  static const int kSceneTypeFieldNumber = 3;
+  ::google::protobuf::uint32 scenetype() const;
+  void set_scenetype(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:NetProto.C2GSCreateScene)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::NetProto::MsgHead* msghead_;
+  ::google::protobuf::uint32 accountid_;
+  ::google::protobuf::uint32 scenetype_;
+  mutable int _cached_size_;
+  friend struct protobuf_Protocol_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
 class C2GSEnterScene : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:NetProto.C2GSEnterScene) */ {
  public:
   C2GSEnterScene();
@@ -1622,7 +1828,7 @@ class C2GSEnterScene : public ::google::protobuf::Message /* @@protoc_insertion_
                &_C2GSEnterScene_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    12;
+    14;
 
   void Swap(C2GSEnterScene* other);
 
@@ -1666,6 +1872,20 @@ class C2GSEnterScene : public ::google::protobuf::Message /* @@protoc_insertion_
 
   // accessors -------------------------------------------------------
 
+  // string sceneID = 4;
+  void clear_sceneid();
+  static const int kSceneIDFieldNumber = 4;
+  const ::std::string& sceneid() const;
+  void set_sceneid(const ::std::string& value);
+  #if LANG_CXX11
+  void set_sceneid(::std::string&& value);
+  #endif
+  void set_sceneid(const char* value);
+  void set_sceneid(const char* value, size_t size);
+  ::std::string* mutable_sceneid();
+  ::std::string* release_sceneid();
+  void set_allocated_sceneid(::std::string* sceneid);
+
   // .NetProto.MsgHead msgHead = 1;
   bool has_msghead() const;
   void clear_msghead();
@@ -1691,6 +1911,7 @@ class C2GSEnterScene : public ::google::protobuf::Message /* @@protoc_insertion_
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr sceneid_;
   ::NetProto::MsgHead* msghead_;
   ::google::protobuf::uint32 accountid_;
   ::google::protobuf::uint32 scenetype_;
@@ -1719,7 +1940,7 @@ class GS2CLogin : public ::google::protobuf::Message /* @@protoc_insertion_point
                &_GS2CLogin_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    13;
+    15;
 
   void Swap(GS2CLogin* other);
 
@@ -1834,7 +2055,7 @@ class GS2CCreateRobot : public ::google::protobuf::Message /* @@protoc_insertion
                &_GS2CCreateRobot_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    14;
+    16;
 
   void Swap(GS2CCreateRobot* other);
 
@@ -1919,6 +2140,369 @@ class GS2CCreateRobot : public ::google::protobuf::Message /* @@protoc_insertion
 };
 // -------------------------------------------------------------------
 
+class GS2CGetSceneID : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:NetProto.GS2CGetSceneID) */ {
+ public:
+  GS2CGetSceneID();
+  virtual ~GS2CGetSceneID();
+
+  GS2CGetSceneID(const GS2CGetSceneID& from);
+
+  inline GS2CGetSceneID& operator=(const GS2CGetSceneID& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const GS2CGetSceneID& default_instance();
+
+  static inline const GS2CGetSceneID* internal_default_instance() {
+    return reinterpret_cast<const GS2CGetSceneID*>(
+               &_GS2CGetSceneID_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    17;
+
+  void Swap(GS2CGetSceneID* other);
+
+  // implements Message ----------------------------------------------
+
+  inline GS2CGetSceneID* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  GS2CGetSceneID* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const GS2CGetSceneID& from);
+  void MergeFrom(const GS2CGetSceneID& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(GS2CGetSceneID* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string ret = 2;
+  void clear_ret();
+  static const int kRetFieldNumber = 2;
+  const ::std::string& ret() const;
+  void set_ret(const ::std::string& value);
+  #if LANG_CXX11
+  void set_ret(::std::string&& value);
+  #endif
+  void set_ret(const char* value);
+  void set_ret(const char* value, size_t size);
+  ::std::string* mutable_ret();
+  ::std::string* release_ret();
+  void set_allocated_ret(::std::string* ret);
+
+  // string sceneID = 3;
+  void clear_sceneid();
+  static const int kSceneIDFieldNumber = 3;
+  const ::std::string& sceneid() const;
+  void set_sceneid(const ::std::string& value);
+  #if LANG_CXX11
+  void set_sceneid(::std::string&& value);
+  #endif
+  void set_sceneid(const char* value);
+  void set_sceneid(const char* value, size_t size);
+  ::std::string* mutable_sceneid();
+  ::std::string* release_sceneid();
+  void set_allocated_sceneid(::std::string* sceneid);
+
+  // .NetProto.MsgHead msgHead = 1;
+  bool has_msghead() const;
+  void clear_msghead();
+  static const int kMsgHeadFieldNumber = 1;
+  const ::NetProto::MsgHead& msghead() const;
+  ::NetProto::MsgHead* mutable_msghead();
+  ::NetProto::MsgHead* release_msghead();
+  void set_allocated_msghead(::NetProto::MsgHead* msghead);
+
+  // @@protoc_insertion_point(class_scope:NetProto.GS2CGetSceneID)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr ret_;
+  ::google::protobuf::internal::ArenaStringPtr sceneid_;
+  ::NetProto::MsgHead* msghead_;
+  mutable int _cached_size_;
+  friend struct protobuf_Protocol_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class GS2CCreateScene_ObjInfo : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:NetProto.GS2CCreateScene.ObjInfo) */ {
+ public:
+  GS2CCreateScene_ObjInfo();
+  virtual ~GS2CCreateScene_ObjInfo();
+
+  GS2CCreateScene_ObjInfo(const GS2CCreateScene_ObjInfo& from);
+
+  inline GS2CCreateScene_ObjInfo& operator=(const GS2CCreateScene_ObjInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const GS2CCreateScene_ObjInfo& default_instance();
+
+  static inline const GS2CCreateScene_ObjInfo* internal_default_instance() {
+    return reinterpret_cast<const GS2CCreateScene_ObjInfo*>(
+               &_GS2CCreateScene_ObjInfo_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    18;
+
+  void Swap(GS2CCreateScene_ObjInfo* other);
+
+  // implements Message ----------------------------------------------
+
+  inline GS2CCreateScene_ObjInfo* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  GS2CCreateScene_ObjInfo* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const GS2CCreateScene_ObjInfo& from);
+  void MergeFrom(const GS2CCreateScene_ObjInfo& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(GS2CCreateScene_ObjInfo* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string uuid = 1;
+  void clear_uuid();
+  static const int kUuidFieldNumber = 1;
+  const ::std::string& uuid() const;
+  void set_uuid(const ::std::string& value);
+  #if LANG_CXX11
+  void set_uuid(::std::string&& value);
+  #endif
+  void set_uuid(const char* value);
+  void set_uuid(const char* value, size_t size);
+  ::std::string* mutable_uuid();
+  ::std::string* release_uuid();
+  void set_allocated_uuid(::std::string* uuid);
+
+  // .NetProto.PosRot pos_rot = 4;
+  bool has_pos_rot() const;
+  void clear_pos_rot();
+  static const int kPosRotFieldNumber = 4;
+  const ::NetProto::PosRot& pos_rot() const;
+  ::NetProto::PosRot* mutable_pos_rot();
+  ::NetProto::PosRot* release_pos_rot();
+  void set_allocated_pos_rot(::NetProto::PosRot* pos_rot);
+
+  // uint32 class_id = 2;
+  void clear_class_id();
+  static const int kClassIdFieldNumber = 2;
+  ::google::protobuf::uint32 class_id() const;
+  void set_class_id(::google::protobuf::uint32 value);
+
+  // uint32 item_id = 3;
+  void clear_item_id();
+  static const int kItemIdFieldNumber = 3;
+  ::google::protobuf::uint32 item_id() const;
+  void set_item_id(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:NetProto.GS2CCreateScene.ObjInfo)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr uuid_;
+  ::NetProto::PosRot* pos_rot_;
+  ::google::protobuf::uint32 class_id_;
+  ::google::protobuf::uint32 item_id_;
+  mutable int _cached_size_;
+  friend struct protobuf_Protocol_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class GS2CCreateScene : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:NetProto.GS2CCreateScene) */ {
+ public:
+  GS2CCreateScene();
+  virtual ~GS2CCreateScene();
+
+  GS2CCreateScene(const GS2CCreateScene& from);
+
+  inline GS2CCreateScene& operator=(const GS2CCreateScene& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const GS2CCreateScene& default_instance();
+
+  static inline const GS2CCreateScene* internal_default_instance() {
+    return reinterpret_cast<const GS2CCreateScene*>(
+               &_GS2CCreateScene_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    19;
+
+  void Swap(GS2CCreateScene* other);
+
+  // implements Message ----------------------------------------------
+
+  inline GS2CCreateScene* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  GS2CCreateScene* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const GS2CCreateScene& from);
+  void MergeFrom(const GS2CCreateScene& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(GS2CCreateScene* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  typedef GS2CCreateScene_ObjInfo ObjInfo;
+
+  // accessors -------------------------------------------------------
+
+  // repeated .NetProto.GS2CCreateScene.ObjInfo obj_info = 1003;
+  int obj_info_size() const;
+  void clear_obj_info();
+  static const int kObjInfoFieldNumber = 1003;
+  const ::NetProto::GS2CCreateScene_ObjInfo& obj_info(int index) const;
+  ::NetProto::GS2CCreateScene_ObjInfo* mutable_obj_info(int index);
+  ::NetProto::GS2CCreateScene_ObjInfo* add_obj_info();
+  ::google::protobuf::RepeatedPtrField< ::NetProto::GS2CCreateScene_ObjInfo >*
+      mutable_obj_info();
+  const ::google::protobuf::RepeatedPtrField< ::NetProto::GS2CCreateScene_ObjInfo >&
+      obj_info() const;
+
+  // repeated .NetProto.Action.Status.NaturalActionStatus status_vector = 1005;
+  int status_vector_size() const;
+  void clear_status_vector();
+  static const int kStatusVectorFieldNumber = 1005;
+  const ::NetProto::Action::Status::NaturalActionStatus& status_vector(int index) const;
+  ::NetProto::Action::Status::NaturalActionStatus* mutable_status_vector(int index);
+  ::NetProto::Action::Status::NaturalActionStatus* add_status_vector();
+  ::google::protobuf::RepeatedPtrField< ::NetProto::Action::Status::NaturalActionStatus >*
+      mutable_status_vector();
+  const ::google::protobuf::RepeatedPtrField< ::NetProto::Action::Status::NaturalActionStatus >&
+      status_vector() const;
+
+  // string owner_uuid = 1000;
+  void clear_owner_uuid();
+  static const int kOwnerUuidFieldNumber = 1000;
+  const ::std::string& owner_uuid() const;
+  void set_owner_uuid(const ::std::string& value);
+  #if LANG_CXX11
+  void set_owner_uuid(::std::string&& value);
+  #endif
+  void set_owner_uuid(const char* value);
+  void set_owner_uuid(const char* value, size_t size);
+  ::std::string* mutable_owner_uuid();
+  ::std::string* release_owner_uuid();
+  void set_allocated_owner_uuid(::std::string* owner_uuid);
+
+  // string scene_id = 1002;
+  void clear_scene_id();
+  static const int kSceneIdFieldNumber = 1002;
+  const ::std::string& scene_id() const;
+  void set_scene_id(const ::std::string& value);
+  #if LANG_CXX11
+  void set_scene_id(::std::string&& value);
+  #endif
+  void set_scene_id(const char* value);
+  void set_scene_id(const char* value, size_t size);
+  ::std::string* mutable_scene_id();
+  ::std::string* release_scene_id();
+  void set_allocated_scene_id(::std::string* scene_id);
+
+  // uint32 map_id = 1001;
+  void clear_map_id();
+  static const int kMapIdFieldNumber = 1001;
+  ::google::protobuf::uint32 map_id() const;
+  void set_map_id(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:NetProto.GS2CCreateScene)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::NetProto::GS2CCreateScene_ObjInfo > obj_info_;
+  ::google::protobuf::RepeatedPtrField< ::NetProto::Action::Status::NaturalActionStatus > status_vector_;
+  ::google::protobuf::internal::ArenaStringPtr owner_uuid_;
+  ::google::protobuf::internal::ArenaStringPtr scene_id_;
+  ::google::protobuf::uint32 map_id_;
+  mutable int _cached_size_;
+  friend struct protobuf_Protocol_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
 class GS2CEnterScene_ObjInfo : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:NetProto.GS2CEnterScene.ObjInfo) */ {
  public:
   GS2CEnterScene_ObjInfo();
@@ -1939,7 +2523,7 @@ class GS2CEnterScene_ObjInfo : public ::google::protobuf::Message /* @@protoc_in
                &_GS2CEnterScene_ObjInfo_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    15;
+    20;
 
   void Swap(GS2CEnterScene_ObjInfo* other);
 
@@ -2051,7 +2635,7 @@ class GS2CEnterScene : public ::google::protobuf::Message /* @@protoc_insertion_
                &_GS2CEnterScene_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    16;
+    21;
 
   void Swap(GS2CEnterScene* other);
 
@@ -2189,7 +2773,7 @@ class GS2MTSHeart : public ::google::protobuf::Message /* @@protoc_insertion_poi
                &_GS2MTSHeart_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    17;
+    22;
 
   void Swap(GS2MTSHeart* other);
 
@@ -2269,7 +2853,7 @@ class GS2MTSGetRobotList : public ::google::protobuf::Message /* @@protoc_insert
                &_GS2MTSGetRobotList_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    18;
+    23;
 
   void Swap(GS2MTSGetRobotList* other);
 
@@ -2366,7 +2950,7 @@ class GS2MTSCreateRobot : public ::google::protobuf::Message /* @@protoc_inserti
                &_GS2MTSCreateRobot_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    19;
+    24;
 
   void Swap(GS2MTSCreateRobot* other);
 
@@ -2470,7 +3054,7 @@ class GS2MTSGetSceneItem : public ::google::protobuf::Message /* @@protoc_insert
                &_GS2MTSGetSceneItem_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    20;
+    25;
 
   void Swap(GS2MTSGetSceneItem* other);
 
@@ -2589,7 +3173,7 @@ class GS2MTSCreateScene : public ::google::protobuf::Message /* @@protoc_inserti
                &_GS2MTSCreateScene_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    21;
+    26;
 
   void Swap(GS2MTSCreateScene* other);
 
@@ -2693,7 +3277,7 @@ class MTS2GSGetRobotList : public ::google::protobuf::Message /* @@protoc_insert
                &_MTS2GSGetRobotList_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    22;
+    27;
 
   void Swap(MTS2GSGetRobotList* other);
 
@@ -2810,7 +3394,7 @@ class MTS2GSCreateRobot : public ::google::protobuf::Message /* @@protoc_inserti
                &_MTS2GSCreateRobot_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    23;
+    28;
 
   void Swap(MTS2GSCreateRobot* other);
 
@@ -2920,7 +3504,7 @@ class MTS2GSGetSceneItem : public ::google::protobuf::Message /* @@protoc_insert
                &_MTS2GSGetSceneItem_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    24;
+    29;
 
   void Swap(MTS2GSGetSceneItem* other);
 
@@ -3045,7 +3629,7 @@ class MTS2GSCreateScene : public ::google::protobuf::Message /* @@protoc_inserti
                &_MTS2GSCreateScene_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    25;
+    30;
 
   void Swap(MTS2GSCreateScene* other);
 
@@ -4660,6 +5244,134 @@ inline void C2GSCreateRobot::set_robottype(::google::protobuf::uint32 value) {
 
 // -------------------------------------------------------------------
 
+// C2GSGetSceneID
+
+// .NetProto.MsgHead msgHead = 1;
+inline bool C2GSGetSceneID::has_msghead() const {
+  return this != internal_default_instance() && msghead_ != NULL;
+}
+inline void C2GSGetSceneID::clear_msghead() {
+  if (GetArenaNoVirtual() == NULL && msghead_ != NULL) delete msghead_;
+  msghead_ = NULL;
+}
+inline const ::NetProto::MsgHead& C2GSGetSceneID::msghead() const {
+  // @@protoc_insertion_point(field_get:NetProto.C2GSGetSceneID.msgHead)
+  return msghead_ != NULL ? *msghead_
+                         : *::NetProto::MsgHead::internal_default_instance();
+}
+inline ::NetProto::MsgHead* C2GSGetSceneID::mutable_msghead() {
+  
+  if (msghead_ == NULL) {
+    msghead_ = new ::NetProto::MsgHead;
+  }
+  // @@protoc_insertion_point(field_mutable:NetProto.C2GSGetSceneID.msgHead)
+  return msghead_;
+}
+inline ::NetProto::MsgHead* C2GSGetSceneID::release_msghead() {
+  // @@protoc_insertion_point(field_release:NetProto.C2GSGetSceneID.msgHead)
+  
+  ::NetProto::MsgHead* temp = msghead_;
+  msghead_ = NULL;
+  return temp;
+}
+inline void C2GSGetSceneID::set_allocated_msghead(::NetProto::MsgHead* msghead) {
+  delete msghead_;
+  msghead_ = msghead;
+  if (msghead) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:NetProto.C2GSGetSceneID.msgHead)
+}
+
+// uint32 accountID = 2;
+inline void C2GSGetSceneID::clear_accountid() {
+  accountid_ = 0u;
+}
+inline ::google::protobuf::uint32 C2GSGetSceneID::accountid() const {
+  // @@protoc_insertion_point(field_get:NetProto.C2GSGetSceneID.accountID)
+  return accountid_;
+}
+inline void C2GSGetSceneID::set_accountid(::google::protobuf::uint32 value) {
+  
+  accountid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.C2GSGetSceneID.accountID)
+}
+
+// -------------------------------------------------------------------
+
+// C2GSCreateScene
+
+// .NetProto.MsgHead msgHead = 1;
+inline bool C2GSCreateScene::has_msghead() const {
+  return this != internal_default_instance() && msghead_ != NULL;
+}
+inline void C2GSCreateScene::clear_msghead() {
+  if (GetArenaNoVirtual() == NULL && msghead_ != NULL) delete msghead_;
+  msghead_ = NULL;
+}
+inline const ::NetProto::MsgHead& C2GSCreateScene::msghead() const {
+  // @@protoc_insertion_point(field_get:NetProto.C2GSCreateScene.msgHead)
+  return msghead_ != NULL ? *msghead_
+                         : *::NetProto::MsgHead::internal_default_instance();
+}
+inline ::NetProto::MsgHead* C2GSCreateScene::mutable_msghead() {
+  
+  if (msghead_ == NULL) {
+    msghead_ = new ::NetProto::MsgHead;
+  }
+  // @@protoc_insertion_point(field_mutable:NetProto.C2GSCreateScene.msgHead)
+  return msghead_;
+}
+inline ::NetProto::MsgHead* C2GSCreateScene::release_msghead() {
+  // @@protoc_insertion_point(field_release:NetProto.C2GSCreateScene.msgHead)
+  
+  ::NetProto::MsgHead* temp = msghead_;
+  msghead_ = NULL;
+  return temp;
+}
+inline void C2GSCreateScene::set_allocated_msghead(::NetProto::MsgHead* msghead) {
+  delete msghead_;
+  msghead_ = msghead;
+  if (msghead) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:NetProto.C2GSCreateScene.msgHead)
+}
+
+// uint32 accountID = 2;
+inline void C2GSCreateScene::clear_accountid() {
+  accountid_ = 0u;
+}
+inline ::google::protobuf::uint32 C2GSCreateScene::accountid() const {
+  // @@protoc_insertion_point(field_get:NetProto.C2GSCreateScene.accountID)
+  return accountid_;
+}
+inline void C2GSCreateScene::set_accountid(::google::protobuf::uint32 value) {
+  
+  accountid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.C2GSCreateScene.accountID)
+}
+
+// uint32 sceneType = 3;
+inline void C2GSCreateScene::clear_scenetype() {
+  scenetype_ = 0u;
+}
+inline ::google::protobuf::uint32 C2GSCreateScene::scenetype() const {
+  // @@protoc_insertion_point(field_get:NetProto.C2GSCreateScene.sceneType)
+  return scenetype_;
+}
+inline void C2GSCreateScene::set_scenetype(::google::protobuf::uint32 value) {
+  
+  scenetype_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.C2GSCreateScene.sceneType)
+}
+
+// -------------------------------------------------------------------
+
 // C2GSEnterScene
 
 // .NetProto.MsgHead msgHead = 1;
@@ -4727,6 +5439,59 @@ inline void C2GSEnterScene::set_scenetype(::google::protobuf::uint32 value) {
   
   scenetype_ = value;
   // @@protoc_insertion_point(field_set:NetProto.C2GSEnterScene.sceneType)
+}
+
+// string sceneID = 4;
+inline void C2GSEnterScene::clear_sceneid() {
+  sceneid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& C2GSEnterScene::sceneid() const {
+  // @@protoc_insertion_point(field_get:NetProto.C2GSEnterScene.sceneID)
+  return sceneid_.GetNoArena();
+}
+inline void C2GSEnterScene::set_sceneid(const ::std::string& value) {
+  
+  sceneid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:NetProto.C2GSEnterScene.sceneID)
+}
+#if LANG_CXX11
+inline void C2GSEnterScene::set_sceneid(::std::string&& value) {
+  
+  sceneid_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:NetProto.C2GSEnterScene.sceneID)
+}
+#endif
+inline void C2GSEnterScene::set_sceneid(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  sceneid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:NetProto.C2GSEnterScene.sceneID)
+}
+inline void C2GSEnterScene::set_sceneid(const char* value, size_t size) {
+  
+  sceneid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:NetProto.C2GSEnterScene.sceneID)
+}
+inline ::std::string* C2GSEnterScene::mutable_sceneid() {
+  
+  // @@protoc_insertion_point(field_mutable:NetProto.C2GSEnterScene.sceneID)
+  return sceneid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* C2GSEnterScene::release_sceneid() {
+  // @@protoc_insertion_point(field_release:NetProto.C2GSEnterScene.sceneID)
+  
+  return sceneid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void C2GSEnterScene::set_allocated_sceneid(::std::string* sceneid) {
+  if (sceneid != NULL) {
+    
+  } else {
+    
+  }
+  sceneid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sceneid);
+  // @@protoc_insertion_point(field_set_allocated:NetProto.C2GSEnterScene.sceneID)
 }
 
 // -------------------------------------------------------------------
@@ -4952,6 +5717,463 @@ inline void GS2CCreateRobot::set_allocated_robotinfo(::NetProto::RobotInfo* robo
     
   }
   // @@protoc_insertion_point(field_set_allocated:NetProto.GS2CCreateRobot.robotInfo)
+}
+
+// -------------------------------------------------------------------
+
+// GS2CGetSceneID
+
+// .NetProto.MsgHead msgHead = 1;
+inline bool GS2CGetSceneID::has_msghead() const {
+  return this != internal_default_instance() && msghead_ != NULL;
+}
+inline void GS2CGetSceneID::clear_msghead() {
+  if (GetArenaNoVirtual() == NULL && msghead_ != NULL) delete msghead_;
+  msghead_ = NULL;
+}
+inline const ::NetProto::MsgHead& GS2CGetSceneID::msghead() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2CGetSceneID.msgHead)
+  return msghead_ != NULL ? *msghead_
+                         : *::NetProto::MsgHead::internal_default_instance();
+}
+inline ::NetProto::MsgHead* GS2CGetSceneID::mutable_msghead() {
+  
+  if (msghead_ == NULL) {
+    msghead_ = new ::NetProto::MsgHead;
+  }
+  // @@protoc_insertion_point(field_mutable:NetProto.GS2CGetSceneID.msgHead)
+  return msghead_;
+}
+inline ::NetProto::MsgHead* GS2CGetSceneID::release_msghead() {
+  // @@protoc_insertion_point(field_release:NetProto.GS2CGetSceneID.msgHead)
+  
+  ::NetProto::MsgHead* temp = msghead_;
+  msghead_ = NULL;
+  return temp;
+}
+inline void GS2CGetSceneID::set_allocated_msghead(::NetProto::MsgHead* msghead) {
+  delete msghead_;
+  msghead_ = msghead;
+  if (msghead) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:NetProto.GS2CGetSceneID.msgHead)
+}
+
+// string ret = 2;
+inline void GS2CGetSceneID::clear_ret() {
+  ret_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& GS2CGetSceneID::ret() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2CGetSceneID.ret)
+  return ret_.GetNoArena();
+}
+inline void GS2CGetSceneID::set_ret(const ::std::string& value) {
+  
+  ret_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:NetProto.GS2CGetSceneID.ret)
+}
+#if LANG_CXX11
+inline void GS2CGetSceneID::set_ret(::std::string&& value) {
+  
+  ret_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:NetProto.GS2CGetSceneID.ret)
+}
+#endif
+inline void GS2CGetSceneID::set_ret(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  ret_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:NetProto.GS2CGetSceneID.ret)
+}
+inline void GS2CGetSceneID::set_ret(const char* value, size_t size) {
+  
+  ret_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:NetProto.GS2CGetSceneID.ret)
+}
+inline ::std::string* GS2CGetSceneID::mutable_ret() {
+  
+  // @@protoc_insertion_point(field_mutable:NetProto.GS2CGetSceneID.ret)
+  return ret_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* GS2CGetSceneID::release_ret() {
+  // @@protoc_insertion_point(field_release:NetProto.GS2CGetSceneID.ret)
+  
+  return ret_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void GS2CGetSceneID::set_allocated_ret(::std::string* ret) {
+  if (ret != NULL) {
+    
+  } else {
+    
+  }
+  ret_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ret);
+  // @@protoc_insertion_point(field_set_allocated:NetProto.GS2CGetSceneID.ret)
+}
+
+// string sceneID = 3;
+inline void GS2CGetSceneID::clear_sceneid() {
+  sceneid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& GS2CGetSceneID::sceneid() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2CGetSceneID.sceneID)
+  return sceneid_.GetNoArena();
+}
+inline void GS2CGetSceneID::set_sceneid(const ::std::string& value) {
+  
+  sceneid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:NetProto.GS2CGetSceneID.sceneID)
+}
+#if LANG_CXX11
+inline void GS2CGetSceneID::set_sceneid(::std::string&& value) {
+  
+  sceneid_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:NetProto.GS2CGetSceneID.sceneID)
+}
+#endif
+inline void GS2CGetSceneID::set_sceneid(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  sceneid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:NetProto.GS2CGetSceneID.sceneID)
+}
+inline void GS2CGetSceneID::set_sceneid(const char* value, size_t size) {
+  
+  sceneid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:NetProto.GS2CGetSceneID.sceneID)
+}
+inline ::std::string* GS2CGetSceneID::mutable_sceneid() {
+  
+  // @@protoc_insertion_point(field_mutable:NetProto.GS2CGetSceneID.sceneID)
+  return sceneid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* GS2CGetSceneID::release_sceneid() {
+  // @@protoc_insertion_point(field_release:NetProto.GS2CGetSceneID.sceneID)
+  
+  return sceneid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void GS2CGetSceneID::set_allocated_sceneid(::std::string* sceneid) {
+  if (sceneid != NULL) {
+    
+  } else {
+    
+  }
+  sceneid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sceneid);
+  // @@protoc_insertion_point(field_set_allocated:NetProto.GS2CGetSceneID.sceneID)
+}
+
+// -------------------------------------------------------------------
+
+// GS2CCreateScene_ObjInfo
+
+// string uuid = 1;
+inline void GS2CCreateScene_ObjInfo::clear_uuid() {
+  uuid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& GS2CCreateScene_ObjInfo::uuid() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2CCreateScene.ObjInfo.uuid)
+  return uuid_.GetNoArena();
+}
+inline void GS2CCreateScene_ObjInfo::set_uuid(const ::std::string& value) {
+  
+  uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:NetProto.GS2CCreateScene.ObjInfo.uuid)
+}
+#if LANG_CXX11
+inline void GS2CCreateScene_ObjInfo::set_uuid(::std::string&& value) {
+  
+  uuid_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:NetProto.GS2CCreateScene.ObjInfo.uuid)
+}
+#endif
+inline void GS2CCreateScene_ObjInfo::set_uuid(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:NetProto.GS2CCreateScene.ObjInfo.uuid)
+}
+inline void GS2CCreateScene_ObjInfo::set_uuid(const char* value, size_t size) {
+  
+  uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:NetProto.GS2CCreateScene.ObjInfo.uuid)
+}
+inline ::std::string* GS2CCreateScene_ObjInfo::mutable_uuid() {
+  
+  // @@protoc_insertion_point(field_mutable:NetProto.GS2CCreateScene.ObjInfo.uuid)
+  return uuid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* GS2CCreateScene_ObjInfo::release_uuid() {
+  // @@protoc_insertion_point(field_release:NetProto.GS2CCreateScene.ObjInfo.uuid)
+  
+  return uuid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void GS2CCreateScene_ObjInfo::set_allocated_uuid(::std::string* uuid) {
+  if (uuid != NULL) {
+    
+  } else {
+    
+  }
+  uuid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), uuid);
+  // @@protoc_insertion_point(field_set_allocated:NetProto.GS2CCreateScene.ObjInfo.uuid)
+}
+
+// uint32 class_id = 2;
+inline void GS2CCreateScene_ObjInfo::clear_class_id() {
+  class_id_ = 0u;
+}
+inline ::google::protobuf::uint32 GS2CCreateScene_ObjInfo::class_id() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2CCreateScene.ObjInfo.class_id)
+  return class_id_;
+}
+inline void GS2CCreateScene_ObjInfo::set_class_id(::google::protobuf::uint32 value) {
+  
+  class_id_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.GS2CCreateScene.ObjInfo.class_id)
+}
+
+// uint32 item_id = 3;
+inline void GS2CCreateScene_ObjInfo::clear_item_id() {
+  item_id_ = 0u;
+}
+inline ::google::protobuf::uint32 GS2CCreateScene_ObjInfo::item_id() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2CCreateScene.ObjInfo.item_id)
+  return item_id_;
+}
+inline void GS2CCreateScene_ObjInfo::set_item_id(::google::protobuf::uint32 value) {
+  
+  item_id_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.GS2CCreateScene.ObjInfo.item_id)
+}
+
+// .NetProto.PosRot pos_rot = 4;
+inline bool GS2CCreateScene_ObjInfo::has_pos_rot() const {
+  return this != internal_default_instance() && pos_rot_ != NULL;
+}
+inline void GS2CCreateScene_ObjInfo::clear_pos_rot() {
+  if (GetArenaNoVirtual() == NULL && pos_rot_ != NULL) delete pos_rot_;
+  pos_rot_ = NULL;
+}
+inline const ::NetProto::PosRot& GS2CCreateScene_ObjInfo::pos_rot() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2CCreateScene.ObjInfo.pos_rot)
+  return pos_rot_ != NULL ? *pos_rot_
+                         : *::NetProto::PosRot::internal_default_instance();
+}
+inline ::NetProto::PosRot* GS2CCreateScene_ObjInfo::mutable_pos_rot() {
+  
+  if (pos_rot_ == NULL) {
+    pos_rot_ = new ::NetProto::PosRot;
+  }
+  // @@protoc_insertion_point(field_mutable:NetProto.GS2CCreateScene.ObjInfo.pos_rot)
+  return pos_rot_;
+}
+inline ::NetProto::PosRot* GS2CCreateScene_ObjInfo::release_pos_rot() {
+  // @@protoc_insertion_point(field_release:NetProto.GS2CCreateScene.ObjInfo.pos_rot)
+  
+  ::NetProto::PosRot* temp = pos_rot_;
+  pos_rot_ = NULL;
+  return temp;
+}
+inline void GS2CCreateScene_ObjInfo::set_allocated_pos_rot(::NetProto::PosRot* pos_rot) {
+  delete pos_rot_;
+  pos_rot_ = pos_rot;
+  if (pos_rot) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:NetProto.GS2CCreateScene.ObjInfo.pos_rot)
+}
+
+// -------------------------------------------------------------------
+
+// GS2CCreateScene
+
+// string owner_uuid = 1000;
+inline void GS2CCreateScene::clear_owner_uuid() {
+  owner_uuid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& GS2CCreateScene::owner_uuid() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2CCreateScene.owner_uuid)
+  return owner_uuid_.GetNoArena();
+}
+inline void GS2CCreateScene::set_owner_uuid(const ::std::string& value) {
+  
+  owner_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:NetProto.GS2CCreateScene.owner_uuid)
+}
+#if LANG_CXX11
+inline void GS2CCreateScene::set_owner_uuid(::std::string&& value) {
+  
+  owner_uuid_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:NetProto.GS2CCreateScene.owner_uuid)
+}
+#endif
+inline void GS2CCreateScene::set_owner_uuid(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  owner_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:NetProto.GS2CCreateScene.owner_uuid)
+}
+inline void GS2CCreateScene::set_owner_uuid(const char* value, size_t size) {
+  
+  owner_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:NetProto.GS2CCreateScene.owner_uuid)
+}
+inline ::std::string* GS2CCreateScene::mutable_owner_uuid() {
+  
+  // @@protoc_insertion_point(field_mutable:NetProto.GS2CCreateScene.owner_uuid)
+  return owner_uuid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* GS2CCreateScene::release_owner_uuid() {
+  // @@protoc_insertion_point(field_release:NetProto.GS2CCreateScene.owner_uuid)
+  
+  return owner_uuid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void GS2CCreateScene::set_allocated_owner_uuid(::std::string* owner_uuid) {
+  if (owner_uuid != NULL) {
+    
+  } else {
+    
+  }
+  owner_uuid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), owner_uuid);
+  // @@protoc_insertion_point(field_set_allocated:NetProto.GS2CCreateScene.owner_uuid)
+}
+
+// uint32 map_id = 1001;
+inline void GS2CCreateScene::clear_map_id() {
+  map_id_ = 0u;
+}
+inline ::google::protobuf::uint32 GS2CCreateScene::map_id() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2CCreateScene.map_id)
+  return map_id_;
+}
+inline void GS2CCreateScene::set_map_id(::google::protobuf::uint32 value) {
+  
+  map_id_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.GS2CCreateScene.map_id)
+}
+
+// string scene_id = 1002;
+inline void GS2CCreateScene::clear_scene_id() {
+  scene_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& GS2CCreateScene::scene_id() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2CCreateScene.scene_id)
+  return scene_id_.GetNoArena();
+}
+inline void GS2CCreateScene::set_scene_id(const ::std::string& value) {
+  
+  scene_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:NetProto.GS2CCreateScene.scene_id)
+}
+#if LANG_CXX11
+inline void GS2CCreateScene::set_scene_id(::std::string&& value) {
+  
+  scene_id_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:NetProto.GS2CCreateScene.scene_id)
+}
+#endif
+inline void GS2CCreateScene::set_scene_id(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  scene_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:NetProto.GS2CCreateScene.scene_id)
+}
+inline void GS2CCreateScene::set_scene_id(const char* value, size_t size) {
+  
+  scene_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:NetProto.GS2CCreateScene.scene_id)
+}
+inline ::std::string* GS2CCreateScene::mutable_scene_id() {
+  
+  // @@protoc_insertion_point(field_mutable:NetProto.GS2CCreateScene.scene_id)
+  return scene_id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* GS2CCreateScene::release_scene_id() {
+  // @@protoc_insertion_point(field_release:NetProto.GS2CCreateScene.scene_id)
+  
+  return scene_id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void GS2CCreateScene::set_allocated_scene_id(::std::string* scene_id) {
+  if (scene_id != NULL) {
+    
+  } else {
+    
+  }
+  scene_id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), scene_id);
+  // @@protoc_insertion_point(field_set_allocated:NetProto.GS2CCreateScene.scene_id)
+}
+
+// repeated .NetProto.GS2CCreateScene.ObjInfo obj_info = 1003;
+inline int GS2CCreateScene::obj_info_size() const {
+  return obj_info_.size();
+}
+inline void GS2CCreateScene::clear_obj_info() {
+  obj_info_.Clear();
+}
+inline const ::NetProto::GS2CCreateScene_ObjInfo& GS2CCreateScene::obj_info(int index) const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2CCreateScene.obj_info)
+  return obj_info_.Get(index);
+}
+inline ::NetProto::GS2CCreateScene_ObjInfo* GS2CCreateScene::mutable_obj_info(int index) {
+  // @@protoc_insertion_point(field_mutable:NetProto.GS2CCreateScene.obj_info)
+  return obj_info_.Mutable(index);
+}
+inline ::NetProto::GS2CCreateScene_ObjInfo* GS2CCreateScene::add_obj_info() {
+  // @@protoc_insertion_point(field_add:NetProto.GS2CCreateScene.obj_info)
+  return obj_info_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::NetProto::GS2CCreateScene_ObjInfo >*
+GS2CCreateScene::mutable_obj_info() {
+  // @@protoc_insertion_point(field_mutable_list:NetProto.GS2CCreateScene.obj_info)
+  return &obj_info_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::NetProto::GS2CCreateScene_ObjInfo >&
+GS2CCreateScene::obj_info() const {
+  // @@protoc_insertion_point(field_list:NetProto.GS2CCreateScene.obj_info)
+  return obj_info_;
+}
+
+// repeated .NetProto.Action.Status.NaturalActionStatus status_vector = 1005;
+inline int GS2CCreateScene::status_vector_size() const {
+  return status_vector_.size();
+}
+inline void GS2CCreateScene::clear_status_vector() {
+  status_vector_.Clear();
+}
+inline const ::NetProto::Action::Status::NaturalActionStatus& GS2CCreateScene::status_vector(int index) const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2CCreateScene.status_vector)
+  return status_vector_.Get(index);
+}
+inline ::NetProto::Action::Status::NaturalActionStatus* GS2CCreateScene::mutable_status_vector(int index) {
+  // @@protoc_insertion_point(field_mutable:NetProto.GS2CCreateScene.status_vector)
+  return status_vector_.Mutable(index);
+}
+inline ::NetProto::Action::Status::NaturalActionStatus* GS2CCreateScene::add_status_vector() {
+  // @@protoc_insertion_point(field_add:NetProto.GS2CCreateScene.status_vector)
+  return status_vector_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::NetProto::Action::Status::NaturalActionStatus >*
+GS2CCreateScene::mutable_status_vector() {
+  // @@protoc_insertion_point(field_mutable_list:NetProto.GS2CCreateScene.status_vector)
+  return &status_vector_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::NetProto::Action::Status::NaturalActionStatus >&
+GS2CCreateScene::status_vector() const {
+  // @@protoc_insertion_point(field_list:NetProto.GS2CCreateScene.status_vector)
+  return status_vector_;
 }
 
 // -------------------------------------------------------------------
@@ -6184,6 +7406,16 @@ MTS2GSCreateScene::itemlist() const {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
