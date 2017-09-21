@@ -97,7 +97,7 @@ MSG* ActiveConn::SendMsgAndRecv(const std::ostringstream& msgstream){
     return recv_msg;
 }
 
-void ActiveConn::RecvMsg(MSG* msg){
+void ActiveConn::RecvMsg(MSG* &msg){
     while (!m_queue.try_dequeue_from_producer(m_ptok, msg)){
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }

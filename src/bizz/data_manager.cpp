@@ -5,6 +5,20 @@
 #include "common/util.h"
 using namespace util;
 
+
+DataMgr::DataMgr()
+{
+}
+
+DataMgr::~DataMgr()
+{
+}
+
+DataMgr& DataMgr::Instance(){
+    static DataMgr dataMgr;
+    return dataMgr;
+}
+
 bool DataMgr::Init(){
     return loadRobotConf();
 }
@@ -51,6 +65,7 @@ bool DataMgr::loadRobotConf()
 
         m_robotConfMap.insert(std::pair<UInt16,RobotConf*>(robotInfo->_id,robotInfo));
     }
+    LOGINFO(".................DataMgr::loadRobotConf end ............................");
     return true;
 }
 

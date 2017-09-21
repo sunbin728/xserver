@@ -23,7 +23,7 @@ SessionManager::~SessionManager(){
 void SessionManager::watchWork(){
     ActiveConn* pConn;
     while(true){
-        sleep(5);
+        sleep(15);
         pthread_rwlock_rdlock(&m_rwlock);    //读者加读锁
         std::map<int, ActiveConn*>::iterator iter;
         for (iter =  m_mapActiveConns.begin(); iter != m_mapActiveConns.end(); ++iter){

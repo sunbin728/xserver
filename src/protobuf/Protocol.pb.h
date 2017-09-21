@@ -123,6 +123,9 @@ extern PW2GSNotifyPWDataDefaultTypeInternal _PW2GSNotifyPWData_default_instance_
 class PWDataRobotInfoParam;
 class PWDataRobotInfoParamDefaultTypeInternal;
 extern PWDataRobotInfoParamDefaultTypeInternal _PWDataRobotInfoParam_default_instance_;
+class PWDataSceneIDParam;
+class PWDataSceneIDParamDefaultTypeInternal;
+extern PWDataSceneIDParamDefaultTypeInternal _PWDataSceneIDParam_default_instance_;
 class PWDataSceneMapParam;
 class PWDataSceneMapParamDefaultTypeInternal;
 extern PWDataSceneMapParamDefaultTypeInternal _PWDataSceneMapParam_default_instance_;
@@ -135,6 +138,9 @@ extern RobotInfoDefaultTypeInternal _RobotInfo_default_instance_;
 class RobotOffline;
 class RobotOfflineDefaultTypeInternal;
 extern RobotOfflineDefaultTypeInternal _RobotOffline_default_instance_;
+class RobotSceneID;
+class RobotSceneIDDefaultTypeInternal;
+extern RobotSceneIDDefaultTypeInternal _RobotSceneID_default_instance_;
 class SceneData;
 class SceneDataDefaultTypeInternal;
 extern SceneDataDefaultTypeInternal _SceneData_default_instance_;
@@ -2322,12 +2328,19 @@ class GS2MTSGetRobotList : public ::google::protobuf::Message /* @@protoc_insert
   ::google::protobuf::uint32 accountid() const;
   void set_accountid(::google::protobuf::uint32 value);
 
+  // uint32 playerID = 3;
+  void clear_playerid();
+  static const int kPlayerIDFieldNumber = 3;
+  ::google::protobuf::uint32 playerid() const;
+  void set_playerid(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:NetProto.GS2MTSGetRobotList)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::NetProto::MsgHead* msghead_;
   ::google::protobuf::uint32 accountid_;
+  ::google::protobuf::uint32 playerid_;
   mutable int _cached_size_;
   friend struct protobuf_Protocol_2eproto::TableStruct;
 };
@@ -2412,9 +2425,15 @@ class GS2MTSCreateRobot : public ::google::protobuf::Message /* @@protoc_inserti
   ::google::protobuf::uint32 accountid() const;
   void set_accountid(::google::protobuf::uint32 value);
 
-  // uint32 robotPrototypeID = 3;
+  // uint32 playerID = 3;
+  void clear_playerid();
+  static const int kPlayerIDFieldNumber = 3;
+  ::google::protobuf::uint32 playerid() const;
+  void set_playerid(::google::protobuf::uint32 value);
+
+  // uint32 robotPrototypeID = 4;
   void clear_robotprototypeid();
-  static const int kRobotPrototypeIDFieldNumber = 3;
+  static const int kRobotPrototypeIDFieldNumber = 4;
   ::google::protobuf::uint32 robotprototypeid() const;
   void set_robotprototypeid(::google::protobuf::uint32 value);
 
@@ -2424,6 +2443,7 @@ class GS2MTSCreateRobot : public ::google::protobuf::Message /* @@protoc_inserti
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::NetProto::MsgHead* msghead_;
   ::google::protobuf::uint32 accountid_;
+  ::google::protobuf::uint32 playerid_;
   ::google::protobuf::uint32 robotprototypeid_;
   mutable int _cached_size_;
   friend struct protobuf_Protocol_2eproto::TableStruct;
@@ -2494,9 +2514,9 @@ class GS2MTSGetSceneItem : public ::google::protobuf::Message /* @@protoc_insert
 
   // accessors -------------------------------------------------------
 
-  // string sceneID = 4;
+  // string sceneID = 5;
   void clear_sceneid();
-  static const int kSceneIDFieldNumber = 4;
+  static const int kSceneIDFieldNumber = 5;
   const ::std::string& sceneid() const;
   void set_sceneid(const ::std::string& value);
   #if LANG_CXX11
@@ -2523,9 +2543,15 @@ class GS2MTSGetSceneItem : public ::google::protobuf::Message /* @@protoc_insert
   ::google::protobuf::uint32 accountid() const;
   void set_accountid(::google::protobuf::uint32 value);
 
-  // uint32 sceneType = 3;
+  // uint32 playerID = 3;
+  void clear_playerid();
+  static const int kPlayerIDFieldNumber = 3;
+  ::google::protobuf::uint32 playerid() const;
+  void set_playerid(::google::protobuf::uint32 value);
+
+  // uint32 sceneType = 4;
   void clear_scenetype();
-  static const int kSceneTypeFieldNumber = 3;
+  static const int kSceneTypeFieldNumber = 4;
   ::google::protobuf::uint32 scenetype() const;
   void set_scenetype(::google::protobuf::uint32 value);
 
@@ -2536,6 +2562,7 @@ class GS2MTSGetSceneItem : public ::google::protobuf::Message /* @@protoc_insert
   ::google::protobuf::internal::ArenaStringPtr sceneid_;
   ::NetProto::MsgHead* msghead_;
   ::google::protobuf::uint32 accountid_;
+  ::google::protobuf::uint32 playerid_;
   ::google::protobuf::uint32 scenetype_;
   mutable int _cached_size_;
   friend struct protobuf_Protocol_2eproto::TableStruct;
@@ -2621,9 +2648,15 @@ class GS2MTSCreateScene : public ::google::protobuf::Message /* @@protoc_inserti
   ::google::protobuf::uint32 accountid() const;
   void set_accountid(::google::protobuf::uint32 value);
 
-  // uint32 sceneType = 3;
+  // uint32 playerID = 3;
+  void clear_playerid();
+  static const int kPlayerIDFieldNumber = 3;
+  ::google::protobuf::uint32 playerid() const;
+  void set_playerid(::google::protobuf::uint32 value);
+
+  // uint32 sceneType = 4;
   void clear_scenetype();
-  static const int kSceneTypeFieldNumber = 3;
+  static const int kSceneTypeFieldNumber = 4;
   ::google::protobuf::uint32 scenetype() const;
   void set_scenetype(::google::protobuf::uint32 value);
 
@@ -2633,6 +2666,7 @@ class GS2MTSCreateScene : public ::google::protobuf::Message /* @@protoc_inserti
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::NetProto::MsgHead* msghead_;
   ::google::protobuf::uint32 accountid_;
+  ::google::protobuf::uint32 playerid_;
   ::google::protobuf::uint32 scenetype_;
   mutable int _cached_size_;
   friend struct protobuf_Protocol_2eproto::TableStruct;
@@ -2703,10 +2737,10 @@ class MTS2GSGetRobotList : public ::google::protobuf::Message /* @@protoc_insert
 
   // accessors -------------------------------------------------------
 
-  // repeated .NetProto.CreateRobotInfo robotList = 4;
+  // repeated .NetProto.CreateRobotInfo robotList = 5;
   int robotlist_size() const;
   void clear_robotlist();
-  static const int kRobotListFieldNumber = 4;
+  static const int kRobotListFieldNumber = 5;
   const ::NetProto::CreateRobotInfo& robotlist(int index) const;
   ::NetProto::CreateRobotInfo* mutable_robotlist(int index);
   ::NetProto::CreateRobotInfo* add_robotlist();
@@ -2730,9 +2764,15 @@ class MTS2GSGetRobotList : public ::google::protobuf::Message /* @@protoc_insert
   ::google::protobuf::uint32 accountid() const;
   void set_accountid(::google::protobuf::uint32 value);
 
-  // uint32 robotFlag = 3;
+  // uint32 playerID = 3;
+  void clear_playerid();
+  static const int kPlayerIDFieldNumber = 3;
+  ::google::protobuf::uint32 playerid() const;
+  void set_playerid(::google::protobuf::uint32 value);
+
+  // uint32 robotFlag = 4;
   void clear_robotflag();
-  static const int kRobotFlagFieldNumber = 3;
+  static const int kRobotFlagFieldNumber = 4;
   ::google::protobuf::uint32 robotflag() const;
   void set_robotflag(::google::protobuf::uint32 value);
 
@@ -2743,6 +2783,7 @@ class MTS2GSGetRobotList : public ::google::protobuf::Message /* @@protoc_insert
   ::google::protobuf::RepeatedPtrField< ::NetProto::CreateRobotInfo > robotlist_;
   ::NetProto::MsgHead* msghead_;
   ::google::protobuf::uint32 accountid_;
+  ::google::protobuf::uint32 playerid_;
   ::google::protobuf::uint32 robotflag_;
   mutable int _cached_size_;
   friend struct protobuf_Protocol_2eproto::TableStruct;
@@ -2813,10 +2854,10 @@ class MTS2GSCreateRobot : public ::google::protobuf::Message /* @@protoc_inserti
 
   // accessors -------------------------------------------------------
 
-  // repeated .NetProto.CreateRobotInfo robotList = 3;
+  // repeated .NetProto.CreateRobotInfo robotList = 4;
   int robotlist_size() const;
   void clear_robotlist();
-  static const int kRobotListFieldNumber = 3;
+  static const int kRobotListFieldNumber = 4;
   const ::NetProto::CreateRobotInfo& robotlist(int index) const;
   ::NetProto::CreateRobotInfo* mutable_robotlist(int index);
   ::NetProto::CreateRobotInfo* add_robotlist();
@@ -2840,6 +2881,12 @@ class MTS2GSCreateRobot : public ::google::protobuf::Message /* @@protoc_inserti
   ::google::protobuf::uint32 accountid() const;
   void set_accountid(::google::protobuf::uint32 value);
 
+  // uint32 playerID = 3;
+  void clear_playerid();
+  static const int kPlayerIDFieldNumber = 3;
+  ::google::protobuf::uint32 playerid() const;
+  void set_playerid(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:NetProto.MTS2GSCreateRobot)
  private:
 
@@ -2847,6 +2894,7 @@ class MTS2GSCreateRobot : public ::google::protobuf::Message /* @@protoc_inserti
   ::google::protobuf::RepeatedPtrField< ::NetProto::CreateRobotInfo > robotlist_;
   ::NetProto::MsgHead* msghead_;
   ::google::protobuf::uint32 accountid_;
+  ::google::protobuf::uint32 playerid_;
   mutable int _cached_size_;
   friend struct protobuf_Protocol_2eproto::TableStruct;
 };
@@ -2916,10 +2964,10 @@ class MTS2GSGetSceneItem : public ::google::protobuf::Message /* @@protoc_insert
 
   // accessors -------------------------------------------------------
 
-  // repeated .NetProto.CreateSceneItem itemList = 4;
+  // repeated .NetProto.CreateSceneItem itemList = 5;
   int itemlist_size() const;
   void clear_itemlist();
-  static const int kItemListFieldNumber = 4;
+  static const int kItemListFieldNumber = 5;
   const ::NetProto::CreateSceneItem& itemlist(int index) const;
   ::NetProto::CreateSceneItem* mutable_itemlist(int index);
   ::NetProto::CreateSceneItem* add_itemlist();
@@ -2928,9 +2976,9 @@ class MTS2GSGetSceneItem : public ::google::protobuf::Message /* @@protoc_insert
   const ::google::protobuf::RepeatedPtrField< ::NetProto::CreateSceneItem >&
       itemlist() const;
 
-  // string sceneID = 3;
+  // string sceneID = 4;
   void clear_sceneid();
-  static const int kSceneIDFieldNumber = 3;
+  static const int kSceneIDFieldNumber = 4;
   const ::std::string& sceneid() const;
   void set_sceneid(const ::std::string& value);
   #if LANG_CXX11
@@ -2957,6 +3005,12 @@ class MTS2GSGetSceneItem : public ::google::protobuf::Message /* @@protoc_insert
   ::google::protobuf::uint32 accountid() const;
   void set_accountid(::google::protobuf::uint32 value);
 
+  // uint32 playerID = 3;
+  void clear_playerid();
+  static const int kPlayerIDFieldNumber = 3;
+  ::google::protobuf::uint32 playerid() const;
+  void set_playerid(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:NetProto.MTS2GSGetSceneItem)
  private:
 
@@ -2965,6 +3019,7 @@ class MTS2GSGetSceneItem : public ::google::protobuf::Message /* @@protoc_insert
   ::google::protobuf::internal::ArenaStringPtr sceneid_;
   ::NetProto::MsgHead* msghead_;
   ::google::protobuf::uint32 accountid_;
+  ::google::protobuf::uint32 playerid_;
   mutable int _cached_size_;
   friend struct protobuf_Protocol_2eproto::TableStruct;
 };
@@ -3034,10 +3089,10 @@ class MTS2GSCreateScene : public ::google::protobuf::Message /* @@protoc_inserti
 
   // accessors -------------------------------------------------------
 
-  // repeated .NetProto.CreateSceneItem itemList = 4;
+  // repeated .NetProto.CreateSceneItem itemList = 5;
   int itemlist_size() const;
   void clear_itemlist();
-  static const int kItemListFieldNumber = 4;
+  static const int kItemListFieldNumber = 5;
   const ::NetProto::CreateSceneItem& itemlist(int index) const;
   ::NetProto::CreateSceneItem* mutable_itemlist(int index);
   ::NetProto::CreateSceneItem* add_itemlist();
@@ -3046,9 +3101,9 @@ class MTS2GSCreateScene : public ::google::protobuf::Message /* @@protoc_inserti
   const ::google::protobuf::RepeatedPtrField< ::NetProto::CreateSceneItem >&
       itemlist() const;
 
-  // string sceneID = 3;
+  // string sceneID = 4;
   void clear_sceneid();
-  static const int kSceneIDFieldNumber = 3;
+  static const int kSceneIDFieldNumber = 4;
   const ::std::string& sceneid() const;
   void set_sceneid(const ::std::string& value);
   #if LANG_CXX11
@@ -3075,6 +3130,12 @@ class MTS2GSCreateScene : public ::google::protobuf::Message /* @@protoc_inserti
   ::google::protobuf::uint32 accountid() const;
   void set_accountid(::google::protobuf::uint32 value);
 
+  // uint32 playerID = 3;
+  void clear_playerid();
+  static const int kPlayerIDFieldNumber = 3;
+  ::google::protobuf::uint32 playerid() const;
+  void set_playerid(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:NetProto.MTS2GSCreateScene)
  private:
 
@@ -3083,6 +3144,7 @@ class MTS2GSCreateScene : public ::google::protobuf::Message /* @@protoc_inserti
   ::google::protobuf::internal::ArenaStringPtr sceneid_;
   ::NetProto::MsgHead* msghead_;
   ::google::protobuf::uint32 accountid_;
+  ::google::protobuf::uint32 playerid_;
   mutable int _cached_size_;
   friend struct protobuf_Protocol_2eproto::TableStruct;
 };
@@ -5275,6 +5337,20 @@ inline void GS2MTSGetRobotList::set_accountid(::google::protobuf::uint32 value) 
   // @@protoc_insertion_point(field_set:NetProto.GS2MTSGetRobotList.accountID)
 }
 
+// uint32 playerID = 3;
+inline void GS2MTSGetRobotList::clear_playerid() {
+  playerid_ = 0u;
+}
+inline ::google::protobuf::uint32 GS2MTSGetRobotList::playerid() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2MTSGetRobotList.playerID)
+  return playerid_;
+}
+inline void GS2MTSGetRobotList::set_playerid(::google::protobuf::uint32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.GS2MTSGetRobotList.playerID)
+}
+
 // -------------------------------------------------------------------
 
 // GS2MTSCreateRobot
@@ -5332,7 +5408,21 @@ inline void GS2MTSCreateRobot::set_accountid(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:NetProto.GS2MTSCreateRobot.accountID)
 }
 
-// uint32 robotPrototypeID = 3;
+// uint32 playerID = 3;
+inline void GS2MTSCreateRobot::clear_playerid() {
+  playerid_ = 0u;
+}
+inline ::google::protobuf::uint32 GS2MTSCreateRobot::playerid() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2MTSCreateRobot.playerID)
+  return playerid_;
+}
+inline void GS2MTSCreateRobot::set_playerid(::google::protobuf::uint32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.GS2MTSCreateRobot.playerID)
+}
+
+// uint32 robotPrototypeID = 4;
 inline void GS2MTSCreateRobot::clear_robotprototypeid() {
   robotprototypeid_ = 0u;
 }
@@ -5403,7 +5493,21 @@ inline void GS2MTSGetSceneItem::set_accountid(::google::protobuf::uint32 value) 
   // @@protoc_insertion_point(field_set:NetProto.GS2MTSGetSceneItem.accountID)
 }
 
-// uint32 sceneType = 3;
+// uint32 playerID = 3;
+inline void GS2MTSGetSceneItem::clear_playerid() {
+  playerid_ = 0u;
+}
+inline ::google::protobuf::uint32 GS2MTSGetSceneItem::playerid() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2MTSGetSceneItem.playerID)
+  return playerid_;
+}
+inline void GS2MTSGetSceneItem::set_playerid(::google::protobuf::uint32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.GS2MTSGetSceneItem.playerID)
+}
+
+// uint32 sceneType = 4;
 inline void GS2MTSGetSceneItem::clear_scenetype() {
   scenetype_ = 0u;
 }
@@ -5417,7 +5521,7 @@ inline void GS2MTSGetSceneItem::set_scenetype(::google::protobuf::uint32 value) 
   // @@protoc_insertion_point(field_set:NetProto.GS2MTSGetSceneItem.sceneType)
 }
 
-// string sceneID = 4;
+// string sceneID = 5;
 inline void GS2MTSGetSceneItem::clear_sceneid() {
   sceneid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -5527,7 +5631,21 @@ inline void GS2MTSCreateScene::set_accountid(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:NetProto.GS2MTSCreateScene.accountID)
 }
 
-// uint32 sceneType = 3;
+// uint32 playerID = 3;
+inline void GS2MTSCreateScene::clear_playerid() {
+  playerid_ = 0u;
+}
+inline ::google::protobuf::uint32 GS2MTSCreateScene::playerid() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2MTSCreateScene.playerID)
+  return playerid_;
+}
+inline void GS2MTSCreateScene::set_playerid(::google::protobuf::uint32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.GS2MTSCreateScene.playerID)
+}
+
+// uint32 sceneType = 4;
 inline void GS2MTSCreateScene::clear_scenetype() {
   scenetype_ = 0u;
 }
@@ -5598,7 +5716,21 @@ inline void MTS2GSGetRobotList::set_accountid(::google::protobuf::uint32 value) 
   // @@protoc_insertion_point(field_set:NetProto.MTS2GSGetRobotList.accountID)
 }
 
-// uint32 robotFlag = 3;
+// uint32 playerID = 3;
+inline void MTS2GSGetRobotList::clear_playerid() {
+  playerid_ = 0u;
+}
+inline ::google::protobuf::uint32 MTS2GSGetRobotList::playerid() const {
+  // @@protoc_insertion_point(field_get:NetProto.MTS2GSGetRobotList.playerID)
+  return playerid_;
+}
+inline void MTS2GSGetRobotList::set_playerid(::google::protobuf::uint32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.MTS2GSGetRobotList.playerID)
+}
+
+// uint32 robotFlag = 4;
 inline void MTS2GSGetRobotList::clear_robotflag() {
   robotflag_ = 0u;
 }
@@ -5612,7 +5744,7 @@ inline void MTS2GSGetRobotList::set_robotflag(::google::protobuf::uint32 value) 
   // @@protoc_insertion_point(field_set:NetProto.MTS2GSGetRobotList.robotFlag)
 }
 
-// repeated .NetProto.CreateRobotInfo robotList = 4;
+// repeated .NetProto.CreateRobotInfo robotList = 5;
 inline int MTS2GSGetRobotList::robotlist_size() const {
   return robotlist_.size();
 }
@@ -5699,7 +5831,21 @@ inline void MTS2GSCreateRobot::set_accountid(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:NetProto.MTS2GSCreateRobot.accountID)
 }
 
-// repeated .NetProto.CreateRobotInfo robotList = 3;
+// uint32 playerID = 3;
+inline void MTS2GSCreateRobot::clear_playerid() {
+  playerid_ = 0u;
+}
+inline ::google::protobuf::uint32 MTS2GSCreateRobot::playerid() const {
+  // @@protoc_insertion_point(field_get:NetProto.MTS2GSCreateRobot.playerID)
+  return playerid_;
+}
+inline void MTS2GSCreateRobot::set_playerid(::google::protobuf::uint32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.MTS2GSCreateRobot.playerID)
+}
+
+// repeated .NetProto.CreateRobotInfo robotList = 4;
 inline int MTS2GSCreateRobot::robotlist_size() const {
   return robotlist_.size();
 }
@@ -5786,7 +5932,21 @@ inline void MTS2GSGetSceneItem::set_accountid(::google::protobuf::uint32 value) 
   // @@protoc_insertion_point(field_set:NetProto.MTS2GSGetSceneItem.accountID)
 }
 
-// string sceneID = 3;
+// uint32 playerID = 3;
+inline void MTS2GSGetSceneItem::clear_playerid() {
+  playerid_ = 0u;
+}
+inline ::google::protobuf::uint32 MTS2GSGetSceneItem::playerid() const {
+  // @@protoc_insertion_point(field_get:NetProto.MTS2GSGetSceneItem.playerID)
+  return playerid_;
+}
+inline void MTS2GSGetSceneItem::set_playerid(::google::protobuf::uint32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.MTS2GSGetSceneItem.playerID)
+}
+
+// string sceneID = 4;
 inline void MTS2GSGetSceneItem::clear_sceneid() {
   sceneid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -5839,7 +5999,7 @@ inline void MTS2GSGetSceneItem::set_allocated_sceneid(::std::string* sceneid) {
   // @@protoc_insertion_point(field_set_allocated:NetProto.MTS2GSGetSceneItem.sceneID)
 }
 
-// repeated .NetProto.CreateSceneItem itemList = 4;
+// repeated .NetProto.CreateSceneItem itemList = 5;
 inline int MTS2GSGetSceneItem::itemlist_size() const {
   return itemlist_.size();
 }
@@ -5926,7 +6086,21 @@ inline void MTS2GSCreateScene::set_accountid(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:NetProto.MTS2GSCreateScene.accountID)
 }
 
-// string sceneID = 3;
+// uint32 playerID = 3;
+inline void MTS2GSCreateScene::clear_playerid() {
+  playerid_ = 0u;
+}
+inline ::google::protobuf::uint32 MTS2GSCreateScene::playerid() const {
+  // @@protoc_insertion_point(field_get:NetProto.MTS2GSCreateScene.playerID)
+  return playerid_;
+}
+inline void MTS2GSCreateScene::set_playerid(::google::protobuf::uint32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.MTS2GSCreateScene.playerID)
+}
+
+// string sceneID = 4;
 inline void MTS2GSCreateScene::clear_sceneid() {
   sceneid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -5979,7 +6153,7 @@ inline void MTS2GSCreateScene::set_allocated_sceneid(::std::string* sceneid) {
   // @@protoc_insertion_point(field_set_allocated:NetProto.MTS2GSCreateScene.sceneID)
 }
 
-// repeated .NetProto.CreateSceneItem itemList = 4;
+// repeated .NetProto.CreateSceneItem itemList = 5;
 inline int MTS2GSCreateScene::itemlist_size() const {
   return itemlist_.size();
 }

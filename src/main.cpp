@@ -4,9 +4,11 @@
 #include <execinfo.h>
 
 #include "common/logger.h"
+#include "common/util.h"
 #include "net/accept_manager.h"
 #include "bizz/worker_manager.h"
 #include "bizz/scene_manager.h"
+#include "bizz/data_manager.h"
 #include "db/dbconn_manager.h"
 #include "net/session_manager.h"
 
@@ -68,14 +70,30 @@ void signalHandler(int signum) {
     }
 }
 
+void test(){
+    std::string str = "你好";
+    const char* cstr = str.c_str();
+    LOGINFO(util::ToHexString_Simple(str.c_str(), str.length()).c_str());
+    LOGINFO(util::ToHexString_Simple(cstr, strlen(cstr)).c_str());
+    char* cgbk = new char[10]();
+    util::u2g(const_cast<char*>(cstr), strlen(cstr), cgbk, 10);
+    LOGINFO(util::ToHexString_Simple(cgbk, strlen(cgbk)).c_str());
+
+    LOGINFO(cstr);
+    LOGINFO(cgbk);
+    exit(0);
+}
+
 
 int main()
 {
+    //test();
     Logger::Instance().Init("switch", DEBUG);
     LOG_DEBUG("begin main %s", "OK");
 
-    SceneMgr::Instance().Init();
     DbConnManager::Instance().Init();
+    SceneMgr::Instance().Init();
+    DataMgr::Instance().Init();
     WorkerManager::Instance().Start(3);
     AcceptManager::Instance().Start();
     SessionManager::Instance().Init(); 

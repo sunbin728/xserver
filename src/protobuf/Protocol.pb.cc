@@ -278,6 +278,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSGetRobotList, msghead_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSGetRobotList, accountid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSGetRobotList, playerid_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSCreateRobot, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -285,6 +286,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSCreateRobot, msghead_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSCreateRobot, accountid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSCreateRobot, playerid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSCreateRobot, robotprototypeid_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSGetSceneItem, _internal_metadata_),
@@ -293,6 +295,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSGetSceneItem, msghead_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSGetSceneItem, accountid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSGetSceneItem, playerid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSGetSceneItem, scenetype_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSGetSceneItem, sceneid_),
   ~0u,  // no _has_bits_
@@ -302,6 +305,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSCreateScene, msghead_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSCreateScene, accountid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSCreateScene, playerid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GS2MTSCreateScene, scenetype_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSGetRobotList, _internal_metadata_),
@@ -310,6 +314,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSGetRobotList, msghead_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSGetRobotList, accountid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSGetRobotList, playerid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSGetRobotList, robotflag_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSGetRobotList, robotlist_),
   ~0u,  // no _has_bits_
@@ -319,6 +324,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSCreateRobot, msghead_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSCreateRobot, accountid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSCreateRobot, playerid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSCreateRobot, robotlist_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSGetSceneItem, _internal_metadata_),
@@ -327,6 +333,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSGetSceneItem, msghead_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSGetSceneItem, accountid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSGetSceneItem, playerid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSGetSceneItem, sceneid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSGetSceneItem, itemlist_),
   ~0u,  // no _has_bits_
@@ -336,6 +343,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSCreateScene, msghead_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSCreateScene, accountid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSCreateScene, playerid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSCreateScene, sceneid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MTS2GSCreateScene, itemlist_),
 };
@@ -360,13 +368,13 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 134, -1, sizeof(GS2CEnterScene)},
   { 144, -1, sizeof(GS2MTSHeart)},
   { 150, -1, sizeof(GS2MTSGetRobotList)},
-  { 157, -1, sizeof(GS2MTSCreateRobot)},
-  { 165, -1, sizeof(GS2MTSGetSceneItem)},
-  { 174, -1, sizeof(GS2MTSCreateScene)},
-  { 182, -1, sizeof(MTS2GSGetRobotList)},
-  { 191, -1, sizeof(MTS2GSCreateRobot)},
-  { 199, -1, sizeof(MTS2GSGetSceneItem)},
-  { 208, -1, sizeof(MTS2GSCreateScene)},
+  { 158, -1, sizeof(GS2MTSCreateRobot)},
+  { 167, -1, sizeof(GS2MTSGetSceneItem)},
+  { 177, -1, sizeof(GS2MTSCreateScene)},
+  { 186, -1, sizeof(MTS2GSGetRobotList)},
+  { 196, -1, sizeof(MTS2GSCreateRobot)},
+  { 205, -1, sizeof(MTS2GSGetSceneItem)},
+  { 215, -1, sizeof(MTS2GSCreateScene)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -599,54 +607,58 @@ void AddDescriptorsImpl() {
       "tatus.NaturalActionStatus\032]\n\007ObjInfo\022\014\n\004"
       "uuid\030\001 \001(\t\022\020\n\010class_id\030\002 \001(\r\022\017\n\007item_id\030"
       "\003 \001(\r\022!\n\007pos_rot\030\004 \001(\0132\020.NetProto.PosRot"
-      "\"#\n\013GS2MTSHeart\022\024\n\014gameServerID\030\001 \001(\r\"K\n"
+      "\"#\n\013GS2MTSHeart\022\024\n\014gameServerID\030\001 \001(\r\"]\n"
       "\022GS2MTSGetRobotList\022\"\n\007msgHead\030\001 \001(\0132\021.N"
-      "etProto.MsgHead\022\021\n\taccountID\030\002 \001(\r\"d\n\021GS"
-      "2MTSCreateRobot\022\"\n\007msgHead\030\001 \001(\0132\021.NetPr"
-      "oto.MsgHead\022\021\n\taccountID\030\002 \001(\r\022\030\n\020robotP"
-      "rototypeID\030\003 \001(\r\"o\n\022GS2MTSGetSceneItem\022\""
-      "\n\007msgHead\030\001 \001(\0132\021.NetProto.MsgHead\022\021\n\tac"
-      "countID\030\002 \001(\r\022\021\n\tsceneType\030\003 \001(\r\022\017\n\007scen"
-      "eID\030\004 \001(\t\"]\n\021GS2MTSCreateScene\022\"\n\007msgHea"
-      "d\030\001 \001(\0132\021.NetProto.MsgHead\022\021\n\taccountID\030"
-      "\002 \001(\r\022\021\n\tsceneType\030\003 \001(\r\"\214\001\n\022MTS2GSGetRo"
-      "botList\022\"\n\007msgHead\030\001 \001(\0132\021.NetProto.MsgH"
-      "ead\022\021\n\taccountID\030\002 \001(\r\022\021\n\trobotFlag\030\003 \001("
-      "\r\022,\n\trobotList\030\004 \003(\0132\031.NetProto.CreateRo"
-      "botInfo\"x\n\021MTS2GSCreateRobot\022\"\n\007msgHead\030"
-      "\001 \001(\0132\021.NetProto.MsgHead\022\021\n\taccountID\030\002 "
-      "\001(\r\022,\n\trobotList\030\003 \003(\0132\031.NetProto.Create"
-      "RobotInfo\"\211\001\n\022MTS2GSGetSceneItem\022\"\n\007msgH"
-      "ead\030\001 \001(\0132\021.NetProto.MsgHead\022\021\n\taccountI"
-      "D\030\002 \001(\r\022\017\n\007sceneID\030\003 \001(\t\022+\n\010itemList\030\004 \003"
-      "(\0132\031.NetProto.CreateSceneItem\"\210\001\n\021MTS2GS"
-      "CreateScene\022\"\n\007msgHead\030\001 \001(\0132\021.NetProto."
-      "MsgHead\022\021\n\taccountID\030\002 \001(\r\022\017\n\007sceneID\030\003 "
-      "\001(\t\022+\n\010itemList\030\004 \003(\0132\031.NetProto.CreateS"
-      "ceneItem*\234\006\n\nMsgCommand\022\024\n\020C2A_ADD_USER_"
-      "REQ\020\000\022\026\n\022C2A_CHECK_USER_REQ\020\001\022\025\n\021A2C_ADD"
-      "_USER_RESP\020d\022\027\n\023A2C_CHECK_USER_RESP\020e\022\024\n"
-      "\017C2GS_HEART_BEAT\020\310\001\022\017\n\nC2GS_LOGIN\020\311\001\022\026\n\021"
-      "C2GS_CREATE_ROBOT\020\312\001\022\025\n\020C2GS_ENTER_SCENE"
-      "\020\313\001\022\017\n\nGS2C_LOGIN\020\254\002\022\026\n\021GS2C_CREATE_ROBO"
-      "T\020\255\002\022\025\n\020GS2C_ENTER_SCENE\020\256\002\022\025\n\020GS2PW_HEA"
-      "RT_BEAT\020\220\003\022\027\n\022GS2PW_ROBOT_ONLINE\020\221\003\022\030\n\023G"
-      "S2PW_ROBOT_OFFLINE\020\222\003\022\027\n\022GS2PW_CREATE_RO"
-      "BOT\020\223\003\022\031\n\024GS2PW_ALL_WORLD_DATA\020\224\003\022\026\n\021GS2"
-      "PW_GET_PW_DATA\020\225\003\022\027\n\022PW2GS_ROBOT_ONLINE\020"
-      "\364\003\022\030\n\023PW2GS_ROBOT_OFFLINE\020\365\003\022\027\n\022PW2GS_CR"
-      "EATE_ROBOT\020\366\003\022\031\n\024PW2GS_ALL_WORLD_DATA\020\367\003"
-      "\022\026\n\021PW2GS_GET_PW_DATA\020\370\003\022\026\n\021GS2MTS_HEART"
-      "_BEAT\020\330\004\022\032\n\025GS2MTS_GET_ROBOT_LIST\020\331\004\022\030\n\023"
-      "GS2MTS_CREATE_ROBOT\020\332\004\022\032\n\025GS2MTS_GET_SCE"
-      "NE_ITEM\020\333\004\022\030\n\023GS2MTS_CREATE_SCENE\020\334\004\022\032\n\025"
-      "MTS2GS_GET_ROBOT_LIST\020\274\005\022\030\n\023MTS2GS_CREAT"
-      "E_ROBOT\020\275\005\022\030\n\023MTS2GS_CREATE_SCENE\020\276\005\022\032\n\025"
-      "MTS2GS_GET_SCENE_ITEM\020\277\005\022\025\n\017CommunicateT"
-      "est\020\277\204=b\006proto3"
+      "etProto.MsgHead\022\021\n\taccountID\030\002 \001(\r\022\020\n\010pl"
+      "ayerID\030\003 \001(\r\"v\n\021GS2MTSCreateRobot\022\"\n\007msg"
+      "Head\030\001 \001(\0132\021.NetProto.MsgHead\022\021\n\taccount"
+      "ID\030\002 \001(\r\022\020\n\010playerID\030\003 \001(\r\022\030\n\020robotProto"
+      "typeID\030\004 \001(\r\"\201\001\n\022GS2MTSGetSceneItem\022\"\n\007m"
+      "sgHead\030\001 \001(\0132\021.NetProto.MsgHead\022\021\n\taccou"
+      "ntID\030\002 \001(\r\022\020\n\010playerID\030\003 \001(\r\022\021\n\tsceneTyp"
+      "e\030\004 \001(\r\022\017\n\007sceneID\030\005 \001(\t\"o\n\021GS2MTSCreate"
+      "Scene\022\"\n\007msgHead\030\001 \001(\0132\021.NetProto.MsgHea"
+      "d\022\021\n\taccountID\030\002 \001(\r\022\020\n\010playerID\030\003 \001(\r\022\021"
+      "\n\tsceneType\030\004 \001(\r\"\236\001\n\022MTS2GSGetRobotList"
+      "\022\"\n\007msgHead\030\001 \001(\0132\021.NetProto.MsgHead\022\021\n\t"
+      "accountID\030\002 \001(\r\022\020\n\010playerID\030\003 \001(\r\022\021\n\trob"
+      "otFlag\030\004 \001(\r\022,\n\trobotList\030\005 \003(\0132\031.NetPro"
+      "to.CreateRobotInfo\"\212\001\n\021MTS2GSCreateRobot"
+      "\022\"\n\007msgHead\030\001 \001(\0132\021.NetProto.MsgHead\022\021\n\t"
+      "accountID\030\002 \001(\r\022\020\n\010playerID\030\003 \001(\r\022,\n\trob"
+      "otList\030\004 \003(\0132\031.NetProto.CreateRobotInfo\""
+      "\233\001\n\022MTS2GSGetSceneItem\022\"\n\007msgHead\030\001 \001(\0132"
+      "\021.NetProto.MsgHead\022\021\n\taccountID\030\002 \001(\r\022\020\n"
+      "\010playerID\030\003 \001(\r\022\017\n\007sceneID\030\004 \001(\t\022+\n\010item"
+      "List\030\005 \003(\0132\031.NetProto.CreateSceneItem\"\232\001"
+      "\n\021MTS2GSCreateScene\022\"\n\007msgHead\030\001 \001(\0132\021.N"
+      "etProto.MsgHead\022\021\n\taccountID\030\002 \001(\r\022\020\n\010pl"
+      "ayerID\030\003 \001(\r\022\017\n\007sceneID\030\004 \001(\t\022+\n\010itemLis"
+      "t\030\005 \003(\0132\031.NetProto.CreateSceneItem*\234\006\n\nM"
+      "sgCommand\022\024\n\020C2A_ADD_USER_REQ\020\000\022\026\n\022C2A_C"
+      "HECK_USER_REQ\020\001\022\025\n\021A2C_ADD_USER_RESP\020d\022\027"
+      "\n\023A2C_CHECK_USER_RESP\020e\022\024\n\017C2GS_HEART_BE"
+      "AT\020\310\001\022\017\n\nC2GS_LOGIN\020\311\001\022\026\n\021C2GS_CREATE_RO"
+      "BOT\020\312\001\022\025\n\020C2GS_ENTER_SCENE\020\313\001\022\017\n\nGS2C_LO"
+      "GIN\020\254\002\022\026\n\021GS2C_CREATE_ROBOT\020\255\002\022\025\n\020GS2C_E"
+      "NTER_SCENE\020\256\002\022\025\n\020GS2PW_HEART_BEAT\020\220\003\022\027\n\022"
+      "GS2PW_ROBOT_ONLINE\020\221\003\022\030\n\023GS2PW_ROBOT_OFF"
+      "LINE\020\222\003\022\027\n\022GS2PW_CREATE_ROBOT\020\223\003\022\031\n\024GS2P"
+      "W_ALL_WORLD_DATA\020\224\003\022\026\n\021GS2PW_GET_PW_DATA"
+      "\020\225\003\022\027\n\022PW2GS_ROBOT_ONLINE\020\364\003\022\030\n\023PW2GS_RO"
+      "BOT_OFFLINE\020\365\003\022\027\n\022PW2GS_CREATE_ROBOT\020\366\003\022"
+      "\031\n\024PW2GS_ALL_WORLD_DATA\020\367\003\022\026\n\021PW2GS_GET_"
+      "PW_DATA\020\370\003\022\026\n\021GS2MTS_HEART_BEAT\020\330\004\022\032\n\025GS"
+      "2MTS_GET_ROBOT_LIST\020\331\004\022\030\n\023GS2MTS_CREATE_"
+      "ROBOT\020\332\004\022\032\n\025GS2MTS_GET_SCENE_ITEM\020\333\004\022\030\n\023"
+      "GS2MTS_CREATE_SCENE\020\334\004\022\032\n\025MTS2GS_GET_ROB"
+      "OT_LIST\020\274\005\022\030\n\023MTS2GS_CREATE_ROBOT\020\275\005\022\030\n\023"
+      "MTS2GS_CREATE_SCENE\020\276\005\022\032\n\025MTS2GS_GET_SCE"
+      "NE_ITEM\020\277\005\022\025\n\017CommunicateTest\020\277\204=b\006proto"
+      "3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 3575);
+      descriptor, 3721);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Protocol.proto", &protobuf_RegisterTypes);
   ::google::protobuf::protobuf_google_2fprotobuf_2fany_2eproto::AddDescriptors();
@@ -8904,6 +8916,7 @@ void GS2MTSHeart::set_gameserverid(::google::protobuf::uint32 value) {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int GS2MTSGetRobotList::kMsgHeadFieldNumber;
 const int GS2MTSGetRobotList::kAccountIDFieldNumber;
+const int GS2MTSGetRobotList::kPlayerIDFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 GS2MTSGetRobotList::GS2MTSGetRobotList()
@@ -8924,13 +8937,15 @@ GS2MTSGetRobotList::GS2MTSGetRobotList(const GS2MTSGetRobotList& from)
   } else {
     msghead_ = NULL;
   }
-  accountid_ = from.accountid_;
+  ::memcpy(&accountid_, &from.accountid_,
+    reinterpret_cast<char*>(&playerid_) -
+    reinterpret_cast<char*>(&accountid_) + sizeof(playerid_));
   // @@protoc_insertion_point(copy_constructor:NetProto.GS2MTSGetRobotList)
 }
 
 void GS2MTSGetRobotList::SharedCtor() {
-  ::memset(&msghead_, 0, reinterpret_cast<char*>(&accountid_) -
-    reinterpret_cast<char*>(&msghead_) + sizeof(accountid_));
+  ::memset(&msghead_, 0, reinterpret_cast<char*>(&playerid_) -
+    reinterpret_cast<char*>(&msghead_) + sizeof(playerid_));
   _cached_size_ = 0;
 }
 
@@ -8974,7 +8989,8 @@ void GS2MTSGetRobotList::Clear() {
     delete msghead_;
   }
   msghead_ = NULL;
-  accountid_ = 0u;
+  ::memset(&accountid_, 0, reinterpret_cast<char*>(&playerid_) -
+    reinterpret_cast<char*>(&accountid_) + sizeof(playerid_));
 }
 
 bool GS2MTSGetRobotList::MergePartialFromCodedStream(
@@ -9007,6 +9023,20 @@ bool GS2MTSGetRobotList::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &accountid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint32 playerID = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &playerid_)));
         } else {
           goto handle_unusual;
         }
@@ -9051,6 +9081,11 @@ void GS2MTSGetRobotList::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->accountid(), output);
   }
 
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->playerid(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:NetProto.GS2MTSGetRobotList)
 }
 
@@ -9070,6 +9105,11 @@ void GS2MTSGetRobotList::SerializeWithCachedSizes(
   // uint32 accountID = 2;
   if (this->accountid() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->accountid(), target);
+  }
+
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->playerid(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:NetProto.GS2MTSGetRobotList)
@@ -9092,6 +9132,13 @@ size_t GS2MTSGetRobotList::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::UInt32Size(
         this->accountid());
+  }
+
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->playerid());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -9129,6 +9176,9 @@ void GS2MTSGetRobotList::MergeFrom(const GS2MTSGetRobotList& from) {
   if (from.accountid() != 0) {
     set_accountid(from.accountid());
   }
+  if (from.playerid() != 0) {
+    set_playerid(from.playerid());
+  }
 }
 
 void GS2MTSGetRobotList::CopyFrom(const ::google::protobuf::Message& from) {
@@ -9156,6 +9206,7 @@ void GS2MTSGetRobotList::Swap(GS2MTSGetRobotList* other) {
 void GS2MTSGetRobotList::InternalSwap(GS2MTSGetRobotList* other) {
   std::swap(msghead_, other->msghead_);
   std::swap(accountid_, other->accountid_);
+  std::swap(playerid_, other->playerid_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -9220,6 +9271,20 @@ void GS2MTSGetRobotList::set_accountid(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:NetProto.GS2MTSGetRobotList.accountID)
 }
 
+// uint32 playerID = 3;
+void GS2MTSGetRobotList::clear_playerid() {
+  playerid_ = 0u;
+}
+::google::protobuf::uint32 GS2MTSGetRobotList::playerid() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2MTSGetRobotList.playerID)
+  return playerid_;
+}
+void GS2MTSGetRobotList::set_playerid(::google::protobuf::uint32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.GS2MTSGetRobotList.playerID)
+}
+
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -9227,6 +9292,7 @@ void GS2MTSGetRobotList::set_accountid(::google::protobuf::uint32 value) {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int GS2MTSCreateRobot::kMsgHeadFieldNumber;
 const int GS2MTSCreateRobot::kAccountIDFieldNumber;
+const int GS2MTSCreateRobot::kPlayerIDFieldNumber;
 const int GS2MTSCreateRobot::kRobotPrototypeIDFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -9340,10 +9406,24 @@ bool GS2MTSCreateRobot::MergePartialFromCodedStream(
         break;
       }
 
-      // uint32 robotPrototypeID = 3;
+      // uint32 playerID = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(24u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &playerid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint32 robotPrototypeID = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(32u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
@@ -9392,9 +9472,14 @@ void GS2MTSCreateRobot::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->accountid(), output);
   }
 
-  // uint32 robotPrototypeID = 3;
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->playerid(), output);
+  }
+
+  // uint32 robotPrototypeID = 4;
   if (this->robotprototypeid() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->robotprototypeid(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->robotprototypeid(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:NetProto.GS2MTSCreateRobot)
@@ -9418,9 +9503,14 @@ void GS2MTSCreateRobot::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->accountid(), target);
   }
 
-  // uint32 robotPrototypeID = 3;
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->playerid(), target);
+  }
+
+  // uint32 robotPrototypeID = 4;
   if (this->robotprototypeid() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->robotprototypeid(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->robotprototypeid(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:NetProto.GS2MTSCreateRobot)
@@ -9445,7 +9535,14 @@ size_t GS2MTSCreateRobot::ByteSizeLong() const {
         this->accountid());
   }
 
-  // uint32 robotPrototypeID = 3;
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->playerid());
+  }
+
+  // uint32 robotPrototypeID = 4;
   if (this->robotprototypeid() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -9487,6 +9584,9 @@ void GS2MTSCreateRobot::MergeFrom(const GS2MTSCreateRobot& from) {
   if (from.accountid() != 0) {
     set_accountid(from.accountid());
   }
+  if (from.playerid() != 0) {
+    set_playerid(from.playerid());
+  }
   if (from.robotprototypeid() != 0) {
     set_robotprototypeid(from.robotprototypeid());
   }
@@ -9517,6 +9617,7 @@ void GS2MTSCreateRobot::Swap(GS2MTSCreateRobot* other) {
 void GS2MTSCreateRobot::InternalSwap(GS2MTSCreateRobot* other) {
   std::swap(msghead_, other->msghead_);
   std::swap(accountid_, other->accountid_);
+  std::swap(playerid_, other->playerid_);
   std::swap(robotprototypeid_, other->robotprototypeid_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -9582,7 +9683,21 @@ void GS2MTSCreateRobot::set_accountid(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:NetProto.GS2MTSCreateRobot.accountID)
 }
 
-// uint32 robotPrototypeID = 3;
+// uint32 playerID = 3;
+void GS2MTSCreateRobot::clear_playerid() {
+  playerid_ = 0u;
+}
+::google::protobuf::uint32 GS2MTSCreateRobot::playerid() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2MTSCreateRobot.playerID)
+  return playerid_;
+}
+void GS2MTSCreateRobot::set_playerid(::google::protobuf::uint32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.GS2MTSCreateRobot.playerID)
+}
+
+// uint32 robotPrototypeID = 4;
 void GS2MTSCreateRobot::clear_robotprototypeid() {
   robotprototypeid_ = 0u;
 }
@@ -9603,6 +9718,7 @@ void GS2MTSCreateRobot::set_robotprototypeid(::google::protobuf::uint32 value) {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int GS2MTSGetSceneItem::kMsgHeadFieldNumber;
 const int GS2MTSGetSceneItem::kAccountIDFieldNumber;
+const int GS2MTSGetSceneItem::kPlayerIDFieldNumber;
 const int GS2MTSGetSceneItem::kSceneTypeFieldNumber;
 const int GS2MTSGetSceneItem::kSceneIDFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -9724,10 +9840,24 @@ bool GS2MTSGetSceneItem::MergePartialFromCodedStream(
         break;
       }
 
-      // uint32 sceneType = 3;
+      // uint32 playerID = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(24u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &playerid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint32 sceneType = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(32u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
@@ -9738,10 +9868,10 @@ bool GS2MTSGetSceneItem::MergePartialFromCodedStream(
         break;
       }
 
-      // string sceneID = 4;
-      case 4: {
+      // string sceneID = 5;
+      case 5: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(34u)) {
+            static_cast< ::google::protobuf::uint8>(42u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_sceneid()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -9792,19 +9922,24 @@ void GS2MTSGetSceneItem::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->accountid(), output);
   }
 
-  // uint32 sceneType = 3;
-  if (this->scenetype() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->scenetype(), output);
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->playerid(), output);
   }
 
-  // string sceneID = 4;
+  // uint32 sceneType = 4;
+  if (this->scenetype() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->scenetype(), output);
+  }
+
+  // string sceneID = 5;
   if (this->sceneid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sceneid().data(), this->sceneid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "NetProto.GS2MTSGetSceneItem.sceneID");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      4, this->sceneid(), output);
+      5, this->sceneid(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:NetProto.GS2MTSGetSceneItem)
@@ -9828,12 +9963,17 @@ void GS2MTSGetSceneItem::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->accountid(), target);
   }
 
-  // uint32 sceneType = 3;
-  if (this->scenetype() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->scenetype(), target);
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->playerid(), target);
   }
 
-  // string sceneID = 4;
+  // uint32 sceneType = 4;
+  if (this->scenetype() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->scenetype(), target);
+  }
+
+  // string sceneID = 5;
   if (this->sceneid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sceneid().data(), this->sceneid().length(),
@@ -9841,7 +9981,7 @@ void GS2MTSGetSceneItem::SerializeWithCachedSizes(
       "NetProto.GS2MTSGetSceneItem.sceneID");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        4, this->sceneid(), target);
+        5, this->sceneid(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:NetProto.GS2MTSGetSceneItem)
@@ -9852,7 +9992,7 @@ size_t GS2MTSGetSceneItem::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:NetProto.GS2MTSGetSceneItem)
   size_t total_size = 0;
 
-  // string sceneID = 4;
+  // string sceneID = 5;
   if (this->sceneid().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -9873,7 +10013,14 @@ size_t GS2MTSGetSceneItem::ByteSizeLong() const {
         this->accountid());
   }
 
-  // uint32 sceneType = 3;
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->playerid());
+  }
+
+  // uint32 sceneType = 4;
   if (this->scenetype() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -9919,6 +10066,9 @@ void GS2MTSGetSceneItem::MergeFrom(const GS2MTSGetSceneItem& from) {
   if (from.accountid() != 0) {
     set_accountid(from.accountid());
   }
+  if (from.playerid() != 0) {
+    set_playerid(from.playerid());
+  }
   if (from.scenetype() != 0) {
     set_scenetype(from.scenetype());
   }
@@ -9950,6 +10100,7 @@ void GS2MTSGetSceneItem::InternalSwap(GS2MTSGetSceneItem* other) {
   sceneid_.Swap(&other->sceneid_);
   std::swap(msghead_, other->msghead_);
   std::swap(accountid_, other->accountid_);
+  std::swap(playerid_, other->playerid_);
   std::swap(scenetype_, other->scenetype_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -10015,7 +10166,21 @@ void GS2MTSGetSceneItem::set_accountid(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:NetProto.GS2MTSGetSceneItem.accountID)
 }
 
-// uint32 sceneType = 3;
+// uint32 playerID = 3;
+void GS2MTSGetSceneItem::clear_playerid() {
+  playerid_ = 0u;
+}
+::google::protobuf::uint32 GS2MTSGetSceneItem::playerid() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2MTSGetSceneItem.playerID)
+  return playerid_;
+}
+void GS2MTSGetSceneItem::set_playerid(::google::protobuf::uint32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.GS2MTSGetSceneItem.playerID)
+}
+
+// uint32 sceneType = 4;
 void GS2MTSGetSceneItem::clear_scenetype() {
   scenetype_ = 0u;
 }
@@ -10029,7 +10194,7 @@ void GS2MTSGetSceneItem::set_scenetype(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:NetProto.GS2MTSGetSceneItem.sceneType)
 }
 
-// string sceneID = 4;
+// string sceneID = 5;
 void GS2MTSGetSceneItem::clear_sceneid() {
   sceneid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -10089,6 +10254,7 @@ void GS2MTSGetSceneItem::set_allocated_sceneid(::std::string* sceneid) {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int GS2MTSCreateScene::kMsgHeadFieldNumber;
 const int GS2MTSCreateScene::kAccountIDFieldNumber;
+const int GS2MTSCreateScene::kPlayerIDFieldNumber;
 const int GS2MTSCreateScene::kSceneTypeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -10202,10 +10368,24 @@ bool GS2MTSCreateScene::MergePartialFromCodedStream(
         break;
       }
 
-      // uint32 sceneType = 3;
+      // uint32 playerID = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(24u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &playerid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint32 sceneType = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(32u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
@@ -10254,9 +10434,14 @@ void GS2MTSCreateScene::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->accountid(), output);
   }
 
-  // uint32 sceneType = 3;
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->playerid(), output);
+  }
+
+  // uint32 sceneType = 4;
   if (this->scenetype() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->scenetype(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->scenetype(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:NetProto.GS2MTSCreateScene)
@@ -10280,9 +10465,14 @@ void GS2MTSCreateScene::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->accountid(), target);
   }
 
-  // uint32 sceneType = 3;
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->playerid(), target);
+  }
+
+  // uint32 sceneType = 4;
   if (this->scenetype() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->scenetype(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->scenetype(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:NetProto.GS2MTSCreateScene)
@@ -10307,7 +10497,14 @@ size_t GS2MTSCreateScene::ByteSizeLong() const {
         this->accountid());
   }
 
-  // uint32 sceneType = 3;
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->playerid());
+  }
+
+  // uint32 sceneType = 4;
   if (this->scenetype() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -10349,6 +10546,9 @@ void GS2MTSCreateScene::MergeFrom(const GS2MTSCreateScene& from) {
   if (from.accountid() != 0) {
     set_accountid(from.accountid());
   }
+  if (from.playerid() != 0) {
+    set_playerid(from.playerid());
+  }
   if (from.scenetype() != 0) {
     set_scenetype(from.scenetype());
   }
@@ -10379,6 +10579,7 @@ void GS2MTSCreateScene::Swap(GS2MTSCreateScene* other) {
 void GS2MTSCreateScene::InternalSwap(GS2MTSCreateScene* other) {
   std::swap(msghead_, other->msghead_);
   std::swap(accountid_, other->accountid_);
+  std::swap(playerid_, other->playerid_);
   std::swap(scenetype_, other->scenetype_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -10444,7 +10645,21 @@ void GS2MTSCreateScene::set_accountid(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:NetProto.GS2MTSCreateScene.accountID)
 }
 
-// uint32 sceneType = 3;
+// uint32 playerID = 3;
+void GS2MTSCreateScene::clear_playerid() {
+  playerid_ = 0u;
+}
+::google::protobuf::uint32 GS2MTSCreateScene::playerid() const {
+  // @@protoc_insertion_point(field_get:NetProto.GS2MTSCreateScene.playerID)
+  return playerid_;
+}
+void GS2MTSCreateScene::set_playerid(::google::protobuf::uint32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.GS2MTSCreateScene.playerID)
+}
+
+// uint32 sceneType = 4;
 void GS2MTSCreateScene::clear_scenetype() {
   scenetype_ = 0u;
 }
@@ -10465,6 +10680,7 @@ void GS2MTSCreateScene::set_scenetype(::google::protobuf::uint32 value) {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int MTS2GSGetRobotList::kMsgHeadFieldNumber;
 const int MTS2GSGetRobotList::kAccountIDFieldNumber;
+const int MTS2GSGetRobotList::kPlayerIDFieldNumber;
 const int MTS2GSGetRobotList::kRobotFlagFieldNumber;
 const int MTS2GSGetRobotList::kRobotListFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -10581,10 +10797,24 @@ bool MTS2GSGetRobotList::MergePartialFromCodedStream(
         break;
       }
 
-      // uint32 robotFlag = 3;
+      // uint32 playerID = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(24u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &playerid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint32 robotFlag = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(32u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
@@ -10595,10 +10825,10 @@ bool MTS2GSGetRobotList::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .NetProto.CreateRobotInfo robotList = 4;
-      case 4: {
+      // repeated .NetProto.CreateRobotInfo robotList = 5;
+      case 5: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(34u)) {
+            static_cast< ::google::protobuf::uint8>(42u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                 input, add_robotlist()));
         } else {
@@ -10645,15 +10875,20 @@ void MTS2GSGetRobotList::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->accountid(), output);
   }
 
-  // uint32 robotFlag = 3;
-  if (this->robotflag() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->robotflag(), output);
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->playerid(), output);
   }
 
-  // repeated .NetProto.CreateRobotInfo robotList = 4;
+  // uint32 robotFlag = 4;
+  if (this->robotflag() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->robotflag(), output);
+  }
+
+  // repeated .NetProto.CreateRobotInfo robotList = 5;
   for (unsigned int i = 0, n = this->robotlist_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, this->robotlist(i), output);
+      5, this->robotlist(i), output);
   }
 
   // @@protoc_insertion_point(serialize_end:NetProto.MTS2GSGetRobotList)
@@ -10677,16 +10912,21 @@ void MTS2GSGetRobotList::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->accountid(), target);
   }
 
-  // uint32 robotFlag = 3;
-  if (this->robotflag() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->robotflag(), target);
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->playerid(), target);
   }
 
-  // repeated .NetProto.CreateRobotInfo robotList = 4;
+  // uint32 robotFlag = 4;
+  if (this->robotflag() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->robotflag(), target);
+  }
+
+  // repeated .NetProto.CreateRobotInfo robotList = 5;
   for (unsigned int i = 0, n = this->robotlist_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        4, this->robotlist(i), deterministic, target);
+        5, this->robotlist(i), deterministic, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:NetProto.MTS2GSGetRobotList)
@@ -10697,7 +10937,7 @@ size_t MTS2GSGetRobotList::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:NetProto.MTS2GSGetRobotList)
   size_t total_size = 0;
 
-  // repeated .NetProto.CreateRobotInfo robotList = 4;
+  // repeated .NetProto.CreateRobotInfo robotList = 5;
   {
     unsigned int count = this->robotlist_size();
     total_size += 1UL * count;
@@ -10722,7 +10962,14 @@ size_t MTS2GSGetRobotList::ByteSizeLong() const {
         this->accountid());
   }
 
-  // uint32 robotFlag = 3;
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->playerid());
+  }
+
+  // uint32 robotFlag = 4;
   if (this->robotflag() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -10765,6 +11012,9 @@ void MTS2GSGetRobotList::MergeFrom(const MTS2GSGetRobotList& from) {
   if (from.accountid() != 0) {
     set_accountid(from.accountid());
   }
+  if (from.playerid() != 0) {
+    set_playerid(from.playerid());
+  }
   if (from.robotflag() != 0) {
     set_robotflag(from.robotflag());
   }
@@ -10796,6 +11046,7 @@ void MTS2GSGetRobotList::InternalSwap(MTS2GSGetRobotList* other) {
   robotlist_.InternalSwap(&other->robotlist_);
   std::swap(msghead_, other->msghead_);
   std::swap(accountid_, other->accountid_);
+  std::swap(playerid_, other->playerid_);
   std::swap(robotflag_, other->robotflag_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -10861,7 +11112,21 @@ void MTS2GSGetRobotList::set_accountid(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:NetProto.MTS2GSGetRobotList.accountID)
 }
 
-// uint32 robotFlag = 3;
+// uint32 playerID = 3;
+void MTS2GSGetRobotList::clear_playerid() {
+  playerid_ = 0u;
+}
+::google::protobuf::uint32 MTS2GSGetRobotList::playerid() const {
+  // @@protoc_insertion_point(field_get:NetProto.MTS2GSGetRobotList.playerID)
+  return playerid_;
+}
+void MTS2GSGetRobotList::set_playerid(::google::protobuf::uint32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.MTS2GSGetRobotList.playerID)
+}
+
+// uint32 robotFlag = 4;
 void MTS2GSGetRobotList::clear_robotflag() {
   robotflag_ = 0u;
 }
@@ -10875,7 +11140,7 @@ void MTS2GSGetRobotList::set_robotflag(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:NetProto.MTS2GSGetRobotList.robotFlag)
 }
 
-// repeated .NetProto.CreateRobotInfo robotList = 4;
+// repeated .NetProto.CreateRobotInfo robotList = 5;
 int MTS2GSGetRobotList::robotlist_size() const {
   return robotlist_.size();
 }
@@ -10912,6 +11177,7 @@ MTS2GSGetRobotList::robotlist() const {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int MTS2GSCreateRobot::kMsgHeadFieldNumber;
 const int MTS2GSCreateRobot::kAccountIDFieldNumber;
+const int MTS2GSCreateRobot::kPlayerIDFieldNumber;
 const int MTS2GSCreateRobot::kRobotListFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -10934,13 +11200,15 @@ MTS2GSCreateRobot::MTS2GSCreateRobot(const MTS2GSCreateRobot& from)
   } else {
     msghead_ = NULL;
   }
-  accountid_ = from.accountid_;
+  ::memcpy(&accountid_, &from.accountid_,
+    reinterpret_cast<char*>(&playerid_) -
+    reinterpret_cast<char*>(&accountid_) + sizeof(playerid_));
   // @@protoc_insertion_point(copy_constructor:NetProto.MTS2GSCreateRobot)
 }
 
 void MTS2GSCreateRobot::SharedCtor() {
-  ::memset(&msghead_, 0, reinterpret_cast<char*>(&accountid_) -
-    reinterpret_cast<char*>(&msghead_) + sizeof(accountid_));
+  ::memset(&msghead_, 0, reinterpret_cast<char*>(&playerid_) -
+    reinterpret_cast<char*>(&msghead_) + sizeof(playerid_));
   _cached_size_ = 0;
 }
 
@@ -10985,7 +11253,8 @@ void MTS2GSCreateRobot::Clear() {
     delete msghead_;
   }
   msghead_ = NULL;
-  accountid_ = 0u;
+  ::memset(&accountid_, 0, reinterpret_cast<char*>(&playerid_) -
+    reinterpret_cast<char*>(&accountid_) + sizeof(playerid_));
 }
 
 bool MTS2GSCreateRobot::MergePartialFromCodedStream(
@@ -11024,10 +11293,24 @@ bool MTS2GSCreateRobot::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .NetProto.CreateRobotInfo robotList = 3;
+      // uint32 playerID = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(26u)) {
+            static_cast< ::google::protobuf::uint8>(24u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &playerid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated .NetProto.CreateRobotInfo robotList = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                 input, add_robotlist()));
         } else {
@@ -11074,10 +11357,15 @@ void MTS2GSCreateRobot::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->accountid(), output);
   }
 
-  // repeated .NetProto.CreateRobotInfo robotList = 3;
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->playerid(), output);
+  }
+
+  // repeated .NetProto.CreateRobotInfo robotList = 4;
   for (unsigned int i = 0, n = this->robotlist_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, this->robotlist(i), output);
+      4, this->robotlist(i), output);
   }
 
   // @@protoc_insertion_point(serialize_end:NetProto.MTS2GSCreateRobot)
@@ -11101,11 +11389,16 @@ void MTS2GSCreateRobot::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->accountid(), target);
   }
 
-  // repeated .NetProto.CreateRobotInfo robotList = 3;
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->playerid(), target);
+  }
+
+  // repeated .NetProto.CreateRobotInfo robotList = 4;
   for (unsigned int i = 0, n = this->robotlist_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        3, this->robotlist(i), deterministic, target);
+        4, this->robotlist(i), deterministic, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:NetProto.MTS2GSCreateRobot)
@@ -11116,7 +11409,7 @@ size_t MTS2GSCreateRobot::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:NetProto.MTS2GSCreateRobot)
   size_t total_size = 0;
 
-  // repeated .NetProto.CreateRobotInfo robotList = 3;
+  // repeated .NetProto.CreateRobotInfo robotList = 4;
   {
     unsigned int count = this->robotlist_size();
     total_size += 1UL * count;
@@ -11139,6 +11432,13 @@ size_t MTS2GSCreateRobot::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::UInt32Size(
         this->accountid());
+  }
+
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->playerid());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -11177,6 +11477,9 @@ void MTS2GSCreateRobot::MergeFrom(const MTS2GSCreateRobot& from) {
   if (from.accountid() != 0) {
     set_accountid(from.accountid());
   }
+  if (from.playerid() != 0) {
+    set_playerid(from.playerid());
+  }
 }
 
 void MTS2GSCreateRobot::CopyFrom(const ::google::protobuf::Message& from) {
@@ -11205,6 +11508,7 @@ void MTS2GSCreateRobot::InternalSwap(MTS2GSCreateRobot* other) {
   robotlist_.InternalSwap(&other->robotlist_);
   std::swap(msghead_, other->msghead_);
   std::swap(accountid_, other->accountid_);
+  std::swap(playerid_, other->playerid_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -11269,7 +11573,21 @@ void MTS2GSCreateRobot::set_accountid(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:NetProto.MTS2GSCreateRobot.accountID)
 }
 
-// repeated .NetProto.CreateRobotInfo robotList = 3;
+// uint32 playerID = 3;
+void MTS2GSCreateRobot::clear_playerid() {
+  playerid_ = 0u;
+}
+::google::protobuf::uint32 MTS2GSCreateRobot::playerid() const {
+  // @@protoc_insertion_point(field_get:NetProto.MTS2GSCreateRobot.playerID)
+  return playerid_;
+}
+void MTS2GSCreateRobot::set_playerid(::google::protobuf::uint32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.MTS2GSCreateRobot.playerID)
+}
+
+// repeated .NetProto.CreateRobotInfo robotList = 4;
 int MTS2GSCreateRobot::robotlist_size() const {
   return robotlist_.size();
 }
@@ -11306,6 +11624,7 @@ MTS2GSCreateRobot::robotlist() const {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int MTS2GSGetSceneItem::kMsgHeadFieldNumber;
 const int MTS2GSGetSceneItem::kAccountIDFieldNumber;
+const int MTS2GSGetSceneItem::kPlayerIDFieldNumber;
 const int MTS2GSGetSceneItem::kSceneIDFieldNumber;
 const int MTS2GSGetSceneItem::kItemListFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -11333,14 +11652,16 @@ MTS2GSGetSceneItem::MTS2GSGetSceneItem(const MTS2GSGetSceneItem& from)
   } else {
     msghead_ = NULL;
   }
-  accountid_ = from.accountid_;
+  ::memcpy(&accountid_, &from.accountid_,
+    reinterpret_cast<char*>(&playerid_) -
+    reinterpret_cast<char*>(&accountid_) + sizeof(playerid_));
   // @@protoc_insertion_point(copy_constructor:NetProto.MTS2GSGetSceneItem)
 }
 
 void MTS2GSGetSceneItem::SharedCtor() {
   sceneid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&msghead_, 0, reinterpret_cast<char*>(&accountid_) -
-    reinterpret_cast<char*>(&msghead_) + sizeof(accountid_));
+  ::memset(&msghead_, 0, reinterpret_cast<char*>(&playerid_) -
+    reinterpret_cast<char*>(&msghead_) + sizeof(playerid_));
   _cached_size_ = 0;
 }
 
@@ -11387,7 +11708,8 @@ void MTS2GSGetSceneItem::Clear() {
     delete msghead_;
   }
   msghead_ = NULL;
-  accountid_ = 0u;
+  ::memset(&accountid_, 0, reinterpret_cast<char*>(&playerid_) -
+    reinterpret_cast<char*>(&accountid_) + sizeof(playerid_));
 }
 
 bool MTS2GSGetSceneItem::MergePartialFromCodedStream(
@@ -11426,10 +11748,24 @@ bool MTS2GSGetSceneItem::MergePartialFromCodedStream(
         break;
       }
 
-      // string sceneID = 3;
+      // uint32 playerID = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(26u)) {
+            static_cast< ::google::protobuf::uint8>(24u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &playerid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string sceneID = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_sceneid()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -11442,10 +11778,10 @@ bool MTS2GSGetSceneItem::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .NetProto.CreateSceneItem itemList = 4;
-      case 4: {
+      // repeated .NetProto.CreateSceneItem itemList = 5;
+      case 5: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(34u)) {
+            static_cast< ::google::protobuf::uint8>(42u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                 input, add_itemlist()));
         } else {
@@ -11492,20 +11828,25 @@ void MTS2GSGetSceneItem::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->accountid(), output);
   }
 
-  // string sceneID = 3;
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->playerid(), output);
+  }
+
+  // string sceneID = 4;
   if (this->sceneid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sceneid().data(), this->sceneid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "NetProto.MTS2GSGetSceneItem.sceneID");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->sceneid(), output);
+      4, this->sceneid(), output);
   }
 
-  // repeated .NetProto.CreateSceneItem itemList = 4;
+  // repeated .NetProto.CreateSceneItem itemList = 5;
   for (unsigned int i = 0, n = this->itemlist_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, this->itemlist(i), output);
+      5, this->itemlist(i), output);
   }
 
   // @@protoc_insertion_point(serialize_end:NetProto.MTS2GSGetSceneItem)
@@ -11529,7 +11870,12 @@ void MTS2GSGetSceneItem::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->accountid(), target);
   }
 
-  // string sceneID = 3;
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->playerid(), target);
+  }
+
+  // string sceneID = 4;
   if (this->sceneid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sceneid().data(), this->sceneid().length(),
@@ -11537,14 +11883,14 @@ void MTS2GSGetSceneItem::SerializeWithCachedSizes(
       "NetProto.MTS2GSGetSceneItem.sceneID");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->sceneid(), target);
+        4, this->sceneid(), target);
   }
 
-  // repeated .NetProto.CreateSceneItem itemList = 4;
+  // repeated .NetProto.CreateSceneItem itemList = 5;
   for (unsigned int i = 0, n = this->itemlist_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        4, this->itemlist(i), deterministic, target);
+        5, this->itemlist(i), deterministic, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:NetProto.MTS2GSGetSceneItem)
@@ -11555,7 +11901,7 @@ size_t MTS2GSGetSceneItem::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:NetProto.MTS2GSGetSceneItem)
   size_t total_size = 0;
 
-  // repeated .NetProto.CreateSceneItem itemList = 4;
+  // repeated .NetProto.CreateSceneItem itemList = 5;
   {
     unsigned int count = this->itemlist_size();
     total_size += 1UL * count;
@@ -11566,7 +11912,7 @@ size_t MTS2GSGetSceneItem::ByteSizeLong() const {
     }
   }
 
-  // string sceneID = 3;
+  // string sceneID = 4;
   if (this->sceneid().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -11585,6 +11931,13 @@ size_t MTS2GSGetSceneItem::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::UInt32Size(
         this->accountid());
+  }
+
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->playerid());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -11627,6 +11980,9 @@ void MTS2GSGetSceneItem::MergeFrom(const MTS2GSGetSceneItem& from) {
   if (from.accountid() != 0) {
     set_accountid(from.accountid());
   }
+  if (from.playerid() != 0) {
+    set_playerid(from.playerid());
+  }
 }
 
 void MTS2GSGetSceneItem::CopyFrom(const ::google::protobuf::Message& from) {
@@ -11656,6 +12012,7 @@ void MTS2GSGetSceneItem::InternalSwap(MTS2GSGetSceneItem* other) {
   sceneid_.Swap(&other->sceneid_);
   std::swap(msghead_, other->msghead_);
   std::swap(accountid_, other->accountid_);
+  std::swap(playerid_, other->playerid_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -11720,7 +12077,21 @@ void MTS2GSGetSceneItem::set_accountid(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:NetProto.MTS2GSGetSceneItem.accountID)
 }
 
-// string sceneID = 3;
+// uint32 playerID = 3;
+void MTS2GSGetSceneItem::clear_playerid() {
+  playerid_ = 0u;
+}
+::google::protobuf::uint32 MTS2GSGetSceneItem::playerid() const {
+  // @@protoc_insertion_point(field_get:NetProto.MTS2GSGetSceneItem.playerID)
+  return playerid_;
+}
+void MTS2GSGetSceneItem::set_playerid(::google::protobuf::uint32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.MTS2GSGetSceneItem.playerID)
+}
+
+// string sceneID = 4;
 void MTS2GSGetSceneItem::clear_sceneid() {
   sceneid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -11773,7 +12144,7 @@ void MTS2GSGetSceneItem::set_allocated_sceneid(::std::string* sceneid) {
   // @@protoc_insertion_point(field_set_allocated:NetProto.MTS2GSGetSceneItem.sceneID)
 }
 
-// repeated .NetProto.CreateSceneItem itemList = 4;
+// repeated .NetProto.CreateSceneItem itemList = 5;
 int MTS2GSGetSceneItem::itemlist_size() const {
   return itemlist_.size();
 }
@@ -11810,6 +12181,7 @@ MTS2GSGetSceneItem::itemlist() const {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int MTS2GSCreateScene::kMsgHeadFieldNumber;
 const int MTS2GSCreateScene::kAccountIDFieldNumber;
+const int MTS2GSCreateScene::kPlayerIDFieldNumber;
 const int MTS2GSCreateScene::kSceneIDFieldNumber;
 const int MTS2GSCreateScene::kItemListFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -11837,14 +12209,16 @@ MTS2GSCreateScene::MTS2GSCreateScene(const MTS2GSCreateScene& from)
   } else {
     msghead_ = NULL;
   }
-  accountid_ = from.accountid_;
+  ::memcpy(&accountid_, &from.accountid_,
+    reinterpret_cast<char*>(&playerid_) -
+    reinterpret_cast<char*>(&accountid_) + sizeof(playerid_));
   // @@protoc_insertion_point(copy_constructor:NetProto.MTS2GSCreateScene)
 }
 
 void MTS2GSCreateScene::SharedCtor() {
   sceneid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&msghead_, 0, reinterpret_cast<char*>(&accountid_) -
-    reinterpret_cast<char*>(&msghead_) + sizeof(accountid_));
+  ::memset(&msghead_, 0, reinterpret_cast<char*>(&playerid_) -
+    reinterpret_cast<char*>(&msghead_) + sizeof(playerid_));
   _cached_size_ = 0;
 }
 
@@ -11891,7 +12265,8 @@ void MTS2GSCreateScene::Clear() {
     delete msghead_;
   }
   msghead_ = NULL;
-  accountid_ = 0u;
+  ::memset(&accountid_, 0, reinterpret_cast<char*>(&playerid_) -
+    reinterpret_cast<char*>(&accountid_) + sizeof(playerid_));
 }
 
 bool MTS2GSCreateScene::MergePartialFromCodedStream(
@@ -11930,10 +12305,24 @@ bool MTS2GSCreateScene::MergePartialFromCodedStream(
         break;
       }
 
-      // string sceneID = 3;
+      // uint32 playerID = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(26u)) {
+            static_cast< ::google::protobuf::uint8>(24u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &playerid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string sceneID = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_sceneid()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -11946,10 +12335,10 @@ bool MTS2GSCreateScene::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .NetProto.CreateSceneItem itemList = 4;
-      case 4: {
+      // repeated .NetProto.CreateSceneItem itemList = 5;
+      case 5: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(34u)) {
+            static_cast< ::google::protobuf::uint8>(42u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                 input, add_itemlist()));
         } else {
@@ -11996,20 +12385,25 @@ void MTS2GSCreateScene::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->accountid(), output);
   }
 
-  // string sceneID = 3;
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->playerid(), output);
+  }
+
+  // string sceneID = 4;
   if (this->sceneid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sceneid().data(), this->sceneid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "NetProto.MTS2GSCreateScene.sceneID");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->sceneid(), output);
+      4, this->sceneid(), output);
   }
 
-  // repeated .NetProto.CreateSceneItem itemList = 4;
+  // repeated .NetProto.CreateSceneItem itemList = 5;
   for (unsigned int i = 0, n = this->itemlist_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, this->itemlist(i), output);
+      5, this->itemlist(i), output);
   }
 
   // @@protoc_insertion_point(serialize_end:NetProto.MTS2GSCreateScene)
@@ -12033,7 +12427,12 @@ void MTS2GSCreateScene::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->accountid(), target);
   }
 
-  // string sceneID = 3;
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->playerid(), target);
+  }
+
+  // string sceneID = 4;
   if (this->sceneid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sceneid().data(), this->sceneid().length(),
@@ -12041,14 +12440,14 @@ void MTS2GSCreateScene::SerializeWithCachedSizes(
       "NetProto.MTS2GSCreateScene.sceneID");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->sceneid(), target);
+        4, this->sceneid(), target);
   }
 
-  // repeated .NetProto.CreateSceneItem itemList = 4;
+  // repeated .NetProto.CreateSceneItem itemList = 5;
   for (unsigned int i = 0, n = this->itemlist_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        4, this->itemlist(i), deterministic, target);
+        5, this->itemlist(i), deterministic, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:NetProto.MTS2GSCreateScene)
@@ -12059,7 +12458,7 @@ size_t MTS2GSCreateScene::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:NetProto.MTS2GSCreateScene)
   size_t total_size = 0;
 
-  // repeated .NetProto.CreateSceneItem itemList = 4;
+  // repeated .NetProto.CreateSceneItem itemList = 5;
   {
     unsigned int count = this->itemlist_size();
     total_size += 1UL * count;
@@ -12070,7 +12469,7 @@ size_t MTS2GSCreateScene::ByteSizeLong() const {
     }
   }
 
-  // string sceneID = 3;
+  // string sceneID = 4;
   if (this->sceneid().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -12089,6 +12488,13 @@ size_t MTS2GSCreateScene::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::UInt32Size(
         this->accountid());
+  }
+
+  // uint32 playerID = 3;
+  if (this->playerid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->playerid());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -12131,6 +12537,9 @@ void MTS2GSCreateScene::MergeFrom(const MTS2GSCreateScene& from) {
   if (from.accountid() != 0) {
     set_accountid(from.accountid());
   }
+  if (from.playerid() != 0) {
+    set_playerid(from.playerid());
+  }
 }
 
 void MTS2GSCreateScene::CopyFrom(const ::google::protobuf::Message& from) {
@@ -12160,6 +12569,7 @@ void MTS2GSCreateScene::InternalSwap(MTS2GSCreateScene* other) {
   sceneid_.Swap(&other->sceneid_);
   std::swap(msghead_, other->msghead_);
   std::swap(accountid_, other->accountid_);
+  std::swap(playerid_, other->playerid_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -12224,7 +12634,21 @@ void MTS2GSCreateScene::set_accountid(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:NetProto.MTS2GSCreateScene.accountID)
 }
 
-// string sceneID = 3;
+// uint32 playerID = 3;
+void MTS2GSCreateScene::clear_playerid() {
+  playerid_ = 0u;
+}
+::google::protobuf::uint32 MTS2GSCreateScene::playerid() const {
+  // @@protoc_insertion_point(field_get:NetProto.MTS2GSCreateScene.playerID)
+  return playerid_;
+}
+void MTS2GSCreateScene::set_playerid(::google::protobuf::uint32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:NetProto.MTS2GSCreateScene.playerID)
+}
+
+// string sceneID = 4;
 void MTS2GSCreateScene::clear_sceneid() {
   sceneid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -12277,7 +12701,7 @@ void MTS2GSCreateScene::set_allocated_sceneid(::std::string* sceneid) {
   // @@protoc_insertion_point(field_set_allocated:NetProto.MTS2GSCreateScene.sceneID)
 }
 
-// repeated .NetProto.CreateSceneItem itemList = 4;
+// repeated .NetProto.CreateSceneItem itemList = 5;
 int MTS2GSCreateScene::itemlist_size() const {
   return itemlist_.size();
 }

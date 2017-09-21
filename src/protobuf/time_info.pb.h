@@ -121,19 +121,11 @@ class TimeInfo : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // accessors -------------------------------------------------------
 
-  // string pw_time = 3;
+  // uint64 pw_time = 3;
   void clear_pw_time();
   static const int kPwTimeFieldNumber = 3;
-  const ::std::string& pw_time() const;
-  void set_pw_time(const ::std::string& value);
-  #if LANG_CXX11
-  void set_pw_time(::std::string&& value);
-  #endif
-  void set_pw_time(const char* value);
-  void set_pw_time(const char* value, size_t size);
-  ::std::string* mutable_pw_time();
-  ::std::string* release_pw_time();
-  void set_allocated_pw_time(::std::string* pw_time);
+  ::google::protobuf::uint64 pw_time() const;
+  void set_pw_time(::google::protobuf::uint64 value);
 
   // uint32 multiple = 2;
   void clear_multiple();
@@ -145,7 +137,7 @@ class TimeInfo : public ::google::protobuf::Message /* @@protoc_insertion_point(
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr pw_time_;
+  ::google::protobuf::uint64 pw_time_;
   ::google::protobuf::uint32 multiple_;
   mutable int _cached_size_;
   friend struct protobuf_time_5finfo_2eproto::TableStruct;
@@ -280,57 +272,18 @@ class TimeInfoStruct : public ::google::protobuf::Message /* @@protoc_insertion_
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
 // TimeInfo
 
-// string pw_time = 3;
+// uint64 pw_time = 3;
 inline void TimeInfo::clear_pw_time() {
-  pw_time_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  pw_time_ = GOOGLE_ULONGLONG(0);
 }
-inline const ::std::string& TimeInfo::pw_time() const {
+inline ::google::protobuf::uint64 TimeInfo::pw_time() const {
   // @@protoc_insertion_point(field_get:NetProto.TimeInfo.pw_time)
-  return pw_time_.GetNoArena();
+  return pw_time_;
 }
-inline void TimeInfo::set_pw_time(const ::std::string& value) {
+inline void TimeInfo::set_pw_time(::google::protobuf::uint64 value) {
   
-  pw_time_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  pw_time_ = value;
   // @@protoc_insertion_point(field_set:NetProto.TimeInfo.pw_time)
-}
-#if LANG_CXX11
-inline void TimeInfo::set_pw_time(::std::string&& value) {
-  
-  pw_time_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:NetProto.TimeInfo.pw_time)
-}
-#endif
-inline void TimeInfo::set_pw_time(const char* value) {
-  GOOGLE_DCHECK(value != NULL);
-  
-  pw_time_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:NetProto.TimeInfo.pw_time)
-}
-inline void TimeInfo::set_pw_time(const char* value, size_t size) {
-  
-  pw_time_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:NetProto.TimeInfo.pw_time)
-}
-inline ::std::string* TimeInfo::mutable_pw_time() {
-  
-  // @@protoc_insertion_point(field_mutable:NetProto.TimeInfo.pw_time)
-  return pw_time_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* TimeInfo::release_pw_time() {
-  // @@protoc_insertion_point(field_release:NetProto.TimeInfo.pw_time)
-  
-  return pw_time_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void TimeInfo::set_allocated_pw_time(::std::string* pw_time) {
-  if (pw_time != NULL) {
-    
-  } else {
-    
-  }
-  pw_time_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), pw_time);
-  // @@protoc_insertion_point(field_set_allocated:NetProto.TimeInfo.pw_time)
 }
 
 // uint32 multiple = 2;

@@ -46,9 +46,15 @@ extern PW2GSNotifyPWDataDefaultTypeInternal _PW2GSNotifyPWData_default_instance_
 class PWDataRobotInfoParam;
 class PWDataRobotInfoParamDefaultTypeInternal;
 extern PWDataRobotInfoParamDefaultTypeInternal _PWDataRobotInfoParam_default_instance_;
+class PWDataSceneIDParam;
+class PWDataSceneIDParamDefaultTypeInternal;
+extern PWDataSceneIDParamDefaultTypeInternal _PWDataSceneIDParam_default_instance_;
 class PWDataSceneMapParam;
 class PWDataSceneMapParamDefaultTypeInternal;
 extern PWDataSceneMapParamDefaultTypeInternal _PWDataSceneMapParam_default_instance_;
+class RobotSceneID;
+class RobotSceneIDDefaultTypeInternal;
+extern RobotSceneIDDefaultTypeInternal _RobotSceneID_default_instance_;
 }  // namespace NetProto
 namespace google {
 namespace protobuf {
@@ -76,8 +82,9 @@ void InitDefaults();
 
 enum PWDataType {
   PW_DATA_TYPE_UNKNOWN = 0,
-  PW_DATA_TYPE_ROBOT_INFO = 1,
-  PW_DATA_TYPE_SCENE_MAP = 2,
+  PW_DATA_TYPE_SCENE_ID = 1,
+  PW_DATA_TYPE_ROBOT_INFO = 2,
+  PW_DATA_TYPE_SCENE_MAP = 3,
   PWDataType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   PWDataType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
@@ -97,6 +104,94 @@ inline bool PWDataType_Parse(
     PWDataType_descriptor(), name, value);
 }
 // ===================================================================
+
+class PWDataSceneIDParam : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:NetProto.PWDataSceneIDParam) */ {
+ public:
+  PWDataSceneIDParam();
+  virtual ~PWDataSceneIDParam();
+
+  PWDataSceneIDParam(const PWDataSceneIDParam& from);
+
+  inline PWDataSceneIDParam& operator=(const PWDataSceneIDParam& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PWDataSceneIDParam& default_instance();
+
+  static inline const PWDataSceneIDParam* internal_default_instance() {
+    return reinterpret_cast<const PWDataSceneIDParam*>(
+               &_PWDataSceneIDParam_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    0;
+
+  void Swap(PWDataSceneIDParam* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PWDataSceneIDParam* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  PWDataSceneIDParam* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const PWDataSceneIDParam& from);
+  void MergeFrom(const PWDataSceneIDParam& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(PWDataSceneIDParam* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string robot_uuid = 1;
+  void clear_robot_uuid();
+  static const int kRobotUuidFieldNumber = 1;
+  const ::std::string& robot_uuid() const;
+  void set_robot_uuid(const ::std::string& value);
+  #if LANG_CXX11
+  void set_robot_uuid(::std::string&& value);
+  #endif
+  void set_robot_uuid(const char* value);
+  void set_robot_uuid(const char* value, size_t size);
+  ::std::string* mutable_robot_uuid();
+  ::std::string* release_robot_uuid();
+  void set_allocated_robot_uuid(::std::string* robot_uuid);
+
+  // @@protoc_insertion_point(class_scope:NetProto.PWDataSceneIDParam)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr robot_uuid_;
+  mutable int _cached_size_;
+  friend struct protobuf_pw_5fdata_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
 
 class PWDataRobotInfoParam : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:NetProto.PWDataRobotInfoParam) */ {
  public:
@@ -118,7 +213,7 @@ class PWDataRobotInfoParam : public ::google::protobuf::Message /* @@protoc_inse
                &_PWDataRobotInfoParam_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    0;
+    1;
 
   void Swap(PWDataRobotInfoParam* other);
 
@@ -206,7 +301,7 @@ class PWDataSceneMapParam : public ::google::protobuf::Message /* @@protoc_inser
                &_PWDataSceneMapParam_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    1;
+    2;
 
   void Swap(PWDataSceneMapParam* other);
 
@@ -294,7 +389,7 @@ class GS2PWGetPWData : public ::google::protobuf::Message /* @@protoc_insertion_
                &_GS2PWGetPWData_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    2;
+    3;
 
   void Swap(GS2PWGetPWData* other);
 
@@ -374,6 +469,109 @@ class GS2PWGetPWData : public ::google::protobuf::Message /* @@protoc_insertion_
 };
 // -------------------------------------------------------------------
 
+class RobotSceneID : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:NetProto.RobotSceneID) */ {
+ public:
+  RobotSceneID();
+  virtual ~RobotSceneID();
+
+  RobotSceneID(const RobotSceneID& from);
+
+  inline RobotSceneID& operator=(const RobotSceneID& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RobotSceneID& default_instance();
+
+  static inline const RobotSceneID* internal_default_instance() {
+    return reinterpret_cast<const RobotSceneID*>(
+               &_RobotSceneID_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    4;
+
+  void Swap(RobotSceneID* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RobotSceneID* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  RobotSceneID* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const RobotSceneID& from);
+  void MergeFrom(const RobotSceneID& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(RobotSceneID* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string robot_uuid = 1;
+  void clear_robot_uuid();
+  static const int kRobotUuidFieldNumber = 1;
+  const ::std::string& robot_uuid() const;
+  void set_robot_uuid(const ::std::string& value);
+  #if LANG_CXX11
+  void set_robot_uuid(::std::string&& value);
+  #endif
+  void set_robot_uuid(const char* value);
+  void set_robot_uuid(const char* value, size_t size);
+  ::std::string* mutable_robot_uuid();
+  ::std::string* release_robot_uuid();
+  void set_allocated_robot_uuid(::std::string* robot_uuid);
+
+  // string scene_id = 2;
+  void clear_scene_id();
+  static const int kSceneIdFieldNumber = 2;
+  const ::std::string& scene_id() const;
+  void set_scene_id(const ::std::string& value);
+  #if LANG_CXX11
+  void set_scene_id(::std::string&& value);
+  #endif
+  void set_scene_id(const char* value);
+  void set_scene_id(const char* value, size_t size);
+  ::std::string* mutable_scene_id();
+  ::std::string* release_scene_id();
+  void set_allocated_scene_id(::std::string* scene_id);
+
+  // @@protoc_insertion_point(class_scope:NetProto.RobotSceneID)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr robot_uuid_;
+  ::google::protobuf::internal::ArenaStringPtr scene_id_;
+  mutable int _cached_size_;
+  friend struct protobuf_pw_5fdata_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
 class PW2GSNotifyPWData : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:NetProto.PW2GSNotifyPWData) */ {
  public:
   PW2GSNotifyPWData();
@@ -394,7 +592,7 @@ class PW2GSNotifyPWData : public ::google::protobuf::Message /* @@protoc_inserti
                &_PW2GSNotifyPWData_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    3;
+    5;
 
   void Swap(PW2GSNotifyPWData* other);
 
@@ -478,6 +676,63 @@ class PW2GSNotifyPWData : public ::google::protobuf::Message /* @@protoc_inserti
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
+// PWDataSceneIDParam
+
+// string robot_uuid = 1;
+inline void PWDataSceneIDParam::clear_robot_uuid() {
+  robot_uuid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& PWDataSceneIDParam::robot_uuid() const {
+  // @@protoc_insertion_point(field_get:NetProto.PWDataSceneIDParam.robot_uuid)
+  return robot_uuid_.GetNoArena();
+}
+inline void PWDataSceneIDParam::set_robot_uuid(const ::std::string& value) {
+  
+  robot_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:NetProto.PWDataSceneIDParam.robot_uuid)
+}
+#if LANG_CXX11
+inline void PWDataSceneIDParam::set_robot_uuid(::std::string&& value) {
+  
+  robot_uuid_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:NetProto.PWDataSceneIDParam.robot_uuid)
+}
+#endif
+inline void PWDataSceneIDParam::set_robot_uuid(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  robot_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:NetProto.PWDataSceneIDParam.robot_uuid)
+}
+inline void PWDataSceneIDParam::set_robot_uuid(const char* value, size_t size) {
+  
+  robot_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:NetProto.PWDataSceneIDParam.robot_uuid)
+}
+inline ::std::string* PWDataSceneIDParam::mutable_robot_uuid() {
+  
+  // @@protoc_insertion_point(field_mutable:NetProto.PWDataSceneIDParam.robot_uuid)
+  return robot_uuid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* PWDataSceneIDParam::release_robot_uuid() {
+  // @@protoc_insertion_point(field_release:NetProto.PWDataSceneIDParam.robot_uuid)
+  
+  return robot_uuid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PWDataSceneIDParam::set_allocated_robot_uuid(::std::string* robot_uuid) {
+  if (robot_uuid != NULL) {
+    
+  } else {
+    
+  }
+  robot_uuid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), robot_uuid);
+  // @@protoc_insertion_point(field_set_allocated:NetProto.PWDataSceneIDParam.robot_uuid)
+}
+
+// -------------------------------------------------------------------
+
 // PWDataRobotInfoParam
 
 // string robot_uuid = 1;
@@ -688,6 +943,116 @@ inline void GS2PWGetPWData::set_allocated_data(::google::protobuf::Any* data) {
 
 // -------------------------------------------------------------------
 
+// RobotSceneID
+
+// string robot_uuid = 1;
+inline void RobotSceneID::clear_robot_uuid() {
+  robot_uuid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& RobotSceneID::robot_uuid() const {
+  // @@protoc_insertion_point(field_get:NetProto.RobotSceneID.robot_uuid)
+  return robot_uuid_.GetNoArena();
+}
+inline void RobotSceneID::set_robot_uuid(const ::std::string& value) {
+  
+  robot_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:NetProto.RobotSceneID.robot_uuid)
+}
+#if LANG_CXX11
+inline void RobotSceneID::set_robot_uuid(::std::string&& value) {
+  
+  robot_uuid_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:NetProto.RobotSceneID.robot_uuid)
+}
+#endif
+inline void RobotSceneID::set_robot_uuid(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  robot_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:NetProto.RobotSceneID.robot_uuid)
+}
+inline void RobotSceneID::set_robot_uuid(const char* value, size_t size) {
+  
+  robot_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:NetProto.RobotSceneID.robot_uuid)
+}
+inline ::std::string* RobotSceneID::mutable_robot_uuid() {
+  
+  // @@protoc_insertion_point(field_mutable:NetProto.RobotSceneID.robot_uuid)
+  return robot_uuid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RobotSceneID::release_robot_uuid() {
+  // @@protoc_insertion_point(field_release:NetProto.RobotSceneID.robot_uuid)
+  
+  return robot_uuid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RobotSceneID::set_allocated_robot_uuid(::std::string* robot_uuid) {
+  if (robot_uuid != NULL) {
+    
+  } else {
+    
+  }
+  robot_uuid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), robot_uuid);
+  // @@protoc_insertion_point(field_set_allocated:NetProto.RobotSceneID.robot_uuid)
+}
+
+// string scene_id = 2;
+inline void RobotSceneID::clear_scene_id() {
+  scene_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& RobotSceneID::scene_id() const {
+  // @@protoc_insertion_point(field_get:NetProto.RobotSceneID.scene_id)
+  return scene_id_.GetNoArena();
+}
+inline void RobotSceneID::set_scene_id(const ::std::string& value) {
+  
+  scene_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:NetProto.RobotSceneID.scene_id)
+}
+#if LANG_CXX11
+inline void RobotSceneID::set_scene_id(::std::string&& value) {
+  
+  scene_id_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:NetProto.RobotSceneID.scene_id)
+}
+#endif
+inline void RobotSceneID::set_scene_id(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  scene_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:NetProto.RobotSceneID.scene_id)
+}
+inline void RobotSceneID::set_scene_id(const char* value, size_t size) {
+  
+  scene_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:NetProto.RobotSceneID.scene_id)
+}
+inline ::std::string* RobotSceneID::mutable_scene_id() {
+  
+  // @@protoc_insertion_point(field_mutable:NetProto.RobotSceneID.scene_id)
+  return scene_id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RobotSceneID::release_scene_id() {
+  // @@protoc_insertion_point(field_release:NetProto.RobotSceneID.scene_id)
+  
+  return scene_id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RobotSceneID::set_allocated_scene_id(::std::string* scene_id) {
+  if (scene_id != NULL) {
+    
+  } else {
+    
+  }
+  scene_id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), scene_id);
+  // @@protoc_insertion_point(field_set_allocated:NetProto.RobotSceneID.scene_id)
+}
+
+// -------------------------------------------------------------------
+
 // PW2GSNotifyPWData
 
 // .NetProto.MsgHead msg_head = 1;
@@ -783,6 +1148,10 @@ inline void PW2GSNotifyPWData::set_allocated_data(::google::protobuf::Any* data)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

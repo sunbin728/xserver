@@ -53,7 +53,7 @@ class ActiveConn: public Connection{
     MSG* SendMsgAndRecv(uint16_t command, const ::google::protobuf::Message& msg);
     MSG* SendMsgAndRecv(uint16_t command, const std::ostringstream& msgstream);
     MSG* SendMsgAndRecv(const std::ostringstream& msgstream);
-    void RecvMsg(MSG* msg);
+    void RecvMsg(MSG* &msg);
 
     private:
     std::string m_addr;

@@ -17,12 +17,12 @@ DbConnManager& DbConnManager::Instance(){
 bool DbConnManager::Init(){
     LOGINFO(".................................DbConnManager::Init begin.................................");
     for(int i=0; i<m_maxConnSize; ++i){
-        std::string addr = "172.16.3.17";
+        std::string addr = "172.16.0.4";
         int port = 3306;
-        std::string username = "root";
-        std::string password = "123456";
-        std::string dbname = "userdb";
-        std::string charset = "utf8mb4";
+        std::string username = "nico";
+        std::string password = "nico";
+        std::string dbname = "NICO_CONF";
+        std::string charset = "utf8";
         DbConn *pdbConn = new DbConn(i, addr, port, username, password, dbname, charset);
         if (!pdbConn->Init()){
             LOG_FATAL("DbConnManager::Init fail: addr=%s, port=%d, username=%s, password=%s, dbname=%s, charset=%s",

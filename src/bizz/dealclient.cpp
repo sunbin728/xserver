@@ -5,6 +5,7 @@
 #include "scene_manager.h"
 #include "scene.h"
 #include "protobuf/command_type.pb.h"
+#include "robot.h"
 
 namespace bizz{
     //deal client
@@ -32,7 +33,7 @@ namespace bizz{
         gs2cLogin.set_robotflag(mts2gsGetRobotList.robotflag());
         gs2cLogin.mutable_robotlist()->CopyFrom(*(mts2gsGetRobotList.mutable_robotlist()));
         SessionManager::Instance().GetConn(msg->socketfd)->SendMsg(NetProto::GS2C_LOGIN, gs2cLogin);
-        LOG_DEBUG("C2GSLoginHandle: mts2gsGetRobotList=%s", mts2gsGetRobotList.DebugString().c_str());
+        LOG_DEBUG("C2GSLoginHandle: gs2cLogin=%s", gs2cLogin.DebugString().c_str());
     }
 
     void C2GSCreateRobotHandle(MSG* msg, C2GSCreateRobot& c2gsCreateRobot){
@@ -54,8 +55,6 @@ namespace bizz{
 
         mts2gsCreateRobot.ParseFromArray(sp_recvmsg->GetProtobuf(), sp_recvmsg->GetProtobufLen());
         LOG_DEBUG("C2GSCreateRobotHandle recv Mts response: mts2gsCreateRobot=%s", mts2gsCreateRobot.DebugString().c_str());
-        mts2gsCreateRobot.accountid();
-        uint32_t uid = mts2gsCreateRobot.accountid();
 
         const CreateRobotInfo& robotList = mts2gsCreateRobot.robotlist(0);
 
@@ -65,61 +64,52 @@ namespace bizz{
         uint32_t robotPrototypeId = robotList.robotprototypeid();
         LOG_DEBUG("C2GSCreateRobotHandle: robotid=%s, robotPrototypeId=%d", robotId.c_str(), robotPrototypeId);
 
-        //Robot* robot = player->createNewRobot(robotId.c_str(),robotPrototypeId);
-        //if(robot != NULL)
-        //{
-            //player->awakenRobot(robot);
-            //////////////first new robot,should save corresponding data to db
-            ////1.robot info
-            //RobotBaseProp& data = robot->getRobotData();
+        Robot* robot =Robot::cloneNew(robotPrototypeId);
+        if(robot != NULL)
+        {
+            ////////////first new robot,should save corresponding data to db
+            //1.robot info
+            RobotData& data = robot->getRobotData();
 
-            //NetProto::GS2CCreateRobot createRobot;
+            NetProto::GS2CCreateRobot createRobot;
 
-            //NetProto::RobotInfo msg;
-            //msg.set_uuid(robotId);
-
-
-            //msg.set_class_id(data.classId);
-            //msg.set_name_id(data.nameId);
-            //msg.set_age(data.age);
-            //msg.set_gender(data.gender);
-            //msg.set_intellectual(data.intellectual);
-            //msg.set_beautiful(data.beautiful);
-            //msg.set_lovely(data.lovely);
-            //msg.set_skin_state(data.skinState);
-            //msg.set_long_phy(data.longPhy);
-            //msg.set_short_phy(data.shortPhy);
-            //msg.set_energy(data.energy);
-            //msg.set_thirsty(data.thirsty);
-            //msg.set_hunger(data.hunger);
-            //msg.set_clean(data.clean);
-            //msg.set_suface_temperature(data.sufaceTemperature);
-            //msg.set_money(data.money);
-            //msg.set_locality(data.locality);
-            //msg.set_birthday(data.registerTime);
-            //msg.set_sleep(data.sleep);
-            //msg.set_pw_birthday(data.birthday);
-            //msg.set_offline_pw_time(data.offlinePwTs);
-
-            //createRobot.set_issuccess(true);
-            //createRobot.set_ret("success");
-            //createRobot.mutable_robotinfo()->CopyFrom(msg);
+            NetProto::RobotInfo robotInfo;
+            robotInfo.set_uuid(robotId);
 
 
-            //Stream st;
-            //st.initPbHead(NetProto::GS2C_CREATE_ROBOT);
-            //st.appendPbMsg(createRobot);
-            //st << Stream::eos;
+            robotInfo.set_class_id(data.classId);
+            robotInfo.set_name_id(data.nameId);
+            robotInfo.set_age(data.age);
+            robotInfo.set_gender(data.gender);
+            robotInfo.set_intellectual(data.intellectual);
+            robotInfo.set_beautiful(data.beautiful);
+            robotInfo.set_lovely(data.lovely);
+            robotInfo.set_skin_state(data.skinState);
+            robotInfo.set_long_phy(data.longPhy);
+            robotInfo.set_short_phy(data.shortPhy);
+            robotInfo.set_energy(data.energy);
+            robotInfo.set_thirsty(data.thirsty);
+            robotInfo.set_hunger(data.hunger);
+            robotInfo.set_clean(data.clean);
+            robotInfo.set_suface_temperature(data.sufaceTemperature);
+            robotInfo.set_money(data.money);
+            robotInfo.set_locality(data.locality);
+            robotInfo.set_birthday(data.registerTime);
+            robotInfo.set_sleep(data.sleep);
+            robotInfo.set_pw_birthday(data.birthday);
+            robotInfo.set_offline_pw_time(data.offlinePwTs);
 
-            //ogc->sendMsg(st);
-        //}
-        //else
-        //{
-            //DEBUG_LOG("create robot failed");
-        //}
-        //return true;
+            createRobot.set_issuccess(true);
+            createRobot.set_ret("success");
+            createRobot.mutable_robotinfo()->CopyFrom(robotInfo);
 
-
+            SessionManager::Instance().GetConn(msg->socketfd)->SendMsg(NetProto::GS2C_CREATE_ROBOT, createRobot);
+            LOG_DEBUG("C2GSLoginHandle: createRobot=%s", createRobot.DebugString().c_str());
+        }
+        else
+        {
+            LOG_ERROR("C2GSLoginHandle Robot::cloneNew(robotPrototypeId) failed: robotPrototypeId=%d", robotPrototypeId);
+        }
     }
 
     void C2GSEnterSceneHandle(MSG* msg, C2GSEnterScene& c2gsEnterScene){
