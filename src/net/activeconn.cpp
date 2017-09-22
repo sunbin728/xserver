@@ -33,7 +33,8 @@ bool ActiveConn::Init(){
         LOG_INFO("ActiveConn::Init ok: m_socketfd=%d, m_addr=%s, m_port=%d", m_socketfd, m_addr.c_str(), m_port);
         return true;
     }else{
-        LOG_ERROR("ActiveConn::Init fail: m_socketfd=%d, m_addr=%s, m_port=%d", m_socketfd, m_addr.c_str(), m_port);
+        LOG_ERROR("ActiveConn::Init fail: errno=%d, m_socketfd=%d, m_addr=%s, m_port=%d",
+                errno, m_socketfd, m_addr.c_str(), m_port);
         return false;
     }
 }
@@ -101,12 +102,16 @@ MSG* ActiveConn::SendMsgAndRecv(const std::ostringstream& msgstream){
 
 void ActiveConn::RecvMsg(MSG* &msg){
     LOG_ERROR("ActiveConn::RecvMsg begin: conntype=%d", m_conntype);
-    while (!m_queue.try_dequeue_from_producer(m_ptok, msg)){
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    while (!m_queue.try_dequeue_from_producer(m_ptok, msg) && GetValid()){
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
-    LOG_DEBUG("ActiveConn::RecvMsg end: conntype=%d, queuesize=%d, msg->size=%d, PkgLen=%d, Command=%d, Target=%d, Retcode=%d",
-            m_conntype, m_queue.size_approx(), msg->size, msg->header->PkgLen, msg->header->Command,
-            msg->header->Target, msg->header->Retcode);
+    if (msg != NULL){
+        LOG_DEBUG("ActiveConn::RecvMsg end: conntype=%d, queuesize=%d, msg->size=%d, PkgLen=%d, Command=%d, Target=%d, Retcode=%d",
+                m_conntype, m_queue.size_approx(), msg->size, msg->header->PkgLen, msg->header->Command,
+                msg->header->Target, msg->header->Retcode);
+    }else{
+        LOG_ERROR("ActiveConn::RecvMsg end, msg is null: conntype=%d, valid=%d", m_conntype, GetValid());
+    }
 }
 
 bool ActiveConn::Send(const char* buf, int data_size){
@@ -133,7 +138,7 @@ void ActiveConn::initHeartBeatPkg(){
 
     std::stringstream heartBeatStream_body;
     NetProto::gs2pw::ServerKeepAliveReq msg;
-    msg.set_gs_id(1);
+    msg.set_gs_id(100);
     msg.SerializeToOstream(&heartBeatStream_body);
 
     header.PkgLen = heartBeatStream_body.str().length()+10;

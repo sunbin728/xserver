@@ -95,7 +95,7 @@ std::shared_ptr<DbResult> DbConn::ExecuteQuery(std::string &sql){
         for(int i=0; i<numcols; ++i){
             std::string fieldname = res_meta->getColumnName(i+1).asStdString();
             std::string val = res->getString(i+1).asStdString();
-            row->m_fieldmap[i] = fieldname;
+            row->m_fieldmap.push_back(fieldname);
             row->m_values[fieldname] = val;
             //std::cout << fieldname << " " << val << endl;
         }

@@ -66,8 +66,8 @@ bool Connection::Send(const char* buf, int data_size){
     std::string datastr_dec = util::ToDecString(buf, data_size);
     LOG_INFO("Connection::Send begin: fd=%d, data_size=%d, data=%s", m_socketfd, data_size, datastr_dec.c_str());
 
-    std::string datastr_hex = util::ToHexString(buf, data_size);
-    LOG_INFO("Connection::Send begin: fd=%d, data_size=%d, data=%s", m_socketfd, data_size, datastr_hex.c_str());
+    //std::string datastr_hex = util::ToHexString(buf, data_size);
+    //LOG_INFO("Connection::Send begin: fd=%d, data_size=%d, data=%s", m_socketfd, data_size, datastr_hex.c_str());
     int nwrite;
     int n = data_size;
     while (n > 0) {

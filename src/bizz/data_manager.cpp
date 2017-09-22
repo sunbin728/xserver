@@ -37,8 +37,8 @@ bool DataMgr::loadRobotConf()
         LOG_FATAL("DataMgr::loadRobotConf fail: rowcount=%d", rowcount);
     }
     DbRow *row;
-    for(int i=0; i<rowcount; ++i){
-        row = (*dbres)[i];
+    for(DbResult::iterator iter = dbres->begin(); iter!=dbres->end(); ++iter){
+        row = *iter;
 
         RobotConf* robotInfo = new RobotConf();
         assert(robotInfo);
@@ -60,6 +60,27 @@ bool DataMgr::loadRobotConf()
         robotInfo->_clean = Atoi<UInt16>((*row)["clean"]);
         robotInfo->_surface_temperature = Atoi<UInt16>((*row)["surface_temperature"]);
         robotInfo->_account = Atoi<UInt32>((*row)["account"]);
+
+
+        //DbRow::iterator rowiter = row->begin();
+        //robotInfo->_name = *(rowiter++);
+        //robotInfo->_id = Atoi<UInt16>(*(rowiter++));
+        //robotInfo->_name_id = Atoi<UInt16>(*(rowiter++));
+        //robotInfo->_type = Atoi<UInt16>(*(rowiter++));
+        //robotInfo->_age = Atoi<UInt16>(*(rowiter++));
+        //robotInfo->_gender = Atoi<UInt16>(*(rowiter++));
+        //robotInfo->_intellectual = Atoi<UInt16>(*(rowiter++));
+        //robotInfo->_beautiful = Atoi<UInt16>(*(rowiter++));
+        //robotInfo->_lovely = Atoi<UInt16>(*(rowiter++));
+        //robotInfo->_skin_state = Atoi<UInt16>(*(rowiter++));
+        //robotInfo->_long_physical = Atoi<UInt16>(*(rowiter++));
+        //robotInfo->_short_physical = Atoi<UInt16>(*(rowiter++));
+        //robotInfo->_energy = Atoi<UInt16>(*(rowiter++));
+        //robotInfo->_thirsty = Atoi<UInt16>(*(rowiter++));
+        //robotInfo->_hunger = Atoi<UInt16>(*(rowiter++));
+        //robotInfo->_clean = Atoi<UInt16>(*(rowiter++));
+        //robotInfo->_surface_temperature = Atoi<UInt16>(*(rowiter++));
+        //robotInfo->_account = Atoi<UInt32>(*(rowiter++));
 
         LOG_DEBUG("DataMgr::loadRobotConf: name=%s, name_id=%d", robotInfo->_name.c_str(),robotInfo->_name_id);
 

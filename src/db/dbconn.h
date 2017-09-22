@@ -12,6 +12,41 @@ using namespace std;
 
 class DbRow{
     public:
+        class iterator{
+            public:
+                iterator(DbRow* ptr, int index):
+                    m_ptr(ptr), m_index(index){}
+
+                string operator*(){
+                    if(m_ptr == NULL){
+                        return "";
+                    }
+                    return (*m_ptr)[m_index];
+                }
+
+                iterator& operator++(){
+                    ++m_index;
+                    return *this;
+                }
+
+                iterator operator++(int){
+                    iterator tmp = *this;
+                    ++*this;
+                    return tmp;
+                }
+
+                bool operator==(const iterator &iter){
+                    return (m_ptr == iter.m_ptr) && (m_index == iter.m_index);
+                }
+
+                bool operator!=(const iterator &iter){
+                    return !(*this == iter);
+                }
+            private:
+                DbRow* m_ptr;
+                int m_index;
+        };
+    public:
         DbRow(){}
         ~DbRow(){};
         string operator[](string fieldname){
@@ -20,15 +55,27 @@ class DbRow{
         }
 
         string operator[](int i){
+            if(i>=m_fieldmap.size()){
+                return "";
+            }
             return m_values[m_fieldmap[i]];
         }
 
+        iterator begin(){
+            return iterator(this, 0);
+        }
+
+        iterator end(){
+            return iterator(this, m_fieldmap.size());
+        }
+
         map<string, string> m_values;
-        map<int, string> m_fieldmap;
+        vector<string> m_fieldmap;
 };
 
 class DbResult{
     public:
+        typedef vector<DbRow*>::iterator iterator;
         DbResult(){}
         ~DbResult();
         DbRow* operator[](int i){
@@ -38,6 +85,14 @@ class DbResult{
         string ToString();
         void AddRow(DbRow* row){
             m_res.push_back(row);
+        }
+
+        vector<DbRow*>::iterator begin(){
+            return m_res.begin();
+        }
+
+        vector<DbRow*>::iterator end(){
+            return m_res.end();
         }
 
     private:

@@ -31,17 +31,21 @@ class ActiveConn: public Connection{
     }
     bool GetValid(){
         pthread_rwlock_rdlock(&m_rwlock);    //读者加读锁
-        return m_valid;
+        bool valid = m_valid;
         pthread_rwlock_unlock(&m_rwlock);      //释放写锁
+        return valid;
     }
 
     bool SendHeartBeat();
 
     void SetValid(bool valid){
-        LOG_DEBUG("ActiveConn::SetValid: valid=%d, m_addr=%s, m_port=%d", valid, m_addr.c_str(), m_port);
+        LOG_DEBUG("ActiveConn::SetValid begin: conntype=%d, valid=%d, m_addr=%s, m_port=%d",
+                m_conntype, valid, m_addr.c_str(), m_port);
         pthread_rwlock_wrlock(&m_rwlock);      //写者加写锁
         m_valid = valid;
         pthread_rwlock_unlock(&m_rwlock);      //释放写锁
+        LOG_DEBUG("ActiveConn::SetValid end: conntype=%d, valid=%d, m_addr=%s, m_port=%d",
+                m_conntype, valid, m_addr.c_str(), m_port);
     }
 
     virtual void DoWork();
