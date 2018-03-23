@@ -38,6 +38,9 @@ ENDIF (CMAKE_BUILD_TYPE MATCHES "DEBUG")
 
 # 头文件目录
 include_directories("src")
+include_directories("src/queue")
+include_directories("include")
+include_directories("/usr/local/include")
 
 # lib库目录
 #link_directories("/home/acc/app/boost_1_64_0/stage/lib")
@@ -50,10 +53,10 @@ aux_source_directory(src/base SRCLIST)
 aux_source_directory(src/net SRCLIST)
 aux_source_directory(src/db SRCLIST)
 aux_source_directory(src/bizz SRCLIST)
-aux_source_directory(src/protobuf SRCLIST)
+aux_source_directory(src/queue SRCLIST)
 
 # 指定生成目标
 add_executable(xserver ${SRCLIST})
 
 # 添加链接库
-target_link_libraries(xserver pthread protobuf mysqlcppconn)
+target_link_libraries(xserver pthread protobuf mysqlcppconn hiredis_vip)
