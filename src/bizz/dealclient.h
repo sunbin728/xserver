@@ -2,15 +2,13 @@
 #define _DEALCLIENT_H_
 
 #include "base/package.h"
-#include "protobuf/Protocol.pb.h"
+#include "rapidjson/document.h"
 
-using namespace NetProto;
+using namespace rapidjson;
 
 namespace bizz{
     //client
-    void C2GSLoginHandle(MSG* msg, C2GSLogin& c2gsLogin);
-    void C2GSCreateRobotHandle(MSG* msg, C2GSCreateRobot& c2gsCreateRobot);
-    void C2GSEnterSceneHandle(MSG* msg, C2GSEnterScene& c2gsEnterScene);
+    void HeartBeatHandler(Document &req, Document &resp);
 }
 
 #endif /* _DEALCLIENT_H_ */

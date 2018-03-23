@@ -5,9 +5,6 @@
 #include "connection.h"
 #include "activeconn.h"
 
-#include <google/protobuf/message.h>
-
-
 class SessionManager{
     private:
         SessionManager(){
@@ -24,6 +21,8 @@ class SessionManager{
         static SessionManager& Instance();
         //初始化需主动连接的部分
         void Init();
+        void Destroy();
+
         void AddConn(int socketfd, Connection* pConn);
         Connection* GetConn(int socketfd);
         void RemoveConn(int socketfd);
@@ -32,10 +31,8 @@ class SessionManager{
         ActiveConn* GetActiveConn(int conntype);
 
         bool SendMsg(int conntype,uint16_t command, const std::ostringstream& msgstream);
-        bool SendMsg(int conntype,uint16_t command, const ::google::protobuf::Message& msg);
 
         std::shared_ptr<MSG> SendMsgAndRecv(int conntype,uint16_t command, const std::ostringstream& msgstream);
-        std::shared_ptr<MSG> SendMsgAndRecv(int conntype,uint16_t command, const ::google::protobuf::Message& msg);
 
     private:
         std::map<int, Connection*> m_mapConns;

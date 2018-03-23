@@ -46,15 +46,21 @@ AcceptManager& AcceptManager::Instance(){
 }
 
 void AcceptManager::Stop(){
+    m_start= false;
+    while(m_working){
+        LOG_INFO("AcceptManager::Stoping");
+        sleep(1);
+    }
+    SessionManager::Instance().Destroy();
     close(m_listenfd);
     close(m_epfd);
-    LOGINFO("AcceptManager::Stop");
+    LOG_INFO("AcceptManager::Stop");
 }
 
 void AcceptManager::Start(){
     std::thread thrd_accept(&AcceptManager::StartET, this);
+    //std::thread thrd_accept(&AcceptManager::StartLT, this);
     thrd_accept.detach();
-    //StartLT();
 }
 
 bool AcceptManager::AddEvent(int conn_sock){
@@ -79,11 +85,11 @@ void AcceptManager::StartET(){
 
     //创建listen socket
     if( (m_listenfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-        LOGFATAL("AcceptManager::StartET socket fail");
+        LOG_FATAL("AcceptManager::StartET socket fail");
     }
     const int trueFlag = 1;
     if (setsockopt(m_listenfd, SOL_SOCKET, SO_REUSEADDR, &trueFlag, sizeof(int)) < 0){
-        LOGFATAL("AcceptManager::StartET setsockopt SO_REUSEADDR fail");
+        LOG_FATAL("AcceptManager::StartET setsockopt SO_REUSEADDR fail");
     }
     setnonblocking(m_listenfd);
     bzero(&local, sizeof(local));
@@ -97,28 +103,36 @@ void AcceptManager::StartET(){
     if( bind(m_listenfd, (struct sockaddr *) &local, sizeof(local)) < 0) {
         LOG_FATAL("AcceptManager::StartET bind fail: m_listenfd=%d, errno=%d", m_listenfd, errno);
     }
-    listen(m_listenfd, 20);
+    listen(m_listenfd, 100);
 
     m_epfd = epoll_create(MAX_EVENTS);
     if (m_epfd == -1) {
         LOG_FATAL("AcceptManager::StartET epoll_create fail: errno=%d", errno);
     }
 
-    ev.events = EPOLLIN;
+    //边缘触发
+    ev.events = EPOLLIN | EPOLLET;;
     ev.data.fd = m_listenfd;
     if (epoll_ctl(m_epfd, EPOLL_CTL_ADD, m_listenfd, &ev) == -1) {
         LOG_FATAL("AcceptManager::StartET epoll_ctl EPOLL_CTL_ADD fail: m_listenfd=%d, errno=%d", m_listenfd, errno);
     }
     LOG_INFO("AcceptManager::StartET Server is Online: addr=%s, port=%d", this->m_addr.c_str(), this->m_port);
-    m_started = true;
+    m_start = true;
     for (;;) {
         nfds = epoll_wait(m_epfd, events, MAX_EVENTS, -1);
         if (nfds == -1) {
-            LOGFATAL("AcceptManager::StartET epoll_pwait fail");
+            LOG_FATAL("AcceptManager::StartET epoll_pwait fail");
+        }
+        if (!m_start) {
+            LOG_INFO("AcceptManager::StartET m_start is false, prepare to stop.");
+            break;
         }
 
+        m_working=true;
         for (i = 0; i < nfds; ++i) {
             fd = events[i].data.fd;
+
+            //处理新进来的连接
             if (fd == m_listenfd) {
                 while ((conn_sock = accept(m_listenfd,(sockaddr *) &remote,
                                 &addrlen)) > 0) {
@@ -126,12 +140,11 @@ void AcceptManager::StartET(){
                     setnonblocking(conn_sock);
                     ev.events = EPOLLIN | EPOLLET;
                     ev.data.fd = conn_sock;
-                    if (epoll_ctl(m_epfd, EPOLL_CTL_ADD, conn_sock,
-                                &ev) == -1) {
+                    if (epoll_ctl(m_epfd, EPOLL_CTL_ADD, conn_sock, &ev) == -1) {
                         LOG_FATAL("AcceptManager::StartET epoll_ctl EPOLL_CTL_ADD fail: conn_sock=%d", conn_sock);
                     }
                     //构造一个连接对象并加入session
-                    Connection* pConn = new Connection(conn_sock, CLIENT);
+                    Connection* pConn = new Connection(conn_sock, ServerType::SERVER_TYPE_GC);
                     SessionManager::Instance().AddConn(conn_sock, pConn);
                 }
                 if (conn_sock == -1) {
@@ -141,6 +154,8 @@ void AcceptManager::StartET(){
                 }
                 continue;
             }
+
+
             if (events[i].events & EPOLLIN) {
                 LOG_INFO("AcceptManager::StartET EPOLLIN: fd=%d", fd);
                 //获取对应连接对象的专属buf
@@ -150,15 +165,24 @@ void AcceptManager::StartET(){
                     close(fd);
                     continue;
                 }
+READFLAG:
                 buf = pConn->GetWriteBuffer();
+                int writesize = pConn->GetWriteSize();
                 n = 0;
-                while ((nread = read(fd, buf + n, BUFSIZ-1)) > 0) {
+                //TODO: 当nread< writesize-n时，是否还需要继续read?
+                while ((nread = read(fd, buf + n, writesize-n)) > 0) {
                     n += nread;
+                    //待接收缓存已满，先处理消息再重新接收
+                    if (writesize-n ==0){
+                        pConn->WriteAdvance(n);
+                        LOG_INFO("AcceptManager::StartET read ok: fd=%d, data_size=%d", fd, n);
+                        pConn->DoWork();
+                        goto READFLAG;
+                    }
                 }
                 //设置下次可写的位置
-                pConn->SetWPos(n);
+                pConn->WriteAdvance(n);
 
-                LOG_INFO("AcceptManager::StartET read ok: fd=%d, data_size=%d", fd, n);
                 if (n==0 || (nread == -1 && errno != EAGAIN)) {
                     LOG_ERROR("AcceptManager::StartET read fail: fd=%d, data_size=%d, nread=%d, errno=%d", fd, n, nread, errno);
                     //TODO:此处是否需要移除对fd的监听
@@ -169,8 +193,17 @@ void AcceptManager::StartET(){
                     events[i].data.fd = -1;
                     continue;
                 }else{
+                    //LOG_INFO("AcceptManager::StartET read ok: fd=%d, data_size=%d", fd, n);
+                    LOG_INFO("AcceptManager::StartET read fail: fd=%d, data_size=%d, nread=%d, errno=%d", fd, n, nread, errno);
                     //DoWork
                     pConn->DoWork();
+                    //有读取到数据，nread=0表示到连接断开
+                    //先处理数据再断开连接
+                    if (nread==0){
+                        SessionManager::Instance().RemoveConn(fd);
+                        events[i].data.fd = -1;
+                        continue;
+                    }
 
                     //ev.data.fd = fd;
                     //ev.events=EPOLLOUT|EPOLLET;
@@ -183,6 +216,7 @@ void AcceptManager::StartET(){
                 }
             }
             if (events[i].events & EPOLLOUT) {
+                LOG_INFO("AcceptManager::zzzzzzzzzzzzzzzz");
                 //LOG_INFO("AcceptManager::StartET EPOLLOUT: fd=%d", fd);
                 //int nwrite, data_size = strlen(buf);
                 //n = data_size;
@@ -208,6 +242,7 @@ void AcceptManager::StartET(){
                 //}
             }
         }
+        m_working=false;
     }
     close(m_listenfd);
     close(m_epfd);
@@ -260,7 +295,7 @@ void AcceptManager::StartLT(){
         numOfEvent = epoll_wait(epollHandle, events, MAX_EVENTS, -1);
         if(numOfEvent ==-1)
         {
-            LOGWARN("AcceptManager::StartLT Epoll_wait Failed");
+            LOG_WARN("AcceptManager::StartLT Epoll_wait Failed");
             break;
         }
 

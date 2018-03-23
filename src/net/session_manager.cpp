@@ -13,58 +13,63 @@ SessionManager& SessionManager::Instance(){
 }
 
 SessionManager::~SessionManager(){
-    pthread_rwlock_destroy(&m_rwlock);      //销毁读写
-    std::map<int, Connection*>::iterator iter;
-    for (iter =  m_mapConns.begin(); iter != m_mapConns.end(); ++iter){
-        delete iter->second;
-    }
+    Destroy();
 }
 
 void SessionManager::watchWork(){
     ActiveConn* pConn;
     sleep(2);
     while(true){
-        //LOGDEBUG("000000000000000000000000000000000000000000000000");
         std::map<int, ActiveConn*>::iterator iter;
         for (iter =  m_mapActiveConns.begin(); iter != m_mapActiveConns.end(); ++iter){
             pConn = iter->second;
             if (!pConn->GetValid()){
-                //LOGDEBUG("aaaaaaaaaaaaaaaaaaaaaaaaaaa1");
                 this->reInitActiveConnect(pConn);
-                //LOGDEBUG("aaaaaaaaaaaaaaaaaaaaaaaaaaa2");
             }else{
-                //LOGDEBUG("aaaaaaaaaaaaaaaaaaaaaaaaaaa3");
                 pConn->SendHeartBeat();
-                //LOGDEBUG("aaaaaaaaaaaaaaaaaaaaaaaaaaa4");
             }
         }
-        //LOGDEBUG("11111111111111111111111111111111111111111111111");
+
         sleep(15);
+        pthread_rwlock_rdlock(&m_rwlock);    //读者加读锁
+        LOG_INFO("SessionManager::watchWork m_mapConns.size=%d", m_mapConns.size());
+        pthread_rwlock_unlock(&m_rwlock);      //释放写锁
     }
 }
 
 void SessionManager::Init(){
-    while (!AcceptManager::Instance().IsStarted()){
-        sleep(1);
-    }
-    //init conn to MTS
-    int conntype = MTS;
-    std::string addr = "172.16.0.3";
-    int port = 3128;
-    initActiveConnect(conntype, addr, port);
+    //while (!AcceptManager::Instance().IsStarted()){
+    //sleep(1);
+    //}
+    ////init conn to MTS
+    //int conntype = MTS;
+    //std::string addr = "172.16.0.3";
+    //int port = 3128;
+    //initActiveConnect(conntype, addr, port);
 
-    //init conn to PW
-    conntype = PW;
-    //addr = "172.16.1.5";
-    addr = "172.16.0.3";
-    port = 8009;
-    //addr = "172.16.0.4";
-    //port = 1234;
-    initActiveConnect(conntype, addr, port);
+    ////init conn to PW
+    //conntype = PW;
+    ////addr = "172.16.1.5";
+    //addr = "172.16.0.3";
+    //port = 8009;
+    ////addr = "172.16.0.4";
+    ////port = 1234;
+    //initActiveConnect(conntype, addr, port);
 
     //开启监控线程，用于主动链接的重连
     std::thread thread_watchWork(&SessionManager::watchWork, this);
     thread_watchWork.detach();
+}
+
+void SessionManager::Destroy(){
+    pthread_rwlock_destroy(&m_rwlock);      //销毁读写
+    std::map<int, Connection*>::iterator iter;
+    LOG_INFO("SessionManager::Destroy m_mapConns.size=%d", m_mapConns.size());
+    for (iter =  m_mapConns.begin(); iter != m_mapConns.end();){
+        delete iter->second;
+        m_mapConns.erase(iter++);
+    }
+    LOG_INFO("SessionManager::Destroy m_mapConns.size=%d", m_mapConns.size());
 }
 
 void SessionManager::initActiveConnect(int conntype, std::string addr, int port){
@@ -148,7 +153,7 @@ void SessionManager::RemoveConn(int socketfd){
     if (it != m_mapConns.end()){
         pConn = it->second;
         m_mapConns.erase(it);
-        if (pConn->GetConnType() != CLIENT){
+        if (pConn->GetConnType() != ServerType::SERVER_TYPE_GC){
             //如果被断开的时非客户端连接，则需要重新连接
             std::map<int, ActiveConn*>::iterator it_active = m_mapActiveConns.find(pConn->GetConnType());
             if (it_active != m_mapActiveConns.end()){
@@ -162,6 +167,8 @@ void SessionManager::RemoveConn(int socketfd){
                 delete pConn;
             }
         }
+    }else{
+        LOG_WARN("SessionManager::RemoveConn can not find socketfd=%d", socketfd);
     }
     pthread_rwlock_unlock(&m_rwlock);      //释放写锁
 }
@@ -186,16 +193,4 @@ std::shared_ptr<MSG> SessionManager::SendMsgAndRecv(int conntype,uint16_t comman
     }
     pthread_rwlock_unlock(&m_rwlock);      //释放写锁
     return std::shared_ptr<MSG>(pConn->SendMsgAndRecv(command, msgstream));
-}
-
-bool SessionManager::SendMsg(int conntype,uint16_t command, const ::google::protobuf::Message& msg){
-    std::ostringstream data;
-    msg.SerializeToOstream(&data);
-    return SendMsg(conntype, command, data);
-}
-
-std::shared_ptr<MSG> SessionManager::SendMsgAndRecv(int conntype,uint16_t command, const ::google::protobuf::Message& msg){
-    std::ostringstream data;
-    msg.SerializeToOstream(&data);
-    return std::shared_ptr<MSG>(SendMsgAndRecv(conntype, command, data));
 }

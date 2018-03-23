@@ -19,14 +19,14 @@ public:
 	static const UInt32 ACESec = 5 * 60;
 
 	//是不是前半小时
-	static inline bool isFirstHalfHour(UInt32 time=Now()) 
+	static inline bool isFirstHalfHour(UInt32 time=Now())
 	{
         time_t t = static_cast<time_t>(time) ;
         return localtime(&t)->tm_min < 30;
 	}
 
 	//是不是后半小时
-	static inline bool isSecondHalfHour(UInt32 time=Now()) 
+	static inline bool isSecondHalfHour(UInt32 time=Now())
 	{
         time_t t = static_cast<time_t>(time) ;
         return localtime(&t)->tm_min >= 30;

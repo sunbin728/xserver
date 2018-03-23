@@ -3,10 +3,11 @@
 
 #include <string>
 #include <mutex>
+#include <sys/time.h>
 #include <iostream>
 #include <sstream>
 #include <fstream>
-
+/*
 #define LOG(str) \
     Logger::Instance().Log(INFO, __FILE__, __LINE__, str)
 
@@ -45,6 +46,28 @@
 
 #define LOG_FATAL(str, ...) \
     Logger::Instance().Log(LOG_LEVEL::FATAL, __FILE__, __LINE__, str, __VA_ARGS__)
+*/
+
+#define LOG(...) \
+    Logger::Instance().Log(LOG_LEVEL::INFO, __FILE__, __LINE__, __VA_ARGS__)
+
+#define LOG_DEBUG(...) \
+    Logger::Instance().Log(LOG_LEVEL::DEBUG, __FILE__, __LINE__, __VA_ARGS__)
+
+#define LOG_INFO(...) \
+    Logger::Instance().Log(LOG_LEVEL::INFO, __FILE__, __LINE__, __VA_ARGS__)
+
+#define LOG_WARN(...) \
+    Logger::Instance().Log(LOG_LEVEL::WARN, __FILE__, __LINE__, __VA_ARGS__)
+
+#define LOG_ERROR(...) \
+    Logger::Instance().Log(LOG_LEVEL::ERROR, __FILE__, __LINE__, __VA_ARGS__)
+
+#define LOG_CRITICAL(...) \
+    Logger::Instance().Log(LOG_LEVEL::CRITICAL, __FILE__, __LINE__, __VA_ARGS__)
+
+#define LOG_FATAL(...) \
+    Logger::Instance().Log(LOG_LEVEL::FATAL, __FILE__, __LINE__, __VA_ARGS__)
 
 enum LOG_LEVEL
 {
@@ -103,13 +126,26 @@ class Logger{
         }
 
     private:
+        //std::string getTime()
+        //{
+            //time_t timep;
+            //time (&timep);
+            //char tmp[64];
+            //strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S",localtime(&timep) );
+            //return tmp;
+        //}
+
         std::string getTime()
         {
-            time_t timep;
-            time (&timep);
-            char tmp[64];
-            strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S",localtime(&timep) );
-            return tmp;
+             struct timeval tv;
+             gettimeofday(&tv,NULL);
+             struct tm* pTime;
+             pTime = localtime(&tv.tv_sec);
+             char sTemp[30] = {0};
+             snprintf(sTemp, sizeof(sTemp), "%04d-%02d-%02d %02d:%02d:%02d.%d", pTime->tm_year+1900, \
+                                 pTime->tm_mon+1, pTime->tm_mday, pTime->tm_hour, pTime->tm_min, pTime->tm_sec, \
+                                             (int)tv.tv_usec);
+             return (std::string)sTemp;
         }
 
         std::string format_head(LOG_LEVEL level, std::string filename, int lineno){

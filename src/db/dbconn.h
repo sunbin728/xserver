@@ -113,6 +113,9 @@ class DbConn{
         std::shared_ptr<DbResult> ExecuteQuery(std::string &sql);
 
     private:
+        bool Reconnect();
+
+    private:
         int m_id;
         std::string m_addr;
         int m_port;

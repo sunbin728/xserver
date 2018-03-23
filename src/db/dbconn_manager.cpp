@@ -15,7 +15,7 @@ DbConnManager& DbConnManager::Instance(){
 }
 
 bool DbConnManager::Init(){
-    LOGINFO(".................................DbConnManager::Init begin.................................");
+    LOG_INFO(".................................DbConnManager::Init begin.................................");
     for(int i=0; i<m_maxConnSize; ++i){
         std::string addr = "172.16.0.4";
         int port = 3306;
@@ -31,7 +31,7 @@ bool DbConnManager::Init(){
             m_dbConnPool.push(pdbConn);
         }
     }
-    LOGINFO(".................................DbConnManager::Init end.................................");
+    LOG_INFO(".................................DbConnManager::Init end.................................");
     return true;
 }
 

@@ -65,10 +65,20 @@ bool DbConn::Init(){
                     m_id, m_addr.c_str(), m_port, m_username.c_str(), m_password.c_str(), m_dbname.c_str(), m_charset.c_str());
         }
     } catch (sql::SQLException &e) {
-        LOG_ERROR("DbConn::Init Execption: err=%s, errcode=%d, sqlState=%s", e.what(), e.getErrorCode(), e.getSQLState().c_str());
         return false;
     }
     return true;
+}
+
+bool DbConn::Reconnect(){
+    LOG_DEBUG("DbConn::Reconnect: id=%d, addr=%s, port=%d, username=%s, password=%s, dbname=%s, charset=%s",
+            m_id, m_addr.c_str(), m_port, m_username.c_str(), m_password.c_str(), m_dbname.c_str(), m_charset.c_str());
+    try{
+        return m_conn->reconnect();
+    }catch(sql::SQLException &e){
+        LOG_ERROR("DbConn::Reconnect Execption: err=%s, errcode=%d, sqlState=%s", e.what(), e.getErrorCode(), e.getSQLState().c_str());
+        return false;
+    }
 }
 
 sql::Connection*  DbConn::GetConn(){
@@ -77,31 +87,48 @@ sql::Connection*  DbConn::GetConn(){
 
 
 bool DbConn::Execute(std::string &sql){
-    sql::Statement *stmt = m_conn->createStatement();
-    bool ret = stmt->execute(sql);
-    delete stmt;
-    return ret;
+    try{
+        m_conn->isValid();
+        sql::Statement *stmt = m_conn->createStatement();
+        bool ret = stmt->execute(sql);
+        delete stmt;
+        return ret;
+    }catch(sql::SQLException &e){
+        LOG_ERROR("DbConn::Execute Execption: err=%s, errcode=%d, sqlState=%s", e.what(), e.getErrorCode(), e.getSQLState().c_str());
+        if (!m_conn->isValid()){
+            Reconnect();
+        }
+        return false;
+    }
 }
 
 std::shared_ptr<DbResult> DbConn::ExecuteQuery(std::string &sql){
-    LOG_INFO("DbConn::ExecuteQuery: sql=%s", sql.c_str());
-    sql::Statement *stmt = m_conn->createStatement();
-    sql::ResultSet  *res = stmt->executeQuery(sql);
-    sql::ResultSetMetaData *res_meta = res->getMetaData();
-    int numcols = res_meta->getColumnCount();
-    DbResult * dbResult = new DbResult();
-    while (res->next()) {
-        DbRow* row = new DbRow();
-        for(int i=0; i<numcols; ++i){
-            std::string fieldname = res_meta->getColumnName(i+1).asStdString();
-            std::string val = res->getString(i+1).asStdString();
-            row->m_fieldmap.push_back(fieldname);
-            row->m_values[fieldname] = val;
-            //std::cout << fieldname << " " << val << endl;
+    try{
+        LOG_INFO("DbConn::ExecuteQuery: sql=%s", sql.c_str());
+        sql::Statement *stmt = m_conn->createStatement();
+        sql::ResultSet  *res = stmt->executeQuery(sql);
+        sql::ResultSetMetaData *res_meta = res->getMetaData();
+        int numcols = res_meta->getColumnCount();
+        DbResult * dbResult = new DbResult();
+        while (res->next()) {
+            DbRow* row = new DbRow();
+            for(int i=0; i<numcols; ++i){
+                std::string fieldname = res_meta->getColumnName(i+1).asStdString();
+                std::string val = res->getString(i+1).asStdString();
+                row->m_fieldmap.push_back(fieldname);
+                row->m_values[fieldname] = val;
+                //std::cout << fieldname << " " << val << endl;
+            }
+            dbResult->AddRow(row);
         }
-        dbResult->AddRow(row);
+        delete res;
+        delete stmt;
+        return std::shared_ptr<DbResult>(dbResult);
+    }catch(sql::SQLException &e){
+        LOG_ERROR("DbConn::ExecuteQuery Execption: err=%s, errcode=%d, sqlState=%s", e.what(), e.getErrorCode(), e.getSQLState().c_str());
+        if (!m_conn->isValid()){
+            Reconnect();
+        }
+        return NULL;
     }
-    delete res;
-    delete stmt;
-    return std::shared_ptr<DbResult>(dbResult);
 }

@@ -2,7 +2,6 @@
 #include "../common/logger.h"
 #include "../common/util.h"
 #include "../base/package.h"
-#include "../protobuf/Protocol.pb.h"
 
 #include <unistd.h>
 #include <arpa/inet.h>
@@ -15,7 +14,6 @@
 
 
 using namespace std;
-using namespace NetProto;
 
 class Client{
     public:
@@ -40,7 +38,7 @@ class Client{
             int ret = connect(m_socketfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
 
             if (0 == ret){
-                LOGINFO("connect ok");
+                LOG_INFO("connect ok");
                 return true;
             }else{
                 LOG_FATAL("connect fail: errno=%d, m_addr=%s, m_port=%d", errno, m_addr.c_str(), m_port);

@@ -9,11 +9,7 @@
 #include "common/util.h"
 #include "base/package.h"
 #include "base/command.h"
-#include "bizz/dealpw.h"
-#include "protobuf/command_type.pb.h"
-#include "protobuf/gs_2_pw.pb.h"
 
-using namespace NetProto;
 
 bool ActiveConn::Init(){
     initHeartBeatPkg();
@@ -50,17 +46,18 @@ void ActiveConn::resetConn(){
 }
 
 void ActiveConn::DoWork(){
-    LOGDEBUG("Connection::DoWork");
-    MSG* msg = new MSG();
-    if (package::ReadMsg(m_buf, m_wPos-m_rPos, msg)){
-        m_rPos += msg->size;
-        memcpy(m_buf, m_buf+m_rPos, m_wPos-m_rPos);
-        m_wPos = m_wPos - m_rPos;
-        m_rPos = 0;
+    LOG_DEBUG("Connection::DoWork");
+    //MSG* msg = NULL;
+    //int dataSize =  m_wPos-m_rPos;
+    //if ((msg = package::ReadMsg(m_buf, dataSize))){
+        //m_rPos += msg->size;
+        //memcpy(m_buf, m_buf+m_rPos, m_wPos-m_rPos);
+        //m_wPos = m_wPos - m_rPos;
+        //m_rPos = 0;
 
-        msg->socketfd = m_socketfd;
-        AddMsg(msg);
-    }
+        //msg->socketfd = m_socketfd;
+        //AddMsg(msg);
+    //}
 }
 
 void ActiveConn::AddMsg(MSG* msg){
@@ -68,16 +65,6 @@ void ActiveConn::AddMsg(MSG* msg){
     LOG_DEBUG("ActiveConn::AddMsg conntype=%d, queuesize=%d, msg->size=%d, PkgLen=%d, Command=%d, Target=%d, Retcode=%d",
             m_conntype, m_queue.size_approx(), msg->size, msg->header->PkgLen, msg->header->Command,
             msg->header->Target, msg->header->Retcode);
-}
-
-MSG* ActiveConn::SendMsgAndRecv(uint16_t command, const ::google::protobuf::Message& msg){
-    std::lock_guard<std::mutex> mtx_locker(m_mtx);
-    bool ret = Connection::SendMsg(command, msg);
-    MSG* recv_msg = NULL;
-    if (ret){
-        RecvMsg(recv_msg);
-    }
-    return recv_msg;
 }
 
 MSG* ActiveConn::SendMsgAndRecv(uint16_t command, const std::ostringstream& msgstream){
@@ -124,41 +111,5 @@ bool ActiveConn::Send(const char* buf, int data_size){
             SetValid(false);
         }
         return ret;
-    }
-}
-
-void ActiveConn::initHeartBeatPkg(){
-    uint16_t command = NetProto::GS2PW_Keep_Alive;
-    HEAD header;
-    //header.PkgLen = 0;
-    header.CheckSum = 0;
-    header.Target = m_conntype;
-    header.Command = command;
-    header.Retcode = 0;
-
-    std::stringstream heartBeatStream_body;
-    NetProto::gs2pw::ServerKeepAliveReq msg;
-    msg.set_gs_id(100);
-    msg.SerializeToOstream(&heartBeatStream_body);
-
-    header.PkgLen = heartBeatStream_body.str().length()+10;
-    m_heartBeatStream << header << heartBeatStream_body.rdbuf();
-}
-
-bool ActiveConn::SendHeartBeat(){
-    if (m_conntype != PW ){
-        return true;
-    }
-    LOG_DEBUG("ActiveConn::SendHeartBeat: conntype=%d", m_conntype);
-    MSG* msg = SendMsgAndRecv(m_heartBeatStream);
-
-    if (NULL != msg){
-        gs2pw::ServerKeepAliveResp pw2gsKeepAliveResp;
-        pw2gsKeepAliveResp.ParseFromArray(msg->GetProtobuf(), msg->GetProtobufLen());
-        bizz::PW2GSKeepAliveRespHandle(msg, pw2gsKeepAliveResp);
-        delete msg;
-        return true;
-    }else{
-        return false;
     }
 }

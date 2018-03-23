@@ -1,5 +1,7 @@
 #include "logger.h"
 
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <cstring>
@@ -23,6 +25,11 @@ void Logger::Init(std::string logName, LOG_LEVEL level, bool toFile){
     SetLogName(logName);
     SetLevel(level);
     SetToFile(toFile);
+    std::string logdir="./logs";
+    if (access(logdir.c_str(), 0) == -1)
+    {
+        mkdir(logdir.c_str(), 0777);
+    }
     if(!m_flushTimer){
         m_flushTimer = true;
         std::thread thrd_flush(&Logger::TimerFlush, this);

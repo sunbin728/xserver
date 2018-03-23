@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <iostream>
+#include <cstring>
 
 #pragma pack(push,1)
 
@@ -21,6 +22,16 @@ typedef struct tagMSG
     HEAD*    header;
     int    size;
     int socketfd;
+    tagMSG(int _size){
+        header = (HEAD*)malloc(_size);
+        memset(header, 0, _size);
+        size = _size;
+        socketfd = 0;
+    }
+    tagMSG(){
+        size = 0;
+        socketfd = 0;
+    }
     ~tagMSG(){
         if (NULL!=header){
             free(header);
@@ -28,8 +39,8 @@ typedef struct tagMSG
         }
     };
 
-    char* GetProtobuf(){return ((char*)header)+14;}
-    int GetProtobufLen(){return header->PkgLen-10;}
+    char* GetDataPtr(){return ((char*)header)+14;}
+    int GetDataLen(){return header->PkgLen-10;}
 }MSG,*PMSG;
 
 #pragma pack(pop)
@@ -38,7 +49,7 @@ std::ostream& operator<<(std::ostream& s, HEAD& head);
 
 namespace package{
     HEAD* ReadHeader(char* buf, int size);
-    bool ReadMsg(char* buf, int size, MSG* msg);
+    MSG* ReadMsg(char* buf, int size);
 }
 
 #endif /* _PACKAGE_H_ */
