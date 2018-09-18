@@ -34,7 +34,7 @@ namespace package{
         MSG* msg = new MSG(pHead->PkgLen+4);
         memcpy(msg->header, buf, msg->size);
         //LOG_DEBUG("package::ReadMsg msg->size=%d, PkgLen=%d, Command=%d, Target=%d, Retcode=%d",
-                //msg->size, msg->header->PkgLen, msg->header->Command, msg->header->Target, msg->header->Retcode);
+        //msg->size, msg->header->PkgLen, msg->header->Command, msg->header->Target, msg->header->Retcode);
         return msg;
     }
 

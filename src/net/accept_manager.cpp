@@ -10,15 +10,18 @@
 #include <sys/select.h>
 #include <arpa/inet.h>
 #include <sys/time.h>
-#include  <sys/epoll.h>
+#include <sys/epoll.h>
 #include <fcntl.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
 
 #include "base/command.h"
 #include "common/logger.h"
 #include "connection.h"
+#include "clientconn.h"
 #include "session_manager.h"
 
-using namespace std;
 
 typedef int SOCKET;
 #define MESS_SIZE 1024 * 1024
@@ -79,44 +82,102 @@ bool AcceptManager::AddEvent(int conn_sock){
 void AcceptManager::StartET(){
     struct epoll_event ev, events[MAX_EVENTS];
     int conn_sock, nfds, fd, i, nread, n;
-    struct sockaddr_in local, remote;
-    socklen_t  addrlen;
     char* buf=0;
-
-    //创建listen socket
-    if( (m_listenfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-        LOG_FATAL("AcceptManager::StartET socket fail");
-    }
+    socklen_t  addrlen;
     const int trueFlag = 1;
-    if (setsockopt(m_listenfd, SOL_SOCKET, SO_REUSEADDR, &trueFlag, sizeof(int)) < 0){
-        LOG_FATAL("AcceptManager::StartET setsockopt SO_REUSEADDR fail");
-    }
-    setnonblocking(m_listenfd);
-    bzero(&local, sizeof(local));
-    local.sin_family = AF_INET;
-    if (this->m_addr == ""){
-        local.sin_addr.s_addr = htonl(INADDR_ANY);
-    }else{
-        local.sin_addr.s_addr = inet_addr(this->m_addr.c_str());
-    }
-    local.sin_port = htons(this->m_port);
-    if( bind(m_listenfd, (struct sockaddr *) &local, sizeof(local)) < 0) {
-        LOG_FATAL("AcceptManager::StartET bind fail: m_listenfd=%d, errno=%d", m_listenfd, errno);
-    }
-    listen(m_listenfd, 100);
 
+    //IPV4 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    struct sockaddr_in local, remote;
+    if (m_listenNet == 1 || m_listenNet==4)
+    {
+        //创建listen socket
+        if( (m_listenfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+            LOG_FATAL("AcceptManager::StartET socket fail");
+        }
+        if (setsockopt(m_listenfd, SOL_SOCKET, SO_REUSEADDR, &trueFlag, sizeof(int)) < 0){
+            LOG_FATAL("AcceptManager::StartET setsockopt SO_REUSEADDR fail");
+        }
+        if (setsockopt(m_listenfd, SOL_SOCKET, SO_REUSEPORT, &trueFlag, sizeof(int)) < 0){
+            LOG_FATAL("AcceptManager::StartET setsockopt SO_REUSEADDR fail");
+        }
+        setnonblocking(m_listenfd);
+        bzero(&local, sizeof(local));
+        local.sin_family = AF_INET;
+        this->m_addr = "";
+        if (this->m_addr == ""){
+            local.sin_addr.s_addr = htonl(INADDR_ANY);
+        }else{
+            local.sin_addr.s_addr = inet_addr(this->m_addr.c_str());
+        }
+        local.sin_port = htons(this->m_port);
+        if( bind(m_listenfd, (struct sockaddr *) &local, sizeof(local)) < 0) {
+            LOG_FATAL("AcceptManager::StartET bind fail: m_listenfd=%d, errno=%d", m_listenfd, errno);
+        }
+        listen(m_listenfd, 100);
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //IPV6 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    struct sockaddr_in6 local6, remote6;
+    if (m_listenNet == 1 || m_listenNet==6)
+    {
+        //创建listen socket
+        if( (m_listenfd6 = socket(AF_INET6, SOCK_STREAM, 0)) < 0) {
+            LOG_FATAL("AcceptManager::StartET socket fail");
+        }
+        if (setsockopt(m_listenfd6, SOL_SOCKET, SO_REUSEADDR, &trueFlag, sizeof(int)) < 0){
+            LOG_FATAL("AcceptManager::StartET setsockopt SO_REUSEADDR fail");
+        }
+        if (setsockopt(m_listenfd6, SOL_SOCKET, SO_REUSEPORT, &trueFlag, sizeof(int)) < 0){
+            LOG_FATAL("AcceptManager::StartET setsockopt SO_REUSEADDR fail");
+        }
+        setnonblocking(m_listenfd6);
+        bzero(&local6, sizeof(local6));
+        local6.sin6_family = AF_INET6;
+        //this->m_addr6 = "2001:0:53aa:64c:1013:76a3:c34f:69a4";
+        if (this->m_addr6 == ""){
+            local6.sin6_addr = in6addr_any;
+        }else{
+            inet_pton(AF_INET6, m_addr6.c_str(), &local6.sin6_addr);
+        }
+        local6.sin6_port = htons(this->m_port);
+        if( bind(m_listenfd6, (struct sockaddr *) &local6, sizeof(local6)) < 0) {
+            LOG_FATAL("AcceptManager::StartET bind fail: m_listenfd=%d, errno=%d", m_listenfd6, errno);
+        }
+        listen(m_listenfd6, 100);
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    //EPOLL
     m_epfd = epoll_create(MAX_EVENTS);
     if (m_epfd == -1) {
         LOG_FATAL("AcceptManager::StartET epoll_create fail: errno=%d", errno);
     }
 
-    //边缘触发
-    ev.events = EPOLLIN | EPOLLET;;
-    ev.data.fd = m_listenfd;
-    if (epoll_ctl(m_epfd, EPOLL_CTL_ADD, m_listenfd, &ev) == -1) {
-        LOG_FATAL("AcceptManager::StartET epoll_ctl EPOLL_CTL_ADD fail: m_listenfd=%d, errno=%d", m_listenfd, errno);
+    //边缘触发, 监听IPV4
+    if (m_listenNet == 1 || m_listenNet==4)
+    {
+        ev.events = EPOLLIN | EPOLLET;;
+        ev.data.fd = m_listenfd;
+        if (epoll_ctl(m_epfd, EPOLL_CTL_ADD, m_listenfd, &ev) == -1) {
+            LOG_FATAL("AcceptManager::StartET epoll_ctl EPOLL_CTL_ADD fail: m_listenfd=%d, errno=%d", m_listenfd, errno);
+        }
+        LOG_INFO("AcceptManager::StartET Server is Online: addr=%s, port=%d", this->m_addr.c_str(), this->m_port);
     }
-    LOG_INFO("AcceptManager::StartET Server is Online: addr=%s, port=%d", this->m_addr.c_str(), this->m_port);
+
+    //边缘触发, 监听IPV6
+    if (m_listenNet == 1 || m_listenNet==6)
+    {
+        ev.events = EPOLLIN | EPOLLET;;
+        ev.data.fd = m_listenfd6;
+        if (epoll_ctl(m_epfd, EPOLL_CTL_ADD, m_listenfd6, &ev) == -1) {
+            LOG_FATAL("AcceptManager::StartET epoll_ctl EPOLL_CTL_ADD fail: m_listenfd=%d, errno=%d", m_listenfd, errno);
+        }
+        LOG_INFO("AcceptManager::StartET Server is Online IPV6: port=%d", this->m_port);
+    }
+
+
     m_start = true;
     for (;;) {
         nfds = epoll_wait(m_epfd, events, MAX_EVENTS, -1);
@@ -132,7 +193,7 @@ void AcceptManager::StartET(){
         for (i = 0; i < nfds; ++i) {
             fd = events[i].data.fd;
 
-            //处理新进来的连接
+            //处理新进来的连接ipv4
             if (fd == m_listenfd) {
                 while ((conn_sock = accept(m_listenfd,(sockaddr *) &remote,
                                 &addrlen)) > 0) {
@@ -144,7 +205,31 @@ void AcceptManager::StartET(){
                         LOG_FATAL("AcceptManager::StartET epoll_ctl EPOLL_CTL_ADD fail: conn_sock=%d", conn_sock);
                     }
                     //构造一个连接对象并加入session
-                    Connection* pConn = new Connection(conn_sock, ServerType::SERVER_TYPE_GC);
+                    Connection* pConn = new ClientConn(conn_sock, ServerType::SERVER_TYPE_GC);
+                    SessionManager::Instance().AddConn(conn_sock, pConn);
+                }
+                if (conn_sock == -1) {
+                    if (errno != EAGAIN && errno != ECONNABORTED
+                            && errno != EPROTO && errno != EINTR)
+                        LOG_ERROR("AcceptManager::StartET accept fail: m_listenfd=%d", m_listenfd);
+                }
+                continue;
+            }
+
+            //处理新进来的连接ipv6
+            if (fd == m_listenfd6) {
+                while ((conn_sock = accept(m_listenfd6,(sockaddr *) &remote6,
+                                &addrlen)) > 0) {
+                    char str[INET_ADDRSTRLEN+1];
+                    LOG_INFO("AcceptManager::StartET: %s Connect", inet_ntop(AF_INET6, &remote6.sin6_addr, str, sizeof(str)));
+                    setnonblocking(conn_sock);
+                    ev.events = EPOLLIN | EPOLLET;
+                    ev.data.fd = conn_sock;
+                    if (epoll_ctl(m_epfd, EPOLL_CTL_ADD, conn_sock, &ev) == -1) {
+                        LOG_FATAL("AcceptManager::StartET epoll_ctl EPOLL_CTL_ADD fail: conn_sock=%d", conn_sock);
+                    }
+                    //构造一个连接对象并加入session
+                    Connection* pConn = new ClientConn(conn_sock, ServerType::SERVER_TYPE_GC);
                     SessionManager::Instance().AddConn(conn_sock, pConn);
                 }
                 if (conn_sock == -1) {
@@ -194,7 +279,7 @@ READFLAG:
                     continue;
                 }else{
                     //LOG_INFO("AcceptManager::StartET read ok: fd=%d, data_size=%d", fd, n);
-                    LOG_INFO("AcceptManager::StartET read fail: fd=%d, data_size=%d, nread=%d, errno=%d", fd, n, nread, errno);
+                    LOG_INFO("AcceptManager::StartET read ok: fd=%d, data_size=%d, nread=%d, errno=%d", fd, n, nread, errno);
                     //DoWork
                     pConn->DoWork();
                     //有读取到数据，nread=0表示到连接断开
@@ -366,3 +451,4 @@ void AcceptManager::StartLT(){
     close(listenSock);
     close(epollHandle);
 }
+

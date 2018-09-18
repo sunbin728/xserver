@@ -30,7 +30,7 @@ void Worker::doWork(){
         //m_queue.wait_dequeue(pmsg);
         m_concurrentQueue.wait_dequeue(m_ctoken, pmsg);
         m_working = true;
-        LOG_DEBUG("Worker::doWork m_queue.wait_dequeue: workid=%d, pmsg=%p", m_workid, pmsg);
+        //LOG_DEBUG("Worker::doWork m_queue.wait_dequeue: workid=%d, pmsg=%p", m_workid, pmsg);
         if (pmsg != nullptr){
             bizz::DoWork(pmsg);
             delete pmsg;

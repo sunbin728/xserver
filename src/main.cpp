@@ -185,9 +185,7 @@ int main()
     //return 1;
 
     //DbConnManager::Instance().Init();
-    RedisConnManager::Instance().Init();
-    //SceneMgr::Instance().Init();
-    //DataMgr::Instance().Init();
+    //RedisConnManager::Instance().Init();
     WorkerManager::Instance().Start(10);
     AcceptManager::Instance().Start();
     SessionManager::Instance().Init();

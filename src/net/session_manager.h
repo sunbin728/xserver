@@ -30,9 +30,7 @@ class SessionManager{
         void AddActiveConn(int conntype, ActiveConn* pConn);
         ActiveConn* GetActiveConn(int conntype);
 
-        bool SendMsg(int conntype,uint16_t command, const std::ostringstream& msgstream);
-
-        std::shared_ptr<MSG> SendMsgAndRecv(int conntype,uint16_t command, const std::ostringstream& msgstream);
+        bool SendHeartBeat(ActiveConn* pConn);
 
     private:
         std::map<int, Connection*> m_mapConns;

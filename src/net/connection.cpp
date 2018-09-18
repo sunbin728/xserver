@@ -1,99 +1,63 @@
 #include "connection.h"
-#include "base/package.h"
 #include <string.h>
 #include "bizz/worker_manager.h"
 
 #include "common/logger.h"
 #include "common/util.h"
+#include "common/common.h"
+
+#include <arpa/inet.h>
+
+Connection::Connection(int fd, int conntype):
+    m_conntype(conntype),
+    m_socketfd(fd),
+    m_ringBuffer(NULL){
+        m_ringBuffer = new RingBuffer(17);
+        m_remoteAddr = GetAddressBySocket(m_socketfd);
+    }
 
 Connection::~Connection(){
     if (m_socketfd != 0){
         close(m_socketfd);
         LOG_DEBUG("Connection::~Connection close m_socketfd:%d", m_socketfd);
     }
-    //if (NULL != m_buf){
-    //delete[] m_buf;
-    //m_buf = NULL;
-    //}
-    //if (NULL != m_sendbuf){
-    //delete[] m_sendbuf;
-    //m_sendbuf = NULL;
-    //}
     if (NULL != m_ringBuffer){
         delete m_ringBuffer;
         m_ringBuffer = NULL;
     }
 }
 
-//void Connection::DoWork(){
-//LOG_DEBUG("Connection::DoWork");
-//MSG* msg = NULL;
-//// TODO:  优化buf的移动
-//int dataSize =  m_wPos-m_rPos;
-//while((msg = package::ReadMsg(m_buf, dataSize))!=NULL){
-//m_rPos += msg->size;
-//msg->socketfd = m_socketfd;
-//WorkerManager::Instance().DealMsg(msg);
-//dataSize =  m_wPos-m_rPos;
-//}
-//if (m_rPos!=0){
-//memcpy(m_buf, m_buf+m_rPos, m_wPos-m_rPos);
-//m_wPos = m_wPos - m_rPos;
-//m_rPos = 0;
-//}
-//}
-
 void Connection::DoWork(){
-    LOG_DEBUG("Connection::DoWork");
+    //LOG_DEBUG("Connection::DoWork");
     MSG* msg = NULL;
     // TODO:  优化buf的移动
     while((msg = package::ReadMsg((char*)m_ringBuffer->ReadAddress(), m_ringBuffer->CountBytes()))!=NULL){
         m_ringBuffer->ReadAdvance(msg->size);
         msg->socketfd = m_socketfd;
-        WorkerManager::Instance().DealMsg(msg);
+        msg->connType = m_conntype;
+        msg->pConn = this;
+        DealMsg(msg);
     }
 }
 
-void Connection::resetConn(){
+void Connection::ResetConn(){
     if (m_socketfd != 0){
         close(m_socketfd);
         LOG_DEBUG("Connection::resetConn close m_socketfd:%d", m_socketfd);
     }
-    m_rPos = 0;
-    m_wPos = 0;
 }
 
-bool Connection::SendMsg(uint16_t command, const std::ostringstream& msgstream){
-    std::string msgstring = msgstream.str();
-    HEAD header;
-    header.PkgLen = msgstring.length()+10;
-    header.CheckSum = 0;
-    header.Target = m_conntype;
-    header.Command = command;
-    header.Retcode = 0;
-
-    int msgsize = sizeof(header)+msgstream.str().length();
-    char* msg = (char*)malloc(msgsize);
-    memcpy(msg, &header, sizeof(header));
-    memcpy(msg+sizeof(header), msgstring.c_str(), msgstring.length());
-
-    LOG_INFO("Connection::SendMsg: fd=%d, data_size=%d, PkgLen=%d, CheckSum=%d, Target=%d, Command=%d, Retcode=%d",
-            m_socketfd, msgsize, header.PkgLen, header.CheckSum, header.Target, header.Command, header.Retcode);
-    bool ret = Send(msg, msgsize);
-    free(msg);
+bool Connection::SendMsg(uint16_t command, const rapidjson::Document& docMsg){
+    bool ret = Connection::SendMsg(m_socketfd, command, docMsg);
+    if (ret){
+        LOG_INFO("Connection::SendMsg success: fd=%d, remoteAddr=%s", m_socketfd, m_remoteAddr.c_str());
+    }else{
+        LOG_ERROR("Connection::SendMsg fail: fd=%d, remoteAddr=%s", m_socketfd, m_remoteAddr.c_str());
+    }
     return ret;
 }
 
-bool Connection::SendMsg(const std::ostringstream& msgstream){
-    bool ret = Send(msgstream.str().c_str(), msgstream.str().length());
-    return ret;
-}
-
-
-bool Connection::Send(const char* buf, int data_size){
-    return Connection::Send(m_socketfd, buf, data_size);
-}
-
+/////////////static member//////////////////////////
 bool Connection::SendMsg(int socketfd, uint16_t command, const rapidjson::Document& docMsg){
     StringBuffer buffer;
     Writer<StringBuffer> writer(buffer);
@@ -113,10 +77,10 @@ bool Connection::SendMsg(int socketfd, uint16_t command, const rapidjson::Docume
 
     bool ret = Connection::Send(socketfd, msg, msgsize);
     if (ret){
-        LOG_INFO("Connection::SendMsg success: fd=%d, data_size=%d, PkgLen=%d, CheckSum=%d, Target=%d, Command=%d, Retcode=%d",
+        LOG_DEBUG("Connection::SendMsg success: fd=%d, data_size=%d, PkgLen=%d, CheckSum=%d, Target=%d, Command=%d, Retcode=%d",
                 socketfd, msgsize, header.PkgLen, header.CheckSum, header.Target, header.Command, header.Retcode);
     }else{
-        LOG_INFO("Connection::SendMsg success: fd=%d, data_size=%d, PkgLen=%d, CheckSum=%d, Target=%d, Command=%d, Retcode=%d",
+        LOG_ERROR("Connection::SendMsg fail: fd=%d, data_size=%d, PkgLen=%d, CheckSum=%d, Target=%d, Command=%d, Retcode=%d",
                 socketfd, msgsize, header.PkgLen, header.CheckSum, header.Target, header.Command, header.Retcode);
     }
     free(msg);
@@ -143,3 +107,22 @@ bool Connection::Send(int socketfd, const char* buf, int data_size){
     }
     return true;
 }
+
+//通过套接字获取IP、Port等地址信息
+string Connection::GetAddressBySocket(int socketfd)
+{
+    struct sockaddr_in rsa;
+    socklen_t  rsa_len = sizeof(struct sockaddr_in);
+    if(getpeername(socketfd, (struct sockaddr *)&rsa, &rsa_len) == 0){
+        char ip[20];//保存点分十进制的地址
+        memset(ip, 0, 20);
+        inet_ntop(AF_INET, &rsa.sin_addr, ip, sizeof(ip));
+        int port = ntohs(rsa.sin_port);
+        std::ostringstream buffer;
+        buffer<<ip<<":"<<port;
+        return buffer.str();
+    }
+    return "";
+}
+///////////////////////////////////////
+

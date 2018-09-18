@@ -1,8 +1,6 @@
 #ifndef _CACHE_H_
 #define _CACHE_H_
 
-
-
 #include<cassert>
 #include<iostream>
 #include <mutex>

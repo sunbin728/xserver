@@ -28,10 +28,17 @@ void WorkerManager::Start(int threadcount){
 }
 
 
-void WorkerManager::DealMsg(MSG* msg){
+void WorkerManager::DealClientMsg(MSG* msg){
     //std::string strbody(msg->GetDataPtr(), msg->GetDataLen());
     //LOG_DEBUG("WorkerManager::DealMsg msg->size=%d, PkgLen=%d, Command=%d, Target=%d, Retcode=%d, body=%s",
     //msg->size, msg->header->PkgLen, msg->header->Command, msg->header->Target, msg->header->Retcode, strbody.c_str());
-    m_vecWorkers[msg->socketfd % m_threadcount]->AddMsg(msg);
+    m_vecWorkers[msg->socketfd % (m_threadcount/2)]->AddMsg(msg);
+}
+
+void WorkerManager::DealServerMsg(MSG* msg){
+    //std::string strbody(msg->GetDataPtr(), msg->GetDataLen());
+    //LOG_DEBUG("WorkerManager::DealMsg msg->size=%d, PkgLen=%d, Command=%d, Target=%d, Retcode=%d, body=%s",
+    //msg->size, msg->header->PkgLen, msg->header->Command, msg->header->Target, msg->header->Retcode, strbody.c_str());
+    m_vecWorkers[msg->socketfd %(m_threadcount-m_threadcount/2)+m_threadcount/2]->AddMsg(msg);
 }
 

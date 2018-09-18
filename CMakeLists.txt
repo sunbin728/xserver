@@ -9,6 +9,7 @@ SET(CMAK_CXX_COMPILER g++)
 # 添加c++11编译选项
 add_compile_options(-std=c++11)
 
+
 # 显示或关闭编译的详细信息
 set(CMAKE_VERBOSE_MAKEFILE ON)
 #set(CMAKE_VERBOSE_MAKEFILE OFF)
@@ -26,19 +27,20 @@ message(STATUS "CMAKE_C_COMPILER:" ${CMAKE_C_COMPILER})
 message(STATUS "CMAKE_CXX_COMPILER:" ${CMAKE_CXX_COMPILER})
 
 
+# 添加gprof分析支持
 # 设置debug和release的编译选项
-set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g -ggdb")
+set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g -ggdb -pg")
 set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 
 IF (CMAKE_BUILD_TYPE MATCHES "DEBUG")
     message(STATUS "CMAKE_CXX_FLAGS_DEBUG:" ${CMAKE_CXX_FLAGS_DEBUG})
-ELSE(CMAKE_BUILD_TYPE MATCHES "DEBUG")
+    SET(LINK_FLAGS "-pg")
+ELSE(CMAKE_BUILD_TYPE MATCHES "RELEASE")
     message(STATUS "CMAKE_CXX_FLAGS_RELEASE:" ${CMAKE_CXX_FLAGS_RELEASE})
 ENDIF (CMAKE_BUILD_TYPE MATCHES "DEBUG")
 
 # 头文件目录
 include_directories("src")
-include_directories("src/queue")
 include_directories("include")
 include_directories("/usr/local/include")
 

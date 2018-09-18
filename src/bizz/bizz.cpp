@@ -8,13 +8,9 @@
 
 #include <unistd.h>
 #include <string>
-#include "rapidjson/document.h"
-#include "rapidjson/writer.h"
-#include "rapidjson/stringbuffer.h"
 //#include <strstream>
 //#include <sstream>
 
-using namespace rapidjson;
 using namespace std;
 
 namespace bizz{
@@ -41,24 +37,17 @@ namespace bizz{
             StringBuffer buffer;
             Writer<StringBuffer> writer(buffer);
             doc_req.Accept(writer);
-            LOG_INFO("bizz::DoWork req=%s", buffer.GetString());
+            LOG_INFO("bizz::DoWork req=%s, connType=%d", buffer.GetString(), msg->connType);
         }
 
         Document doc_resp;
-        switch (msg->header->Command){
-            //From Client
-            case Command::COMMON_HEART_BEAT:
-                {
-                    HeartBeatHandler(doc_req, doc_resp);
-                    break;
-                }
-
-            default:
-                LOG_ERROR("bizz::DoWork unknown command: command=%d", msg->header->Command);
+        if (msg->connType == ServerType::SERVER_TYPE_GC){
+            DealClientMsg(msg, doc_req, doc_resp);
+        }else{
+            DealServerMsg(msg, doc_req, doc_resp);
         }
-
-        if (!doc_resp.IsNull()){
-            bool sendStatus = Connection::SendMsg(msg->socketfd, msg->header->Command, doc_resp);
+        if (!doc_resp.IsNull() && msg->pConn != nullptr){
+            bool sendStatus = static_cast<Connection*>(msg->pConn)->SendMsg(msg->header->Command, doc_resp);
             if (sendStatus){
                 StringBuffer buffer;
                 Writer<StringBuffer> writer(buffer);
@@ -66,5 +55,28 @@ namespace bizz{
                 LOG_INFO("bizz::DoWork resp=%s", buffer.GetString());
             }
         }
+    }
+
+    void DealClientMsg(MSG* msg, Document &req, Document &resp){
+        switch (msg->header->Command){
+            //From Client
+            case Command::COMMON_HEART_BEAT:
+                {
+                    HeartBeatHandler(req, resp);
+                    break;
+                }
+            case Command::COMMON_SERVER_REG_REQ:
+                {
+                    ServerRegHandler(req, resp);
+                    break;
+                }
+
+            default:
+                LOG_ERROR("bizz::DoWork unknown command: command=%d", msg->header->Command);
+        }
+    }
+
+    void DealServerMsg(MSG* msg, Document &req, Document &resp){
+
     }
 }

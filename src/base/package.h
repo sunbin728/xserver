@@ -22,20 +22,27 @@ typedef struct tagMSG
     HEAD*    header;
     int    size;
     int socketfd;
+    int connType;
+    void* pConn;
     tagMSG(int _size){
         header = (HEAD*)malloc(_size);
         memset(header, 0, _size);
         size = _size;
         socketfd = 0;
+        connType = 0;
+        pConn=nullptr;
     }
     tagMSG(){
         size = 0;
         socketfd = 0;
+        connType = 0;
+        pConn=nullptr;
     }
     ~tagMSG(){
         if (NULL!=header){
             free(header);
             header = NULL;
+            pConn=nullptr;
         }
     };
 

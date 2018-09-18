@@ -9,6 +9,7 @@ using namespace rapidjson;
 namespace bizz{
     //client
     void HeartBeatHandler(Document &req, Document &resp);
+    void ServerRegHandler(Document &req, Document &resp);
 }
 
 #endif /* _DEALCLIENT_H_ */

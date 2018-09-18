@@ -12,4 +12,7 @@ namespace bizz{
         resp.AddMember("nowTime", TimeUtil::Now(), resp.GetAllocator());
     }
 
+    void ServerRegHandler(Document &req, Document &resp){
+    }
+
 }

@@ -2,9 +2,15 @@
 #include "accept_manager.h"
 #include "common/logger.h"
 #include "base/command.h"
+#include "common/timeutil.h"
 #include <string>
 #include <thread>
 
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+
+using namespace rapidjson;
 
 
 SessionManager& SessionManager::Instance(){
@@ -20,40 +26,35 @@ void SessionManager::watchWork(){
     ActiveConn* pConn;
     sleep(2);
     while(true){
+        pthread_rwlock_rdlock(&m_rwlock);    //读者加读锁
+        LOG_INFO("SessionManager::watchWork m_mapConns.size=%d", m_mapConns.size());
+        pthread_rwlock_unlock(&m_rwlock);      //释放写锁
         std::map<int, ActiveConn*>::iterator iter;
         for (iter =  m_mapActiveConns.begin(); iter != m_mapActiveConns.end(); ++iter){
             pConn = iter->second;
             if (!pConn->GetValid()){
                 this->reInitActiveConnect(pConn);
             }else{
-                pConn->SendHeartBeat();
+                SendHeartBeat(pConn);
             }
         }
 
         sleep(15);
-        pthread_rwlock_rdlock(&m_rwlock);    //读者加读锁
-        LOG_INFO("SessionManager::watchWork m_mapConns.size=%d", m_mapConns.size());
-        pthread_rwlock_unlock(&m_rwlock);      //释放写锁
     }
 }
 
 void SessionManager::Init(){
-    //while (!AcceptManager::Instance().IsStarted()){
-    //sleep(1);
-    //}
-    ////init conn to MTS
-    //int conntype = MTS;
-    //std::string addr = "172.16.0.3";
-    //int port = 3128;
+    while (!AcceptManager::Instance().IsStarted()){
+    sleep(1);
+    }
+    int conntype = ServerType::SERVER_TYPE_ACC;
+    std::string addr = "172.16.0.11";
+    int port = 1234;
     //initActiveConnect(conntype, addr, port);
 
-    ////init conn to PW
-    //conntype = PW;
-    ////addr = "172.16.1.5";
-    //addr = "172.16.0.3";
-    //port = 8009;
-    ////addr = "172.16.0.4";
-    ////port = 1234;
+    conntype = ServerType::SERVER_TYPE_MTS;
+    addr = "172.16.0.11";
+    port = 3128;
     //initActiveConnect(conntype, addr, port);
 
     //开启监控线程，用于主动链接的重连
@@ -106,6 +107,21 @@ void SessionManager::reInitActiveConnect(ActiveConn* activeConn){
     }
     LOG_INFO("SessionManager::reInitActiveConnect end: conntype=%d", activeConn->GetConnType());
 }
+
+bool SessionManager::SendHeartBeat(ActiveConn* pConn){
+    rapidjson::Document heartBeat;
+    heartBeat.SetObject();
+    heartBeat.AddMember("nowTime", TimeUtil::Now(), heartBeat.GetAllocator());
+
+    bool ret = pConn->SendMsg(COMMON_HEART_BEAT, heartBeat);
+    if (ret){
+        LOG_INFO("SendHeartBeat ok: socketfd=%d", pConn->GetSocketfd());
+    }else{
+        LOG_ERROR("SendHeartBeat fail: socketfd=%d", pConn->GetSocketfd());
+    }
+    return ret;
+}
+
 
 void SessionManager::AddActiveConn(int conntype, ActiveConn* pConn){
     pthread_rwlock_wrlock(&m_rwlock);      //写者加写锁
@@ -171,26 +187,4 @@ void SessionManager::RemoveConn(int socketfd){
         LOG_WARN("SessionManager::RemoveConn can not find socketfd=%d", socketfd);
     }
     pthread_rwlock_unlock(&m_rwlock);      //释放写锁
-}
-
-bool SessionManager::SendMsg(int conntype,uint16_t command, const std::ostringstream& msgstream){
-    ActiveConn *pConn = NULL;
-    pthread_rwlock_rdlock(&m_rwlock);    //读者加读锁
-    std::map<int, ActiveConn*>::iterator it = m_mapActiveConns.find(conntype);
-    if (it != m_mapActiveConns.end()){
-        pConn = it->second;
-    }
-    pthread_rwlock_unlock(&m_rwlock);      //释放写锁
-    return pConn->SendMsg(command, msgstream);
-}
-
-std::shared_ptr<MSG> SessionManager::SendMsgAndRecv(int conntype,uint16_t command, const std::ostringstream& msgstream){
-    ActiveConn *pConn = NULL;
-    pthread_rwlock_rdlock(&m_rwlock);    //读者加读锁
-    std::map<int, ActiveConn*>::iterator it = m_mapActiveConns.find(conntype);
-    if (it != m_mapActiveConns.end()){
-        pConn = it->second;
-    }
-    pthread_rwlock_unlock(&m_rwlock);      //释放写锁
-    return std::shared_ptr<MSG>(pConn->SendMsgAndRecv(command, msgstream));
 }

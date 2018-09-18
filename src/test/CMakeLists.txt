@@ -43,16 +43,13 @@ include_directories("../../src")
 #link_directories("/home/acc/app/boost_1_64_0/stage/lib")
 
 # 查找目录下的所有源文件
-# 并将名称保存到 SRCLIST 变量
-aux_source_directory(./ SRCLIST)
-aux_source_directory(../common SRCLIST)
-aux_source_directory(../base SRCLIST)
-#aux_source_directory(../net SRCLIST)
-#aux_source_directory(../db SRCLIST)
-aux_source_directory(../protobuf SRCLIST)
 
-# 指定生成目标
-add_executable(test ${SRCLIST})
+ #并将名称保存到 SRCLIST 变量
+#aux_source_directory(./ SRCLIST)
+ #指定生成目标
+#add_executable(test ${SRCLIST})
+
+add_executable(test t_client.cpp)
 
 # 添加链接库
-target_link_libraries(test pthread protobuf mysqlcppconn)
+target_link_libraries(test pthread protobuf mysqlcppconn ssl crypto)

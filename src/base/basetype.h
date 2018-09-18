@@ -1,5 +1,5 @@
-#ifndef _COMMAND_H_
-#define _COMMAND_H_
+#ifndef _BASETYPE_H_
+#define _BASETYPE_H_
 
 typedef int8_t		Int8;
 typedef int16_t		Int16;
@@ -22,4 +22,4 @@ typedef uint16_t	uint16;
 typedef uint32_t	uint32;
 typedef uint64_t	uint64;
 
-#endif /* _COMMAND_H_ */
+#endif /* _BASETYPE_H_ */

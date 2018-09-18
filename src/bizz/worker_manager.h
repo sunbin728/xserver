@@ -16,7 +16,8 @@ class WorkerManager{
     public:
         static WorkerManager& Instance();
         void Start(int threadcount);
-        void DealMsg(MSG* msg);
+        void DealClientMsg(MSG* msg);
+        void DealServerMsg(MSG* msg);
 
     private:
         std::vector<Worker*> m_vecWorkers;

@@ -5,15 +5,13 @@
 #include <sys/socket.h>
 #include <stdlib.h>
 
+#include "bizz/worker_manager.h"
 #include "common/logger.h"
-#include "common/util.h"
-#include "base/package.h"
 #include "base/command.h"
 
 
 bool ActiveConn::Init(){
-    initHeartBeatPkg();
-    resetConn();
+    ResetConn();
     //创建套接字
     m_socketfd = socket(AF_INET, SOCK_STREAM, 0);
     //向服务器（特定的IP和端口）发起请求
@@ -26,6 +24,7 @@ bool ActiveConn::Init(){
 
     if (0 == ret){
         SetValid(true);
+        m_remoteAddr = GetAddressBySocket(m_socketfd);
         LOG_INFO("ActiveConn::Init ok: m_socketfd=%d, m_addr=%s, m_port=%d", m_socketfd, m_addr.c_str(), m_port);
         return true;
     }else{
@@ -35,81 +34,7 @@ bool ActiveConn::Init(){
     }
 }
 
-void ActiveConn::resetConn(){
-    Connection::resetConn();
-    MSG* msg=NULL;
-    while(m_queue.size_approx()!=0){
-        while(m_queue.try_dequeue(msg)){
-            delete msg;
-        }
-    }
+void ActiveConn::DealMsg(MSG* msg){
+    WorkerManager::Instance().DealServerMsg(msg);
 }
 
-void ActiveConn::DoWork(){
-    LOG_DEBUG("Connection::DoWork");
-    //MSG* msg = NULL;
-    //int dataSize =  m_wPos-m_rPos;
-    //if ((msg = package::ReadMsg(m_buf, dataSize))){
-        //m_rPos += msg->size;
-        //memcpy(m_buf, m_buf+m_rPos, m_wPos-m_rPos);
-        //m_wPos = m_wPos - m_rPos;
-        //m_rPos = 0;
-
-        //msg->socketfd = m_socketfd;
-        //AddMsg(msg);
-    //}
-}
-
-void ActiveConn::AddMsg(MSG* msg){
-    m_queue.enqueue(m_ptok, msg);
-    LOG_DEBUG("ActiveConn::AddMsg conntype=%d, queuesize=%d, msg->size=%d, PkgLen=%d, Command=%d, Target=%d, Retcode=%d",
-            m_conntype, m_queue.size_approx(), msg->size, msg->header->PkgLen, msg->header->Command,
-            msg->header->Target, msg->header->Retcode);
-}
-
-MSG* ActiveConn::SendMsgAndRecv(uint16_t command, const std::ostringstream& msgstream){
-    std::lock_guard<std::mutex> mtx_locker(m_mtx);
-    bool ret = Connection::SendMsg(command, msgstream);
-    MSG* recv_msg = NULL;
-    if (ret){
-        RecvMsg(recv_msg);
-    }
-    return recv_msg;
-}
-
-MSG* ActiveConn::SendMsgAndRecv(const std::ostringstream& msgstream){
-    std::lock_guard<std::mutex> mtx_locker(m_mtx);
-    bool ret = Connection::SendMsg(msgstream);
-    MSG* recv_msg = NULL;
-    if (ret){
-        RecvMsg(recv_msg);
-    }
-    return recv_msg;
-}
-
-void ActiveConn::RecvMsg(MSG* &msg){
-    LOG_ERROR("ActiveConn::RecvMsg begin: conntype=%d", m_conntype);
-    while (!m_queue.try_dequeue_from_producer(m_ptok, msg) && GetValid()){
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    }
-    if (msg != NULL){
-        LOG_DEBUG("ActiveConn::RecvMsg end: conntype=%d, queuesize=%d, msg->size=%d, PkgLen=%d, Command=%d, Target=%d, Retcode=%d",
-                m_conntype, m_queue.size_approx(), msg->size, msg->header->PkgLen, msg->header->Command,
-                msg->header->Target, msg->header->Retcode);
-    }else{
-        LOG_ERROR("ActiveConn::RecvMsg end, msg is null: conntype=%d, valid=%d", m_conntype, GetValid());
-    }
-}
-
-bool ActiveConn::Send(const char* buf, int data_size){
-    if (!GetValid()){
-        LOG_ERROR("ActiveConn::Send GetValid is false: conntype=%d", m_conntype);
-        return false;
-    }else{
-        bool ret = Connection::Send(buf, data_size);
-        if (!ret){
-            SetValid(false);
-        }
-        return ret;
-    }
-}

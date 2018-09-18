@@ -7,7 +7,7 @@
 #include <time.h>
 #include <string>
 #include <string.h>
-#include "base/basetype.h"
+#include "../base/basetype.h"
 
 class TimeUtil
 {
