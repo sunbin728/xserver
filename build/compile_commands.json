@@ -1,0 +1,117 @@
+[
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/main.cpp.o -c /home/acc/projects/xserver/src/main.cpp",
+  "file": "/home/acc/projects/xserver/src/main.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/common/util.cpp.o -c /home/acc/projects/xserver/src/common/util.cpp",
+  "file": "/home/acc/projects/xserver/src/common/util.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/common/logger.cpp.o -c /home/acc/projects/xserver/src/common/logger.cpp",
+  "file": "/home/acc/projects/xserver/src/common/logger.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/base/package.cpp.o -c /home/acc/projects/xserver/src/base/package.cpp",
+  "file": "/home/acc/projects/xserver/src/base/package.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/net/session_manager.cpp.o -c /home/acc/projects/xserver/src/net/session_manager.cpp",
+  "file": "/home/acc/projects/xserver/src/net/session_manager.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/net/activeconn.cpp.o -c /home/acc/projects/xserver/src/net/activeconn.cpp",
+  "file": "/home/acc/projects/xserver/src/net/activeconn.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/net/clientconn.cpp.o -c /home/acc/projects/xserver/src/net/clientconn.cpp",
+  "file": "/home/acc/projects/xserver/src/net/clientconn.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/net/accept_manager.cpp.o -c /home/acc/projects/xserver/src/net/accept_manager.cpp",
+  "file": "/home/acc/projects/xserver/src/net/accept_manager.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/net/ringbuffer.cpp.o -c /home/acc/projects/xserver/src/net/ringbuffer.cpp",
+  "file": "/home/acc/projects/xserver/src/net/ringbuffer.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/net/connection.cpp.o -c /home/acc/projects/xserver/src/net/connection.cpp",
+  "file": "/home/acc/projects/xserver/src/net/connection.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/db/redisconnbase.cpp.o -c /home/acc/projects/xserver/src/db/redisconnbase.cpp",
+  "file": "/home/acc/projects/xserver/src/db/redisconnbase.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/db/dbconn.cpp.o -c /home/acc/projects/xserver/src/db/dbconn.cpp",
+  "file": "/home/acc/projects/xserver/src/db/dbconn.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/db/dbconn_manager.cpp.o -c /home/acc/projects/xserver/src/db/dbconn_manager.cpp",
+  "file": "/home/acc/projects/xserver/src/db/dbconn_manager.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/db/redisconn.cpp.o -c /home/acc/projects/xserver/src/db/redisconn.cpp",
+  "file": "/home/acc/projects/xserver/src/db/redisconn.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/db/redisconn_manager.cpp.o -c /home/acc/projects/xserver/src/db/redisconn_manager.cpp",
+  "file": "/home/acc/projects/xserver/src/db/redisconn_manager.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/db/redisclusterconn.cpp.o -c /home/acc/projects/xserver/src/db/redisclusterconn.cpp",
+  "file": "/home/acc/projects/xserver/src/db/redisclusterconn.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/bizz/worker_manager.cpp.o -c /home/acc/projects/xserver/src/bizz/worker_manager.cpp",
+  "file": "/home/acc/projects/xserver/src/bizz/worker_manager.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/bizz/core.cpp.o -c /home/acc/projects/xserver/src/bizz/core.cpp",
+  "file": "/home/acc/projects/xserver/src/bizz/core.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/bizz/worker.cpp.o -c /home/acc/projects/xserver/src/bizz/worker.cpp",
+  "file": "/home/acc/projects/xserver/src/bizz/worker.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/bizz/dealclient.cpp.o -c /home/acc/projects/xserver/src/bizz/dealclient.cpp",
+  "file": "/home/acc/projects/xserver/src/bizz/dealclient.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/bizz/client_manager.cpp.o -c /home/acc/projects/xserver/src/bizz/client_manager.cpp",
+  "file": "/home/acc/projects/xserver/src/bizz/client_manager.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/bizz/client.cpp.o -c /home/acc/projects/xserver/src/bizz/client.cpp",
+  "file": "/home/acc/projects/xserver/src/bizz/client.cpp"
+},
+{
+  "directory": "/home/acc/projects/xserver/build",
+  "command": "/usr/bin/c++    -I/home/acc/projects/xserver/src -I/home/acc/projects/xserver/include -I/usr/local/include   -O0 -Wall -g -ggdb -pg   -std=c++11 -o CMakeFiles/xserver.dir/src/bizz/bizz.cpp.o -c /home/acc/projects/xserver/src/bizz/bizz.cpp",
+  "file": "/home/acc/projects/xserver/src/bizz/bizz.cpp"
+}
+]
